@@ -1,12 +1,13 @@
 extends layout
 
 block content
-  div(class="row")
-      div(class="large-2 columns")
-        img(class="small-image", src='images/benefisher.png')
-      div(class="large-10 columns")
-        include search
-  div(class="row")
-      include map
-      include results
+  div(class="container-fluid")
+      div(class="row")
+          div(class="col-lg-2")
+              img(class="small-image", src='images/benefisher.png')
+          div(class="col-lg-10")
+              include search
+      div(class="row")
+          include map
+          include results
 

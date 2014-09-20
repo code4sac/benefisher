@@ -2,7 +2,8 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/components/bower-foundation/css/foundation.min.css')
+    // Viewport for mobile touch, see http://getbootstrap.com/css/
+    meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block content

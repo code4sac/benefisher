@@ -15,6 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "bower-foundation": "~4.0.0"
+    "bootstrap-sass-official": "~3.2.0+2"
   }
 }
