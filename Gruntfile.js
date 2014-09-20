@@ -31,10 +31,8 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-npm-install');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.registerTask('build-dev', ['npm-install']);
   grunt.registerTask('dev', ['express:dev', 'watch']);
 }
