@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class="row")
+      div(class="large-2 columns")
+        img(class="small-image", src='images/benefisher.png')
+      div(class="large-10 columns")
+        include search
+  div(class="row")
+      include map
+      include results
+

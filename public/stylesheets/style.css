@@ -6,3 +6,16 @@ body {
 a {
   color: #00B7FF;
 }
+
+.result {
+    border-bottom: 2px solid black;
+}
+
+.result:last-of-type {
+    border-bottom: none;
+}
+
+.small-image {
+    height: 50%;
+    width: 50%;
+}
