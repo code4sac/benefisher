@@ -1,5 +1,4 @@
 // Created by anthony on 9/20/14.
 
-div(class="col-lg-8")
-    //fancy-ass filling with leaflet
-    img(src="http://upload.wikimedia.org/wikipedia/commons/a/a9/Map_of_United_States_vivid_colors_shown.png")
+div(class="col-lg-8" ng-controller='MapController', ng-class='({loading: mapLoading})')
+    leaflet(class="map", defaults='defaults', center='center', markers='markers', controls='controls')

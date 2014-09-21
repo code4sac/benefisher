@@ -1,0 +1,1 @@
+var benefisher = angular.module('benefisher', ['leaflet-directive']);

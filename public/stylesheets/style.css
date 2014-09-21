@@ -5288,6 +5288,10 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+.map {
+  width: 640px;
+  height: 480px; }
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
