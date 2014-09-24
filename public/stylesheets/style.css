@@ -5288,23 +5288,65 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+#header {
+  padding: 20px 0; }
+
+#header .search-container {
+  text-align: center; }
+
+#header .input-container {
+  min-width: 240px;
+  text-align: center; }
+
+.search-input {
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 1.5em;
+  border: 0;
+  border-bottom: 1px dashed orange; }
+
+.results {
+  text-align: center;
+  margin: 0;
+  padding: 0; }
+
+.result {
+  border-bottom: 2px solid black;
+  display: inline-block;
+  width: 25%;
+  min-width: 240px;
+  padding: 10px;
+  box-sizing: border-box; }
+
+.map-container {
+  height: 50%;
+  padding: 0; }
+
 .map {
-  width: 640px;
-  height: 480px; }
+  width: 100%;
+  height: 100%;
+  min-height: 380px; }
+
+#footer {
+  padding-top: 40px;
+  text-align: center; }
+
+.logo {
+  margin: 0;
+  padding: 0; }
+  .logo img {
+    height: 80px; }
+  .logo p {
+    font-size: .8em;
+    padding-left: 10px; }
+    .logo p .title {
+      font-size: 1.6em;
+      font-weight: bold;
+      font-variant: small-caps; }
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
-
-.result {
-  border-bottom: 2px solid black; }
-
-.result:last-of-type {
-  border-bottom: none; }
-
-.small-image {
-  height: 50%;
-  width: 50%; }

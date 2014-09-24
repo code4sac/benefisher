@@ -1,24 +1,14 @@
 @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import 'header';
+@import 'search';
+@import 'results';
 @import 'map';
+@import 'footer';
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
-}
-
-.result {
-  border-bottom: 2px solid black;
-}
-
-.result:last-of-type {
-  border-bottom: none;
-}
-
-.small-image {
-  height: 50%;
-  width: 50%;
 }

@@ -1,0 +1,14 @@
+.results {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.result {
+  border-bottom: 2px solid black;
+  display: inline-block;
+  width: 25%;
+  min-width: 240px;
+  padding: 10px;
+  box-sizing: border-box;
+}
