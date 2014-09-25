@@ -5,12 +5,10 @@ var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var fs = require('fs');
 var bodyParser = require('body-parser');
-var router = express.Router();
 
 var routes = require('./routes/index');
-
+var search = require('./routes/search');
 var app = express();
 
 // view engine setup
@@ -25,22 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-
-router.get('/json', function(req, res) {
-    // Load JSON from file.
-    fs.readFile('sample_data/sample.json', null, function (err, data) {
-        if (err) {
-            // Error
-            res.status(500).send("Error loading services.");
-        } else {
-            // Success. Return JSON.
-            res.json(JSON.parse(data));
-        }
-    });
-});
-
-
-app.use(router);
+app.use('/search', search);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
