@@ -1,36 +1,8 @@
 [
-    {
-        "resourceId": "E2186F27-DB9B-40B6-8A04-66DEF1F74749",
-        "parentId": "CEF75D02-E330-46A8-9D09-95E9DB616960",
-        "name": "Big ol' Food Pantry",
-        "physicalAddress": "2714 N Street Sacramento, CA 95816",
-        "mailingAddress": "ATTN: Anthony 2714 N Street Sacramento, CA 95816",
-        "phones" : "911-555-1234",
-        "internetResources": "www.example.com",
-        "contacts": "Literally D'Boss, Director",
-        "hoursOfOperation": "2:10:00:AM:6:00:PM,3:10:00:AM:6:00:PM,4:10:00:AM:6:00:PM,5:10:00:AM:6:00:PM,6:10:00:AM:6:00:PM,7:12:00:PM:8:00:PM",
-        "accessibility": ["Wheelchair Accessible", "Blind-friendly"],
-        "languages": ["English", "Spanish", "Tagalog", "Klingon"],
-        "travel": "Bus stop on corner",
-        "latitude": "38.569592",
-        "longitude": "-121.472290",
-        "locationDescription": "Green building with 'food shelter' written on side"
-    },
-    {
-        "resourceId": "E2186F27-DB9B-40B6-8A04-66DEF1F75850",
-        "parentId": "CEF75D02-E330-46A8-9D09-95E9DB617071",
-        "name": "St. God's Hospital",
-        "physicalAddress": "7767 La Riviera Drive Sacramento, CA 95815",
-        "mailingAddress": "ATTN: Boss 7767 La Riviera Drive Sacramento, CA 95815",
-        "phones" : "911-555-2345",
-        "internetResources": "www.example.net",
-        "contacts": "Friendly Guy, Director",
-        "hoursOfOperation": "2:10:00:AM:6:00:PM,3:10:00:AM:6:00:PM,4:10:00:AM:6:00:PM,5:10:00:AM:6:00:PM,6:10:00:AM:6:00:PM,7:12:00:PM:8:00:PM",
-        "accessibility": ["Wheelchair Accessible", "Blind-friendly"],
-        "languages": ["English", "Spanish", "Tagalog", "Cantonese", "Elvish"],
-        "travel": "Light rail nearby",
-        "latitude": "38.555566",
-        "longitude": "-121.410964",
-        "locationDescription": "Pink building next to McDonalds"
-    }
+
+    {"name":"St. God's Hospital", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "2714 N Street", "zip" : "95816" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.569496, "longitude": -121.471978, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : null, "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+    {"name":"Literal Food Pantry", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "6000 J Street", "zip" : "95819" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.559959, "longitude": -121.420625, "description" : "This is a school", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : null, "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+    {"name":"Super Volunteers", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "1562 Response Road", "zip" : "95815" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.599085, "longitude": -121.434066, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : null, "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+    {"name":"Loaves and Fishes", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "1351 North C Street", "zip" : "95811" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.591044, "longitude": -121.482254, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : null, "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] }
+
 ]
