@@ -1,0 +1,36 @@
+[
+    {
+        "resourceId": "E2186F27-DB9B-40B6-8A04-66DEF1F74749",
+        "parentId": "CEF75D02-E330-46A8-9D09-95E9DB616960",
+        "name": "Big ol' Food Pantry",
+        "physicalAddress": "2714 N Street Sacramento, CA 95816",
+        "mailingAddress": "ATTN: Anthony 2714 N Street Sacramento, CA 95816",
+        "phones" : "911-555-1234",
+        "internetResources": "www.example.com",
+        "contacts": "Literally D'Boss, Director",
+        "hoursOfOperation": "2:10:00:AM:6:00:PM,3:10:00:AM:6:00:PM,4:10:00:AM:6:00:PM,5:10:00:AM:6:00:PM,6:10:00:AM:6:00:PM,7:12:00:PM:8:00:PM",
+        "accessibility": ["Wheelchair Accessible", "Blind-friendly"],
+        "languages": ["English", "Spanish", "Tagalog", "Klingon"],
+        "travel": "Bus stop on corner",
+        "latitude": "38.569592",
+        "longitude": "-121.472290",
+        "locationDescription": "Green building with 'food shelter' written on side"
+    },
+    {
+        "resourceId": "E2186F27-DB9B-40B6-8A04-66DEF1F75850",
+        "parentId": "CEF75D02-E330-46A8-9D09-95E9DB617071",
+        "name": "St. God's Hospital",
+        "physicalAddress": "7767 La Riviera Drive Sacramento, CA 95815",
+        "mailingAddress": "ATTN: Boss 7767 La Riviera Drive Sacramento, CA 95815",
+        "phones" : "911-555-2345",
+        "internetResources": "www.example.net",
+        "contacts": "Friendly Guy, Director",
+        "hoursOfOperation": "2:10:00:AM:6:00:PM,3:10:00:AM:6:00:PM,4:10:00:AM:6:00:PM,5:10:00:AM:6:00:PM,6:10:00:AM:6:00:PM,7:12:00:PM:8:00:PM",
+        "accessibility": ["Wheelchair Accessible", "Blind-friendly"],
+        "languages": ["English", "Spanish", "Tagalog", "Cantonese", "Elvish"],
+        "travel": "Light rail nearby",
+        "latitude": "38.555566",
+        "longitude": "-121.410964",
+        "locationDescription": "Pink building next to McDonalds"
+    }
+]
