@@ -5307,13 +5307,15 @@ button.close {
   border-bottom: 1px dashed orange; }
 
 .results {
+  display: flex;
+  flex-wrap: wrap;
   text-align: center;
   margin: 0;
   padding: 0; }
 
 .result {
+  flex: 1;
   border-bottom: 2px solid black;
-  display: inline-block;
   width: 25%;
   min-width: 240px;
   padding: 10px;
