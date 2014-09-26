@@ -9,7 +9,14 @@ describe('GET /search', function() { // Describes the
       .get('/search')
       .set('Accept', 'application/json')
       .expect(200, done) // note that we're passing the done as parameter to the expect
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /json/)
+      .expect(responseBodyIsCorrect);
 
   });
 });
+
+function responseBodyIsCorrect(res) {
+  if (res.body.length != 4) {
+    throw new Error("Response body does not contain the correct number of elements.");
+  }
+}

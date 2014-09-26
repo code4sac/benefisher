@@ -47,5 +47,5 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('test', 'mochaTest');
-  grunt.registerTask('dev', [ 'express:dev', 'watch' ]);
+  grunt.registerTask('dev', [ 'express:dev', 'test', 'watch' ]);
 }
