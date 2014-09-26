@@ -38,6 +38,29 @@ var MapController = function ($scope) {
         lat: 38.5556,
         lng: -121.4689,
         zoom: ZOOM_DEFAULT
+      },
+
+      markers: {
+          m1: {
+              lat: 38.569496,
+              lng:-121.471978,
+              message: "Anthony's house. Static marker."
+          },
+          m2: {
+              lat:38.559959,
+              lng:-121.420625,
+              message:"California State University, Sacramento"
+          },
+          m3: {
+              lat:38.599085,
+              lng:-121.434066,
+              message: "ADR's house."
+          },
+          m4: {
+              lat:38.591044,
+              lng:-121.482254,
+              message: "Loaves & Fishes"
+          }
       }
     });
   }

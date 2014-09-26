@@ -1,17 +1,7 @@
 // Created by anthony on 9/20/14.
 
-div(class="results")
-    div(id="result-1" class="result")
-        h5 "Yo, you can get help"
-        p "Here's our info, yo"
-    div(id="result-2" class="result")
-        h5 "Yo, you can get help"
-        p "Here's our info, yo"
-    div(id="result-3" class="result")
-        h5 "Yo, you can get help"
-        p "Here's our info, yo"
-        h5 "Yo, you can get help"
-        p "Here's our info, yo"
-    div(id="result-4" class="result")
-        h5 "Yo, you can get help"
-        p "Here's our info, yo"
+div(class="results", ng-controller='ResultsController')
+    div(ng-repeat='result in jsonArray', class="result", id="result-{{$index}}")
+        h5 {{result.name}}
+        p {{result.locations[0].description}}
+        p {{result.locations[0].address_attributes.street}}
