@@ -8,7 +8,8 @@ describe('GET /', function() { // Describes the
     // the request-object is the supertest top level api
     request(app)
       .get('/')
-      .set('Accept', 'application/json')
+      .set('Accept', 'text/html')
+      .expect('Content-Type', /html/)
       .expect(200, done); // note that we're passing the done as parameter to the expect
   });
 });
