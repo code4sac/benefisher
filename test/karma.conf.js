@@ -5,6 +5,7 @@ module.exports = function(config){
 
     files : [
       'public/components/angular/angular.js',
+      'node_modules/chai/chai.js',
       'public/components/angular-mocks/angular-mocks.js',
       'public/components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
       'public/javascripts/controllers/*.js',
@@ -12,7 +13,7 @@ module.exports = function(config){
       'test/client_unit/**/*.js'
     ],
 
-    frameworks: ['jasmine'],
+    frameworks: ['mocha'],
 
     browsers : ['PhantomJS'],
 

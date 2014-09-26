@@ -1,6 +1,8 @@
+var expect = chai.expect;
+
 describe('MapController', function(done) {
 
-  var scope, ctrl, $httpBackend;
+  var scope, ctrl;
 
   // Setup: include benefisher module;
   beforeEach(module('benefisher'));
@@ -10,10 +12,10 @@ describe('MapController', function(done) {
     scope = {};
     ctrl = $controller('MapController', {$scope:scope});
     // Defaults should be an object
-    expect(scope.defaults).toBeDefined();
+    expect(scope.defaults).to.be.an('object');
     // Defaults must contain the tileLayer property.
-    expect(scope.defaults.tileLayer).toBeDefined();
-    expect(scope.defaults.tileLayer.length).toBeGreaterThan(0);
+    expect(scope.defaults.tileLayer).to.be.a('string');
+    expect(scope.defaults.tileLayer.length).to.be.above(0);
   }));
 
   // Center
@@ -21,10 +23,12 @@ describe('MapController', function(done) {
     scope = {};
     ctrl = $controller('MapController', {$scope:scope});
     // Center should be an object
-    expect(scope.center).toBeDefined();
+    expect(scope.center).to.be.an('object');
     // Center must have lat and lng.
-    expect(scope.center.lat).toBeDefined();
-    expect(scope.center.lng).toBeDefined();
+    expect(scope.center.lat).to.be.an('number');
+    expect(scope.center.lng).to.be.an('number');
+
+
   }));
 
   // Markers
