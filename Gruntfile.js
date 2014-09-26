@@ -1,4 +1,10 @@
 module.exports = function(grunt) {
+
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-mocha-test');
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     express: {
@@ -16,23 +22,30 @@ module.exports = function(grunt) {
         }
       }
     },
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec',
+          clearRequireCache: true
+        },
+        src: ['test/*.js']
+      }
+    },
     watch: {
       css: {
-        files: '**/*.scss', //
+        files: '**/*.scss',
         tasks: ['sass']
       },
-      express: {
+      js: {
         files:  [ 'app.js', 'routes/*.js' ],
-        tasks:  [ 'express:dev' ],
+        tasks:  [ 'express:dev', 'test' ],
         options: {
           spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. Without this option specified express won't be reloaded
         }
-      }
+      },
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-express-server');
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.registerTask('dev', ['express:dev', 'watch']);
+  grunt.registerTask('test', 'mochaTest');
+  grunt.registerTask('dev', [ 'express:dev', 'watch' ]);
 }
