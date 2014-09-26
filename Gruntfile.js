@@ -4,6 +4,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-karma');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -28,7 +29,13 @@ module.exports = function(grunt) {
           reporter: 'nyan',
           clearRequireCache: true
         },
-        src: ['test/*.js']
+        src: ['test/server_unit/*.js']
+      }
+    },
+    karma: {
+      unit: {
+        singleRun: true,
+        configFile: 'test/karma.conf.js'
       }
     },
     watch: {
@@ -37,15 +44,15 @@ module.exports = function(grunt) {
         tasks: ['sass']
       },
       js: {
-        files:  [ 'app.js', 'routes/*.js' ],
+        files:  [ 'app.js', 'routes/**/*.js', 'public/javascripts/**/*.js', 'test/**/*.js' ],
         tasks:  [ 'express:dev', 'test' ],
         options: {
           spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. Without this option specified express won't be reloaded
         }
-      },
+      }
     }
   });
 
-  grunt.registerTask('test', 'mochaTest');
-  grunt.registerTask('dev', [ 'express:dev', 'test', 'watch' ]);
+  grunt.registerTask('test', ['mochaTest', 'karma:unit']);
+  grunt.registerTask('dev', [ 'express:dev', 'watch' ]);
 }
