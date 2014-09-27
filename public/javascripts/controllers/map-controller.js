@@ -17,7 +17,7 @@ var MapController = function ($scope, $http) {
     // CONTROLLER LOGIC
     initMap();
     // TODO Adrian: Used to test adding markers. Should be removed.
-    displayResults();
+    displayMarkers();
 
     /**
      * Initialize the map.
@@ -42,7 +42,9 @@ var MapController = function ($scope, $http) {
                 zoom: ZOOM_DEFAULT
             },
 
-            markers: []
+            markers: [],
+
+            results: []
         });
 
     };
@@ -50,10 +52,10 @@ var MapController = function ($scope, $http) {
     /**
      * Identify locations returned through user search by adding markers on the map.
      */
-    function displayResults() {
-        $http.get('/search').success(displayMarkers).error(displayError);
+    function displayMarkers() {
+        $http.get('/search').success(showMarkers).error(showError);
 
-        function displayMarkers(data) {
+        function showMarkers(data) {
             // Remove all the previous markers before adding new ones.
             removeMarkers();
             data.forEach(function (service) {
@@ -61,7 +63,7 @@ var MapController = function ($scope, $http) {
             });
         }
 
-        function displayError(data, status, headers, config) {
+        function showError(data, status, headers, config) {
             // TODO Adrian: What should be done if there is an error?
         }
 
@@ -87,8 +89,8 @@ var MapController = function ($scope, $http) {
         var message = '<h4>' + name + '<h4>\n<h5>' + desc + '</h5>\n<h5>' + hours + '</h5>';
 
         $scope.markers.push({
-            lat: service.locations[0].latitude,
-            lng: service.locations[0].longitude,
+            lat: lat,
+            lng: lng,
             message: message
         });
     };

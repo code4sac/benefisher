@@ -1,7 +1,8 @@
 // Created by anthony on 9/20/14.
 
 div(class="results", ng-controller='ResultsController')
-    div(ng-repeat='result in jsonArray', class="result", id="result-{{$index}}")
-        h5 {{result.name}}
-        p {{result.locations[0].description}}
-        p {{result.locations[0].address_attributes.street}}
+    div(ng-repeat='result in results', class="result", id="result-{{$index}}")
+        h5{{result.name}}
+        p{{result.description}}
+        p{{result.address}}
+        p{{result.hours}}
