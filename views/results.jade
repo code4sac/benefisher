@@ -1,7 +1,10 @@
 // Created by anthony on 9/20/14.
 
+
 div(class="results", ng-controller='ResultsController')
-    div(ng-repeat='result in results', class="result", id="result-{{$index}}")
+    div(ng-repeat='result in results | limitTo: 4', class="result", id="result-{{$index}}")
+        div(class="nav navbar-nav navbar-right")
+            button(ng-click="hideDiv($event)", class="btn btn-default btn-xs" ) X
         h5{{result.name}}
         p{{result.description}}
         p{{result.address}}

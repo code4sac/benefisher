@@ -25,8 +25,8 @@ describe('MapController', function(done) {
     // Center should be an object
     expect(scope.center).to.be.an('object');
     // Center must have lat and lng.
-    expect(scope.center.lat).to.be.an('number');
-    expect(scope.center.lng).to.be.an('number');
+    expect(scope.center.lat).to.be.a('number');
+    expect(scope.center.lng).to.be.a('number');
 
 
   }));

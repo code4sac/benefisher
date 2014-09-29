@@ -16,7 +16,7 @@ describe('GET /search', function() { // Describes the
 });
 
 function responseBodyIsCorrect(res) {
-  if (res.body.length != 4) {
+  if (res.body.length != 8) {
     throw new Error("Response body does not contain the correct number of elements.");
   }
 }
