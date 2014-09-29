@@ -32,3 +32,6 @@ public/components/*
 
 # Users Environment Variables
 .lock-wscript
+
+# SASS cache (compiled on local machines before push)
+.sass-cache/*
