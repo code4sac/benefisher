@@ -103,9 +103,6 @@ var SearchController = function(req, res, fileSystem)
     if ( ! location.latitude || ! location.longitude) {
       return false;
     }
-    console.log(bounds);
-    console.log(location.latitude);
-    console.log(location.longitude);
     return location.latitude <= bounds.top
       && location.longitude >= bounds.left
       && location.latitude >= bounds.bottom

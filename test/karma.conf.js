@@ -8,6 +8,7 @@ module.exports = function(config){
       'node_modules/chai/chai.js',
       'public/components/angular-mocks/angular-mocks.js',
       'public/components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
+      'public/javascripts/services/*.js',
       'public/javascripts/controllers/*.js',
       'public/javascripts/app.js',
       'test/client_unit/**/*.js'
