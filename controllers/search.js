@@ -28,16 +28,9 @@ var SearchController = function(req, res, fileSystem)
       } else {
         var result = JSON.parse(data);
         if (bounds) {
-          var i = result.length;
-          while (i--) {
-            result[i].locations = result[i].locations.filter(isInQueryBounds);
-            // If there's no locations, remove the result.
-            if ( ! result[i].locations.length) {
-              result.splice(i, 1);
-            }
-          }
+          result = filterByQueryBounds(result);
         }
-        if ( terms.length ) {
+        if (terms.length) {
           result = result.filter(containsQueryTerms);
         }
         res.json(result);
@@ -80,6 +73,24 @@ var SearchController = function(req, res, fileSystem)
       }
     }
     return bounds;
+  }
+
+  /**
+   * Filter the data array based on query bounds.
+   * @param data
+   * @returns {*}
+   */
+  function filterByQueryBounds(data)
+  {
+    var i = data.length;
+    while (i--) {
+      data[i].locations = data[i].locations.filter(isInQueryBounds);
+      // If there's no locations, remove the result.
+      if ( ! data[i].locations.length) {
+        data.splice(i, 1);
+      }
+    }
+    return data;
   }
 
   /**
