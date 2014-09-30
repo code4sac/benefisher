@@ -29,7 +29,7 @@ module.exports = function(grunt) {
           reporter: 'nyan',
           clearRequireCache: true
         },
-        src: ['test/server_unit/*.js']
+        src: ['test/server_*/*.js']
       }
     },
     karma: {
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
         tasks: ['sass']
       },
       js: {
-        files:  [ 'app.js', 'routes/**/*.js', 'public/javascripts/**/*.js', 'test/**/*.js' ],
+        files:  [ 'app.js', 'routes/**/*.js', 'controllers/**/*.js', 'public/javascripts/**/*.js', 'test/**/*.js' ],
         tasks:  [ 'express:dev', 'test' ],
         options: {
           spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. Without this option specified express won't be reloaded
