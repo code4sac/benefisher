@@ -80,25 +80,15 @@ var ResultsController = function ($scope, $http) {
     /**
      * Used to hide any div that has had it's 'x' clicked (indicating that the user would like to dismiss the result)
      *
-     * First, we hide the div that has been clicked. Then re remove that element from the results array, using the
-     * splice() method to remove the element and shift the array forward.
+     * We use the splice() method to remove the element and shift the array forward.
      *
-     * @param event The click event triggered by the user clicking the 'x' button. Used to find the div to hide.
+     * @param index The index of the result to hide from the user. Used to remove and shift array.
      */
-    $scope.hideDiv = function (event) {
-        var newResult = {};
-
-        //We must find the div we are going to hide
-        var elem = $(event.srcElement).closest('.result');
-
-        //We must get the index of the element to remove. We grab the id name (in the form of 'RESULT_ID_REGEXindex#',
-        // i.e. 'results-0'), and split it based on the regex given.
-        var index = elem.attr('id').split(RESULT_ID_REGEX)[1];
-
+    $scope.hideDiv = function (index) {
         //We remove the clicked element from the array and shift the remaining over.
+        if (index >= MAX_DISPLAY_RESULTS || index < 0 || index >= $scope.results.length) {
+            return;
+        }
         $scope.results.splice(index, 1);
-
-        //TODO: Should remove this result's marker from the map
-        //TODO: Should we provide a method for the user to retrieve hidden results???
     };
 };

@@ -4,8 +4,8 @@
 div(class="results", ng-controller='ResultsController')
     div(ng-repeat='result in results | limitTo: 4', class="result", id="result-{{$index}}")
         div(class="nav navbar-nav navbar-right")
-            button(ng-click="hideDiv($event)", class="btn btn-default btn-xs" ) X
-        h5{{result.name}}
-        p{{result.description}}
-        p{{result.address}}
-        p{{result.hours}}
+            button(ng-click="hideDiv($index)", class="btn btn-default btn-xs" ) X
+        h5 {{result.name}}
+        p {{result.description}}
+        p {{result.address}}
+        p {{result.hours}}
