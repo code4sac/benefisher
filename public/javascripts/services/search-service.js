@@ -18,7 +18,6 @@ var SearchService = function ($http) {
    * @param updateFunction
    */
   this.subscribe = function (updateFunction) {
-    console.log(updateFunction);
     subscribers.push(updateFunction);
   };
 
