@@ -30,7 +30,7 @@ describe('Search Service', function() {
   afterEach(function() {
     $httpMock.verifyNoOutstandingExpectation();
     $httpMock.verifyNoOutstandingRequest();
-  })
+  });
 
   /** TESTS **/
   it('should accept subscribers', inject(function(search) {
