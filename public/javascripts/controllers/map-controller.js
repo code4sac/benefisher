@@ -1,7 +1,15 @@
 /**
  * Created by jesserosato on 9/21/14.
  */
-var MapController = function ($scope, $http) {
+
+/**
+ *
+ * @param $scope
+ * @param $http
+ * @param search
+ * @constructor
+ */
+var MapController = function($scope, $http, search) {
 
     // The ID of the Mapbox project to use for map tiles.
     var MAP_ID = 'jesserosato.jihh0bm7';
@@ -18,6 +26,7 @@ var MapController = function ($scope, $http) {
     initMap();
     // TODO Adrian: Used to test adding markers. Should be removed.
     displayMarkers();
+    search.search({});
 
     /**
      * Initialize the map.
