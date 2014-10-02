@@ -1,85 +1,80 @@
 var expect = chai.expect;
-describe('ResultsController', function(done) {
 
+//Maximum results shown to the user.
+var MAX_RESULTS_SHOWN = 4;
 
-    var scope, ctrl, $httpBackend;
-    //Maximum results shown to the user.
-    var MAX_RESULTS_SHOWN = 4;
+var SAMPLE_DATA = [
+  {"name":"St. God's Hospital", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "2714 N Street", "zip" : "95816" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.569496, "longitude": -121.471978, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+  {"name":"Literal Food Pantry", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "6000 J Street", "zip" : "95819" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.559959, "longitude": -121.420625, "description" : "This is a school", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+  {"name":"Super Volunteers", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "1562 Response Road", "zip" : "95815" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.599085, "longitude": -121.434066, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+  {"name":"Loaves and Fishes", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "1351 North C Street", "zip" : "95811" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.591044, "longitude": -121.482254, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+  {"name":"Free Money", "locations":[{"accessibility" : [ "elevator", "restroom", "ramps" ], "address_attributes" : { "city" : "Rancho Cordova", "state" : "CA", "street" : "2721 Barbera Way", "zip" : "95670" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.594604, "longitude": -121.293896, "description" : "Gives free money!", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "Money" } ], "hours" : "Monday-Friday 8am-8pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+  {"name":"Veteran Affairs", "locations":[{"accessibility" : [ "elevator", "restroom", "ramps" ], "address_attributes" : { "city" : "Rancho Cordova", "state" : "CA", "street" : "2335 Sierra Madre Ct", "zip" : "95670" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.602476, "longitude": -121.302673, "description" : "Veterans can get business done.", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "Military" } ], "hours" : "Monday-Friday 11am-3pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "Military" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+  {"name":"Something Place", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "10248 Kiefer Blvd", "zip" : "95827" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.542546, "longitude": -121.327161, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Saturday 7am-5pm", "languages" : ["English"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "Something" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
+  {"name":"Emergency Food", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "7242 Kari Ann Cir", "zip" : "95824" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.520703, "longitude": -121.419106, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "Something" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["Spanish", "English"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] }
+];
 
-    // Setup: include benefisher module;
-    beforeEach(module('benefisher'));
+// Mock search dependency
+var search = {
+  subscribers: [],
+  subscribe: function (subscriber) {
+    this.subscribers.push(subscriber);
+  }
+};
 
-    //Setup using the httpBackend module.
-    //TODO Anthony: respond with the json static sample file. currently receiving 'require not found' issue.
-    beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
-        //mock http backend
-        $httpBackend = _$httpBackend_;
+describe('ResultsController', function (done) {
 
-        //Handles the app's request to /search with the json object.
-        //Should be able to just do a passThrough() currently, but this will have to be changed when we
-        //move search to DB calls
-        $httpBackend.expectGET('/search').respond(
-            [
+  var scope, ctrl;
 
-            {"name":"St. God's Hospital", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "2714 N Street", "zip" : "95816" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.569496, "longitude": -121.471978, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
-            {"name":"Literal Food Pantry", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "6000 J Street", "zip" : "95819" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.559959, "longitude": -121.420625, "description" : "This is a school", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
-            {"name":"Super Volunteers", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "1562 Response Road", "zip" : "95815" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.599085, "longitude": -121.434066, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
-            {"name":"Loaves and Fishes", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "1351 North C Street", "zip" : "95811" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.591044, "longitude": -121.482254, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
-            {"name":"Free Money", "locations":[{"accessibility" : [ "elevator", "restroom", "ramps" ], "address_attributes" : { "city" : "Rancho Cordova", "state" : "CA", "street" : "2721 Barbera Way", "zip" : "95670" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.594604, "longitude": -121.293896, "description" : "Gives free money!", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "Money" } ], "hours" : "Monday-Friday 8am-8pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
-            {"name":"Veteran Affairs", "locations":[{"accessibility" : [ "elevator", "restroom", "ramps" ], "address_attributes" : { "city" : "Rancho Cordova", "state" : "CA", "street" : "2335 Sierra Madre Ct", "zip" : "95670" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.602476, "longitude": -121.302673, "description" : "Veterans can get business done.", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "Military" } ], "hours" : "Monday-Friday 11am-3pm", "languages" : ["English", "Spanish"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "Military" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
-            {"name":"Something Place", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "10248 Kiefer Blvd", "zip" : "95827" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.542546, "longitude": -121.327161, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "CalFresh" } ], "hours" : "Monday-Saturday 7am-5pm", "languages" : ["English"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "Something" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
-            {"name":"Emergency Food", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "7242 Kari Ann Cir", "zip" : "95824" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 38.520703, "longitude": -121.419106, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "Something" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["Spanish", "English"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] }
+  // Setup: include benefisher module;
+  beforeEach(module('benefisher'));
 
-            ]
-        );
-        scope = $rootScope.$new();
+  /** SETUP **/
+  beforeEach(inject(function ($rootScope, $controller) {
+    // Create a fresh scope object.
+    scope = $rootScope.$new();
+    // Initialize the controller with sample data.
+    ctrl = $controller('ResultsController', {$scope: scope, search: search});
+    ctrl.update(SAMPLE_DATA);
+  }));
 
-        ctrl = $controller('ResultsController', {$scope: scope});
-    }));
+  it('should subscribe to search', function() {
+    expect(search.subscribers).to.include(ctrl.update);
+  });
 
-    //Expect 8 sample results
-    it('should fetch the results array', inject(function($controller) {
+  it('should update the scope when update() is called', inject(function ($controller) {
+    expect(scope.results).to.be.an('array');
+    expect(scope.results.length).to.equal(8);
+  }));
 
-        expect(scope.results).to.be.an('array');
+  //Remove 1 element from the array normally
+  it('should remove an element from the array when told', inject(function ($controller) {
+    scope.hideResult(1);
+    expect(scope.results.length).to.equal(7);
+  }));
 
-        $httpBackend.flush();
-        expect(scope.results.length).to.equal(8);
-    }));
+  //Try to remove elements that are out of bounds (larger than array len, below 0, and above max results shown)
+  it('should not allow for the removal of an index that is out of bounds', inject(function ($controller) {
+    scope.hideResult(8);
+    expect(scope.results.length).to.equal(8);
 
-    //Remove 1 element from the array normally
-    it('should remove an element from the array when told', inject(function($controller) {
-        $httpBackend.flush();
-        scope.hideDiv(1);
-        expect(scope.results.length).to.equal(7);
-    }));
+    scope.hideResult(-1);
+    expect(scope.results.length).to.equal(8);
 
-    //Try to remove elements that are out of bounds (larger than array len, below 0, and above max results shown)
-    it('should not allow for the removal of an index that is out of bounds', inject(function($controller) {
-        $httpBackend.flush();
-        scope.hideDiv(8);
-        expect(scope.results.length).to.equal(8);
+    scope.hideResult(MAX_RESULTS_SHOWN);
+    expect(scope.results.length).to.equal(8);
 
-        scope.hideDiv(-1);
-        expect(scope.results.length).to.equal(8);
+  }));
 
-        scope.hideDiv(MAX_RESULTS_SHOWN);
-        expect(scope.results.length).to.equal(8);
-
-    }));
-
-    //Attempt to remove an element after all are removed
-    it('should not allow for results manipulation after none are showing', inject(function($controller) {
-        $httpBackend.flush();
-
-        //Clear the results.
-        for (var i = 0; i < 8; i++) {
-            scope.hideDiv(0);
-        }
-        expect(scope.results.length).to.equal(0);
-        scope.hideDiv(0);
-        expect(scope.results.length).to.equal(0);
-    }));
-
-
+  //Attempt to remove an element after all are removed
+  it('should not allow for results manipulation after none are showing', inject(function ($controller) {
+    //Clear the results.
+    for (var i = 0; i < 8; i++) {
+      scope.hideResult(0);
+    }
+    expect(scope.results.length).to.equal(0);
+    scope.hideResult(0);
+    expect(scope.results.length).to.equal(0);
+  }));
 
 });
