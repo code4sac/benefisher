@@ -27,8 +27,6 @@ describe('MapController', function(done) {
     // Center must have lat and lng.
     expect(scope.center.lat).to.be.a('number');
     expect(scope.center.lng).to.be.a('number');
-
-
   }));
 
   // Markers

@@ -6,10 +6,10 @@
  *
  * @param $scope
  * @param $http
- * @param SearchPubSubService
+ * @param search
  * @constructor
  */
-var MapController = function($scope, $http, SearchPubSubService) {
+var MapController = function($scope, $http, search) {
 
     // The ID of the Mapbox project to use for map tiles.
     var MAP_ID = 'jesserosato.jihh0bm7';
@@ -26,6 +26,7 @@ var MapController = function($scope, $http, SearchPubSubService) {
     initMap();
     // TODO Adrian: Used to test adding markers. Should be removed.
     displayMarkers();
+    search.search({});
 
     /**
      * Initialize the map.
