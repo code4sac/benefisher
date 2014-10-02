@@ -2,9 +2,11 @@ var expect = chai.expect;
 
 describe('Search Service', function() {
 
-  var mockCtrl, $httpMock;
+  var mockCtrl;
+  var $httpMock;
 
-  var urlRegEx = new RegExp(/\/search(\?.*)?/);
+  // Search url with test parameters (see mockCtrl).
+  var url = '/search?testParam=testValue';
 
   /** SETUP **/
   // Load the benefisher.services module
@@ -13,7 +15,7 @@ describe('Search Service', function() {
   // Inject the $httpBackend service for mocking http requests
   beforeEach(inject(function ($httpBackend) {
     $httpMock = $httpBackend;
-    $httpMock.when('GET', urlRegEx).respond("Test Response");
+    $httpMock.when('GET', url).respond("Test Response");
   }));
 
   // Setup a mock controller
@@ -37,14 +39,14 @@ describe('Search Service', function() {
   }));
 
   it('should make http request on search', inject(function(search) {
-    $httpMock.expectGET(urlRegEx);
+    $httpMock.expectGET(url);
     search.subscribe(mockCtrl);
     search.search(mockCtrl.params);
     $httpMock.flush();
   }));
 
   it('should update subscribers with http response data', inject(function(search) {
-    $httpMock.expectGET(urlRegEx);
+    $httpMock.expectGET(url);
     search.subscribe(mockCtrl);
     search.search(mockCtrl.params);
     $httpMock.flush();
