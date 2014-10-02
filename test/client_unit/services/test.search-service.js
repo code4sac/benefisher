@@ -20,9 +20,7 @@ describe('Search Service', function() {
   beforeEach(function() {
     mockCtrl = {
       params: { testParam: 'testValue' },
-      update: function(promise) {
-        this.promise = promise;
-      }
+      update: sinon.spy()
     };
   });
 
@@ -50,9 +48,7 @@ describe('Search Service', function() {
     search.subscribe(mockCtrl);
     search.search(mockCtrl.params);
     $httpMock.flush();
-    mockCtrl.promise.then(function(response) {
-      expect(response.data).to.equal("Test Response");
-    });
+    expect(mockCtrl.update).to.have.been.calledWith("Test Response");
   }));
 
 });

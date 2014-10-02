@@ -4,12 +4,10 @@
 var services = angular.module('benefisher.services');
 
 /**
- * SearchService
- * - Subscribers use subscribe method to subscribe (duh), SearchPubService subscribes in turn.
- * - Waits for a subscriber to call search method.
- * - Asks each subscriber to refresh their search params by calling refreshSearchParams (expects a promise in return).
- * - Once subscribers have fulfilled promises, collects search params, and queries the server.
- * - Calls update on each subscriber with a promise of the query results.
+ * SearchService - a simple pubsub class.
+ * Updates subscribers when search() is called.
+ * @param $http
+ * @constructor
  */
 var SearchService = function ($http) {
   var subscribers = [];
@@ -18,8 +16,7 @@ var SearchService = function ($http) {
   /**
    * Allows subscribers to subscribe.
    * Subscribers should implement:
-   * - update()
-   * - refreshSearchParams() (should return a promise)
+   * - update(data)
    * @param subscriber
    */
   this.subscribe = function (subscriber) {
@@ -37,14 +34,13 @@ var SearchService = function ($http) {
   };
 
   /**
-   * Update subscribers with a promise of search results.
+   * Update subscribers with search results.
    */
-  function updateSubscribers() {
-    var promise = $http.get('/search', { params: params });
+  function updateSubscribers(response) {
     var i = subscribers.length;
     while (i--) {
       if (typeof subscribers[i].update === 'function') {
-        subscribers[i].update(promise);
+        subscribers[i].update(response.data);
       }
     }
   }
