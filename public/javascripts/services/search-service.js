@@ -14,13 +14,12 @@ var SearchService = function ($http) {
   var params = {};
 
   /**
-   * Allows subscribers to subscribe.
-   * Subscribers should implement:
-   * - update(data)
-   * @param subscriber
+   * Allows subscribers to subscribe with their update function.
+   * @param updateFunction
    */
-  this.subscribe = function (subscriber) {
-    subscribers.push(subscriber);
+  this.subscribe = function (updateFunction) {
+    console.log(updateFunction);
+    subscribers.push(updateFunction);
   };
 
   /**
@@ -37,10 +36,10 @@ var SearchService = function ($http) {
    * Update subscribers with search results.
    */
   function updateSubscribers(response) {
-    var i = subscribers.length;
-    while (i--) {
-      if (typeof subscribers[i].update === 'function') {
-        subscribers[i].update(response.data);
+    var numSubscribers = subscribers.length;
+    for (var i = 0; i < numSubscribers; i++) {
+      if (typeof subscribers[i] === 'function') {
+        subscribers[i](response.data);
       }
     }
   }

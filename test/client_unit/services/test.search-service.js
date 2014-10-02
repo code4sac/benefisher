@@ -35,19 +35,19 @@ describe('Search Service', function() {
   /** TESTS **/
   it('should accept subscribers', inject(function(search) {
     mockCtrl = {};
-    search.subscribe(mockCtrl);
+    search.subscribe(mockCtrl.update);
   }));
 
   it('should make http request on search', inject(function(search) {
     $httpMock.expectGET(url);
-    search.subscribe(mockCtrl);
+    search.subscribe(mockCtrl.update);
     search.search(mockCtrl.params);
     $httpMock.flush();
   }));
 
   it('should update subscribers with http response data', inject(function(search) {
     $httpMock.expectGET(url);
-    search.subscribe(mockCtrl);
+    search.subscribe(mockCtrl.update);
     search.search(mockCtrl.params);
     $httpMock.flush();
     expect(mockCtrl.update).to.have.been.calledWith("Test Response");

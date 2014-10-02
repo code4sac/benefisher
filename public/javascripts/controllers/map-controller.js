@@ -28,14 +28,18 @@ var MapController = function($scope, search, leafletData) {
   // The current and previous bounds.
   var curBounds;
   var prevBounds;
+  var self = this;
+  // Expose public methods;
+  self.update = _update;
 
   /** CONSTRUCTOR LOGIC **/
   initMap();
   // Listen for map movement
   $scope.$on('leafletDirectiveMap.moveend', function(event){
     leafletData.getMap().then(function(map) {
-      if (boundsHaveChanged(map)) {
-        search.search({ bounds: getBounds() });
+      updateBounds(map);
+      if (boundsHaveChanged()) {
+        search.search({ bounds: getBoundsString() });
       }
     });
   });
@@ -46,14 +50,17 @@ var MapController = function($scope, search, leafletData) {
    * Receive a promise that results are coming from the database.
    * @param data
    */
-  this.update = function(data) {
+  function _update(data) {
     updateMarkers(data);
-  };
+  }
 
   /**
    * Initialize the map.
    */
   function initMap() {
+    // Subscribe to search pubsub
+    search.subscribe(self.update);
+    // Create defaults;
     var defaults = {
       tileLayer: TILE_URL,
       maxZoom: ZOOM_MAX,
@@ -75,23 +82,31 @@ var MapController = function($scope, search, leafletData) {
   }
 
   /**
-   * Returns true if the new bounds are not contained by the existing bounds.
+   * Update the current and previous bounds properties.
    * @param map
-   * @returns {boolean}
    */
-  function boundsHaveChanged(map)
+  function updateBounds(map)
   {
     if (curBounds) {
       prevBounds = curBounds;
     }
     curBounds = map.getBounds();
+  }
+
+  /**
+   * Returns true if the current bounds are not contained by the previous bounds.
+   * @returns {boolean}
+   */
+  function boundsHaveChanged(map)
+  {
     return ( ! prevBounds || ! prevBounds.contains(curBounds));
   }
 
   /**
-   * Proxy for search service's search()
+   * Get the current map bounds as a comma-separated parameter string.
+   * @returns {string}
    */
-  function getBounds()
+  function getBoundsString()
   {
     var nw = curBounds.getNorthWest();
     var se = curBounds.getSouthEast();
@@ -132,7 +147,7 @@ var MapController = function($scope, search, leafletData) {
         lng: lng,
         message: message
     });
-  };
+  }
 
   /**
    * Removes all markers from the array by creating a new one.
@@ -140,4 +155,5 @@ var MapController = function($scope, search, leafletData) {
   function removeMarkers() {
       $scope.markers = [];
   }
+
 };

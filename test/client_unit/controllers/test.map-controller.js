@@ -1,6 +1,12 @@
 var expect = chai.expect;
 var scope, search, leafletData, ctrl;
 
+/** TEST CONSTANTS **/
+var TEST_NW_LAT = 39;
+var TEST_NW_LNG = -122;
+var TEST_SE_LAT = 37;
+var TEST_SE_LNG = -120;
+
 describe('MapController', function(done) {
 
   /** SETUP **/
@@ -33,10 +39,16 @@ describe('MapController', function(done) {
   // Markers
   // Controls
 
-  // Events
+  // Search
+  it('should subscribe to search service', function() {
+    expect(search.subscribers).to.include(ctrl.update);
+  });
+
   it('should call search on map move event', function() {
     scope.fireEvent('leafletDirectiveMap.moveend', {});
-    expect(search.search).to.have.been.calledWith({ bounds: '39,-122,37,-120' });
+    expect(search.search).to.have.been.calledWith({
+      bounds: TEST_NW_LAT + ',' + TEST_NW_LNG + ',' + TEST_SE_LAT + ',' + TEST_SE_LNG
+    });
   });
 });
 
@@ -54,20 +66,24 @@ function createDependencyMocks()
   };
   // Mock search dependency
   search = {
+    subscribers: [],
+    subscribe: function(subscriber) {
+      this.subscribers.push(subscriber);
+    },
     search: sinon.spy()
   };
   // Mock leafletData dependency
   var bounds = {
     getNorthWest: function() {
       return {
-        lat: 39,
-        lng: -122
+        lat: TEST_NW_LAT,
+        lng: TEST_NW_LNG
       }
     },
     getSouthEast: function() {
       return {
-        lat: 37,
-        lng: -120
+        lat: TEST_SE_LAT,
+        lng: TEST_SE_LNG
       }
     }
   };
