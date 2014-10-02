@@ -5346,6 +5346,9 @@ button.close {
       font-size: 1.6em;
       font-weight: bold;
       font-variant: small-caps; }
+  .logo p.attribution {
+    font-size: .6em;
+    margin-top: 10px; }
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
