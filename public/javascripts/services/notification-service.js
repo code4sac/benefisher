@@ -14,6 +14,7 @@ var services = angular.module('benefisher.services');
 var NotificationService = function ($rootScope, $timeout, $sce) {
   // Init root scope
   $rootScope.notifications = [];
+  var toRemove = [];
   var self = this;
   // Expose public methods;
   self.info = _info;
@@ -103,6 +104,7 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
   function _addNotification(notification, opts)
   {
     var key = $rootScope.notifications.length;
+    toRemove.push(key);
     if (duplicateSingleton(notification, opts)) {
       // Return a promise to honor contract.
       return $timeout(function(){}, 0);
@@ -111,7 +113,7 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
     // Broadcast a 'new notification' event.
     $rootScope.$broadcast('notification.new', { notification: notification, index: key });
     return $timeout(function() {
-      $rootScope.notifications.splice(key, 1);
+      $rootScope.notifications.shift();
       // Broadcast a 'notification removed' event.
       $rootScope.$broadcast('notification.removed', { notification: notification, index: key });
     }, notification.status.duration);
@@ -120,13 +122,20 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
   /**
    * Determine whether a notification currently exists in rootScope.
    * @param notification
+   * @param opts
    * @returns {boolean}
    */
   function duplicateSingleton(notification, opts) {
     if ( ! opts || ! opts.singleton) {
       return false;
     }
-    return ($rootScope.notifications.indexOf(notification) >= 0);
+    var numNotifications = $rootScope.notifications.length;
+    for ( var i = 0; i < numNotifications; i++) {
+      var curNotification = $rootScope.notifications[i];
+      if (curNotification.message === notification.message && curNotification.status === notification.status) {
+        return true;
+      }
+    }
   }
 
 };

@@ -22,8 +22,9 @@ var ResultsController = function ($scope, search, notification) {
   function _update(data) {
     removeResults();
     if ( ! data.length) {
-      notification.info("We couldn't find any services matching your search in this area.<br />" +
-        "Try removing some terms from your search, or zoom out on the map to search a wider area.");
+      var message = "We couldn't find any services matching your search in this area.<br />" +
+        "Try removing some terms from your search, or zooming out on the map to search a wider area.";
+      notification.info(message, { singleton: true });
       $scope.results = [];
       return;
     }
