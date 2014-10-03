@@ -7,6 +7,7 @@ var services = angular.module('benefisher.services');
  * SearchService - a simple pubsub class.
  * Updates subscribers when search() is called.
  * @param $http
+ * @param notification
  * @constructor
  */
 var SearchService = function ($http, notification) {
