@@ -24,6 +24,7 @@ var ResultsController = function ($scope, search, notification) {
     if ( ! data.length) {
       $scope.noResults = true;
     } else {
+      $scope.noResults = false;
       data.forEach(function (service) {
         addResult(service);
       });

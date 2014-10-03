@@ -87,4 +87,12 @@ describe('ResultsController', function (done) {
     expect(scope.results.length).to.equal(0);
   });
 
+  it('should set variable on scope when no results are available', function() {
+    expect(scope.noResults).to.be.false;
+    ctrl.update([]);
+    expect(scope.noResults).to.be.true;
+    ctrl.update(SAMPLE_DATA);
+    expect(scope.noResults).to.be.false;
+  });
+
 });
