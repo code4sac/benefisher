@@ -21,9 +21,13 @@ var ResultsController = function ($scope, search, notification) {
 
   function _update(data) {
     removeResults();
-    data.forEach(function (service) {
-      addResult(service);
-    });
+    if ( ! data.length) {
+      $scope.noResults = true;
+    } else {
+      data.forEach(function (service) {
+        addResult(service);
+      });
+    }
   }
 
 

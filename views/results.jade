@@ -2,7 +2,7 @@
 
 
 div(class='results', ng-controller='ResultsController')
-    div(class='info', ng-show='!results.length')
+    div(class='info', ng-show='noResults')
         p
             | We couldn't find any services matching your search in this area.<br />
             | Try removing some terms from your search, or zooming out on the map to search a wider area.
