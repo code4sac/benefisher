@@ -1,5 +1,5 @@
 var expect = chai.expect;
-var scope, search, leafletData, ctrl;
+var scope, search, notification, leafletData, ctrl;
 
 /** TEST CONSTANTS **/
 var TEST_NW_LAT = 39;
@@ -38,7 +38,7 @@ describe('MapController', function(done) {
       }
     });
     // Instantiate the controller.
-    ctrl = $controller('MapController', { $scope:scope, search: search, leafletData: leafletData });
+    ctrl = $controller('MapController', { $scope:scope, search: search, notification: notification, leafletData: leafletData });
   }))
 
   // Defaults
@@ -81,6 +81,28 @@ describe('MapController', function(done) {
     scope.fireEvent('leafletDirectiveMap.moveend', {});
     expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING });
   });
+
+  it('should create a new error notification if getMap fails', inject(function($controller) {
+    // Create a promise where success is ignored and the error callback is used.
+    var mapPromise = {
+      success: function(callback) {
+        return {
+          error: function(callback) {
+            callback('Error');
+          }
+        }
+      }
+    };
+    leafletData = {
+      getMap: function() {
+        return mapPromise;
+      }
+    };
+    // Instantiate the controller with our special leafletData object.
+    ctrl = $controller('MapController', { $scope:scope, search: search, notification: notification, leafletData: leafletData });
+    scope.fireEvent('leafletDirectiveMap.moveend', {});
+    expect(notification.error).to.have.been.called;
+  }));
 });
 
 /**
@@ -95,6 +117,10 @@ function createDependencyMocks()
       this.subscribers.push(subscriber);
     },
     search: sinon.spy()
+  };
+  // Mock notification dependency
+  notification = {
+    error: sinon.spy()
   };
   // Mock leafletData dependency
   var bounds = {
@@ -114,9 +140,11 @@ function createDependencyMocks()
   var map = {
     getBounds: function() {return bounds; }
   };
+  // Default to a promise where the chained error does nothing.
   var mapPromise = {
-    then: function(callback) {
+    success: function(callback) {
       callback(map);
+      return { error: function(callback) {} }
     }
   };
   leafletData = {

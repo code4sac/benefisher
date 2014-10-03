@@ -10,7 +10,7 @@
  * @param leafletData
  * @constructor
  */
-var MapController = function($scope, search, leafletData) {
+var MapController = function($scope, search, notification, leafletData) {
 
   /** CONSTANTS **/
   // The ID of the Mapbox project to use for map tiles.
@@ -36,12 +36,7 @@ var MapController = function($scope, search, leafletData) {
   initMap();
   // Listen for map movement
   $scope.$on('leafletDirectiveMap.moveend', function(event){
-    leafletData.getMap().then(function(map) {
-      updateBounds(map);
-      if (boundsHaveChanged()) {
-        search.search({ bounds: getBoundsString() });
-      }
-    });
+    leafletData.getMap().success(updateMap).error(mapError);
   });
 
   /** METHODS **/
@@ -52,6 +47,25 @@ var MapController = function($scope, search, leafletData) {
    */
   function _update(data) {
     updateMarkers(data);
+  }
+
+  /**
+   * Search for new results if map bounds have changed.
+   * @param map
+   */
+  function updateMap(map) {
+    updateBounds(map);
+    if (boundsHaveChanged()) {
+      search.search({ bounds: getBoundsString() });
+    }
+  }
+
+  /**
+   * Create a new error notification if we can't update the map.
+   * @param error
+   */
+  function mapError(error) {
+    notification.error("Error updating map.");
   }
 
   /**
