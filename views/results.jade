@@ -1,12 +1,12 @@
 // Created by anthony on 9/20/14.
 
 
-div(class='results', ng-controller='ResultsController')
-    div(class='info', ng-show='noResults')
+div(class='results row', ng-controller='ResultsController')
+    div(class='info col-xs-12', ng-show='noResults')
         p
             | We couldn't find any services matching your search in this area.<br />
             | Try removing some terms from your search, or zooming out on the map to search a wider area.
-    div(ng-repeat='result in results | limitTo: 4', class="result", id="result-{{$index}}")
+    div(ng-repeat='result in results | limitTo: 4', class="result col-lg-3 col-md-3 col-sm-12 col-xs-12", id="result-{{$index}}")
         div(class="nav navbar-nav navbar-right")
             button(ng-click="hideResult($index)", class="btn btn-default btn-xs" ) X
         h5 {{result.name}}

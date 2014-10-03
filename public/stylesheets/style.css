@@ -5316,22 +5316,25 @@ ul.notifications {
   border: 0;
   border-bottom: 1px dashed orange; }
 
-.results {
+.row.results {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  text-align: center;
-  margin: 0;
   padding: 0; }
-  .results .info {
+  .row.results .info {
+    text-align: center;
     width: 100%;
-    padding: 10px 0; }
+    padding: 20px;
+    box-sizing: border-box; }
 
 .result {
   flex: 1;
-  border-bottom: 2px solid black;
+  max-width: 420px;
+  min-width: 280px;
+  text-align: center;
+  border-bottom: 1px solid #c0c5c7;
   width: 25%;
-  min-width: 240px;
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box; }
 
 .map-container {
@@ -5385,4 +5388,4 @@ a:hover {
   background-color: #e85248; }
 
 .info, .success, .warning, .error {
-  color: #fff; }
+  color: white; }
