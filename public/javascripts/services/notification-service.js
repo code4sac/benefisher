@@ -48,68 +48,65 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
   /**
    * Add an info notification.
    * @param message
+   * @param opts
    * @returns {Promise}
    * @private
    */
-  function _info(message)
+  function _info(message, opts)
   {
-    return _addNotification({
-      message: message,
-      status: self.STATUSES.INFO
-    });
+    return _addNotification({ message: message, status: self.STATUSES.INFO }, opts);
   }
 
   /**
    * Add a success notification.
    * @param message
+   * @param opts
    * @returns {Promise}
    * @private
    */
-  function _success(message)
+  function _success(message, opts)
   {
-    return _addNotification({
-      message: message,
-      status: self.STATUSES.SUCCESS
-    });
+    return _addNotification({ message: message, status: self.STATUSES.SUCCESS }, opts);
   }
 
   /**
    * Add a warning notification.
    * @param message
+   * @param opts
    * @returns {Promise}
    * @private
    */
-  function _warning(message)
+  function _warning(message, opts)
   {
-    return _addNotification({
-      message: message,
-      status: self.STATUSES.WARNING
-    });
+    return _addNotification({ message: message, status: self.STATUSES.WARNING }, opts);
   }
 
   /**
    * Add an error notification.
    * @param message
+   * @param opts
    * @returns {Promise}
    * @private
    */
-  function _error(message)
-  {
-    return _addNotification({
-      message: message,
-      status: self.STATUSES.ERROR
-    });
+  function _error(message, opts)
+{
+    return _addNotification({ message: message, status: self.STATUSES.ERROR }, opts);
   }
 
   /**
    * Add a notification to be displayed.
    * @param notification
+   * @param opts
    * @returns {Promise}
    * @private
    */
-  function _addNotification(notification)
+  function _addNotification(notification, opts)
   {
     var key = $rootScope.notifications.length;
+    if (duplicateSingleton(notification, opts)) {
+      // Return a promise to honor contract.
+      return $timeout(function(){}, 0);
+    }
     $rootScope.notifications.push(notification);
     // Broadcast a 'new notification' event.
     $rootScope.$broadcast('notification.new', { notification: notification, index: key });
@@ -118,6 +115,18 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
       // Broadcast a 'notification removed' event.
       $rootScope.$broadcast('notification.removed', { notification: notification, index: key });
     }, notification.status.duration);
+  }
+
+  /**
+   * Determine whether a notification currently exists in rootScope.
+   * @param notification
+   * @returns {boolean}
+   */
+  function duplicateSingleton(notification, opts) {
+    if ( ! opts || ! opts.singleton) {
+      return false;
+    }
+    return ($rootScope.notifications.indexOf(notification) >= 0);
   }
 
 };
