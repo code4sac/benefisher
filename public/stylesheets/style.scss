@@ -1,4 +1,6 @@
 @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import 'colors';
+@import 'notification';
 @import 'header';
 @import 'search';
 @import 'results';
@@ -10,5 +12,21 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: $primary;
+}
+
+.info {
+  background-color: $secondary;
+}
+
+.success {
+  background-color: $success;
+}
+
+.warning {
+  background-color: $warning;
+}
+
+.error {
+  background-color: $error;
 }

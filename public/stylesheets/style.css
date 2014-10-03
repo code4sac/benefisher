@@ -5288,6 +5288,17 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+ul.notifications {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.notification {
+  text-align: center;
+  color: #fff;
+  line-height: 200%; }
+
 #header {
   padding: 20px 0; }
 
@@ -5354,4 +5365,16 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
-  color: #00B7FF; }
+  color: #225b66; }
+
+.info {
+  background-color: #17a3a5; }
+
+.success {
+  background-color: #8dbf67; }
+
+.warning {
+  background-color: #fccb56; }
+
+.error {
+  background-color: #e85248; }

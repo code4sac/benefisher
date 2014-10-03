@@ -1,0 +1,4 @@
+ul(class='notifications')
+    li(class='notification {{ notification.status.class }}' ng-repeat='notification in notifications')
+        p
+            | {{ notification.message }}
