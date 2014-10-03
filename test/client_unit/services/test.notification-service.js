@@ -2,7 +2,7 @@ var expect = chai.expect;
 
 describe('Notification Service', function() {
 
-  var clock, rootScope, timeout;
+  var rootScope, timeout;
 
   var testMessage = "Test Message";
   var mockNotification = {
@@ -15,10 +15,6 @@ describe('Notification Service', function() {
   /** SETUP **/
    // Load the benefisher.services module
   beforeEach(module('benefisher.services'));
-  // Setup sinon clock
-  beforeEach(function() {
-    clock = sinon.useFakeTimers();
-  });
   // Save root scope and stub $broadcast method.
   beforeEach(inject(function($rootScope) {
     rootScope = $rootScope;
@@ -28,8 +24,6 @@ describe('Notification Service', function() {
   beforeEach(inject(function(_$timeout_) {
     timeout = _$timeout_;
   }));
-  // Restore clock after each test
-  after(function () { clock.restore(); });
 
   /** TESTS **/
   it('should contain correct status constants', inject(function(notification) {
