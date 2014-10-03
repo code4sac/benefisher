@@ -12,11 +12,15 @@ body {
 }
 
 a {
-  color: $primary;
+  color: $secondary;
+}
+
+a:hover {
+  color: $secondary;
 }
 
 .info {
-  background-color: $secondary;
+  background-color: $primary;
 }
 
 .success {
@@ -29,4 +33,8 @@ a {
 
 .error {
   background-color: $error;
+}
+
+.info, .success, .warning, .error {
+  color: #fff;
 }

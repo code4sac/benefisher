@@ -87,9 +87,4 @@ describe('ResultsController', function (done) {
     expect(scope.results.length).to.equal(0);
   });
 
-  it('should display an info notification when no results are available', function() {
-    ctrl.update([]);
-    expect(notification.info).to.have.been.called;
-  });
-
 });

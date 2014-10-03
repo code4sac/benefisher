@@ -1,7 +1,11 @@
 // Created by anthony on 9/20/14.
 
 
-div(class="results", ng-controller='ResultsController')
+div(class='results', ng-controller='ResultsController')
+    div(class='info', ng-show='!results.length')
+        p
+            | We couldn't find any services matching your search in this area.<br />
+            | Try removing some terms from your search, or zooming out on the map to search a wider area.
     div(ng-repeat='result in results | limitTo: 4', class="result", id="result-{{$index}}")
         div(class="nav navbar-nav navbar-right")
             button(ng-click="hideResult($index)", class="btn btn-default btn-xs" ) X

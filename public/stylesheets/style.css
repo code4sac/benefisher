@@ -5296,7 +5296,6 @@ ul.notifications {
 
 .notification {
   text-align: center;
-  color: #fff;
   padding: 10px 0; }
 
 #header {
@@ -5323,6 +5322,9 @@ ul.notifications {
   text-align: center;
   margin: 0;
   padding: 0; }
+  .results .info {
+    width: 100%;
+    padding: 10px 0; }
 
 .result {
   flex: 1;
@@ -5365,10 +5367,13 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
-  color: #225b66; }
+  color: #17a3a5; }
+
+a:hover {
+  color: #17a3a5; }
 
 .info {
-  background-color: #17a3a5; }
+  background-color: #225b66; }
 
 .success {
   background-color: #8dbf67; }
@@ -5378,3 +5383,6 @@ a {
 
 .error {
   background-color: #e85248; }
+
+.info, .success, .warning, .error {
+  color: #fff; }
