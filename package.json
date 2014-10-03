@@ -23,6 +23,7 @@
     "karma-chrome-launcher": "^0.1.4",
     "karma-firefox-launcher": "^0.1.3",
     "karma-mocha": "^0.1.9",
+    "karma-nyan-reporter": "0.0.47",
     "karma-phantomjs-launcher": "^0.1.4",
     "mocha": "^1.21.4",
     "morgan": "~1.0.0",
