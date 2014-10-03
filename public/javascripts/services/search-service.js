@@ -9,7 +9,7 @@ var services = angular.module('benefisher.services');
  * @param $http
  * @constructor
  */
-var SearchService = function ($http) {
+var SearchService = function ($http, notification) {
   var subscribers = [];
   var params = {};
 
@@ -28,19 +28,31 @@ var SearchService = function ($http) {
   this.search = function (newParams) {
     updateParams(newParams);
     // TODO: error handler.
-    $http.get('/search', { params: params }).then(updateSubscribers);
+    $http.get('/search', { params: params }).success(updateSubscribers).error(httpError);
   };
 
   /**
    * Update subscribers with search results.
    */
-  function updateSubscribers(response) {
+  function updateSubscribers(data, status, headers, config) {
     var numSubscribers = subscribers.length;
     for (var i = 0; i < numSubscribers; i++) {
       if (typeof subscribers[i] === 'function') {
-        subscribers[i](response.data);
+        subscribers[i](data);
       }
     }
+  }
+
+  /**
+   * Handle an error with our HTTP request.
+   * @param data
+   * @param status
+   * @param headers
+   * @param config
+   */
+  function httpError(data, status, headers, config)
+  {
+    notification.error("Uh-oh, there was an error loading data.");
   }
 
   /**
@@ -54,4 +66,4 @@ var SearchService = function ($http) {
   }
 };
 
-services.service('search', ['$http', SearchService]);
+services.service('search', ['$http', 'notification', SearchService]);

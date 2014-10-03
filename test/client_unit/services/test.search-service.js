@@ -2,8 +2,7 @@ var expect = chai.expect;
 
 describe('Search Service', function() {
 
-  var mockCtrl;
-  var $httpMock;
+  var mockCtrl, $httpMock, notification;
 
   // Search url with test parameters (see mockCtrl).
   var url = '/search?testParam=testValue';
@@ -25,6 +24,12 @@ describe('Search Service', function() {
       update: sinon.spy()
     };
   });
+
+  // Setup mock notification service
+  beforeEach(inject(function(_notification_) {
+    notification = _notification_;
+    notification.error = sinon.spy();
+  }));
 
   // Verify that no exceptions were raised during http calls, and all calls were returned.
   afterEach(function() {
@@ -51,6 +56,14 @@ describe('Search Service', function() {
     search.search(mockCtrl.params);
     $httpMock.flush();
     expect(mockCtrl.update).to.have.been.calledWith("Test Response");
+  }));
+
+  it('should create an error notification on an http error', inject(function(search) {
+    $httpMock.expectGET(url).respond(400);
+    search.subscribe(mockCtrl.update);
+    search.search(mockCtrl.params);
+    $httpMock.flush();
+    expect(notification.error).to.have.been.called;
   }));
 
 });
