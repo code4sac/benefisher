@@ -5,6 +5,7 @@ module.exports = function(config){
 
     files : [
       'public/components/angular/angular.js',
+      'public/components/angular-sanitize/angular-sanitize.min.js',
       'public/components/angular-mocks/angular-mocks.js',
       'public/components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
       'public/javascripts/controllers/*.js',

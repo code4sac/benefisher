@@ -1,4 +1,3 @@
 ul(class='notifications')
     li(class='notification {{ notification.status.class }}' ng-repeat='notification in notifications')
-        p
-            | {{ notification.message }}
+        p(ng-bind-html="notification.message")

@@ -36,7 +36,7 @@ var MapController = function($scope, search, notification, leafletData) {
   initMap();
   // Listen for map movement
   $scope.$on('leafletDirectiveMap.moveend', function(event){
-    leafletData.getMap().success(updateMap).error(mapError);
+    leafletData.getMap().then(updateMap);
   });
 
   /** METHODS **/
@@ -58,14 +58,6 @@ var MapController = function($scope, search, notification, leafletData) {
     if (boundsHaveChanged()) {
       search.search({ bounds: getBoundsString() });
     }
-  }
-
-  /**
-   * Create a new error notification if we can't update the map.
-   * @param error
-   */
-  function mapError(error) {
-    notification.error("Error updating map.");
   }
 
   /**

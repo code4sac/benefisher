@@ -5297,7 +5297,7 @@ ul.notifications {
 .notification {
   text-align: center;
   color: #fff;
-  line-height: 200%; }
+  padding: 10px 0; }
 
 #header {
   padding: 20px 0; }

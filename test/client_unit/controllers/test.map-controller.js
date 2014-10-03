@@ -82,27 +82,6 @@ describe('MapController', function(done) {
     expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING });
   });
 
-  it('should create a new error notification if getMap fails', inject(function($controller) {
-    // Create a promise where success is ignored and the error callback is used.
-    var mapPromise = {
-      success: function(callback) {
-        return {
-          error: function(callback) {
-            callback('Error');
-          }
-        }
-      }
-    };
-    leafletData = {
-      getMap: function() {
-        return mapPromise;
-      }
-    };
-    // Instantiate the controller with our special leafletData object.
-    ctrl = $controller('MapController', { $scope:scope, search: search, notification: notification, leafletData: leafletData });
-    scope.fireEvent('leafletDirectiveMap.moveend', {});
-    expect(notification.error).to.have.been.called;
-  }));
 });
 
 /**
@@ -140,11 +119,9 @@ function createDependencyMocks()
   var map = {
     getBounds: function() {return bounds; }
   };
-  // Default to a promise where the chained error does nothing.
   var mapPromise = {
-    success: function(callback) {
+    then: function(callback) {
       callback(map);
-      return { error: function(callback) {} }
     }
   };
   leafletData = {

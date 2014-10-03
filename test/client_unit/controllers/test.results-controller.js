@@ -22,19 +22,24 @@ var search = {
   }
 };
 
+// Mock notification dependency
+var notification = {};
+
 describe('ResultsController', function (done) {
 
   var scope, ctrl;
 
-  // Setup: include benefisher module;
+  // Setup: include benefisher module
   beforeEach(module('benefisher'));
 
   /** SETUP **/
   beforeEach(inject(function ($rootScope, $controller) {
+    // Create stub notification info method.
+    notification.info = sinon.spy();
     // Create a fresh scope object.
     scope = $rootScope.$new();
     // Initialize the controller with sample data.
-    ctrl = $controller('ResultsController', {$scope: scope, search: search});
+    ctrl = $controller('ResultsController', { $scope: scope, search: search, notification: notification });
     ctrl.update(SAMPLE_DATA);
   }));
 
@@ -42,19 +47,24 @@ describe('ResultsController', function (done) {
     expect(search.subscribers).to.include(ctrl.update);
   });
 
-  it('should update the scope when update() is called', inject(function ($controller) {
+  it('should update the scope when update() is called', function () {
     expect(scope.results).to.be.an('array');
     expect(scope.results.length).to.equal(8);
-  }));
+  });
+
+  it('should accept an empty result set', function() {
+    ctrl.update([]);
+    expect(scope.results.length).to.equal(0);
+  });
 
   //Remove 1 element from the array normally
-  it('should remove an element from the array when told', inject(function ($controller) {
+  it('should remove an element from the array when told', function () {
     scope.hideResult(1);
     expect(scope.results.length).to.equal(7);
-  }));
+  });
 
   //Try to remove elements that are out of bounds (larger than array len, below 0, and above max results shown)
-  it('should not allow for the removal of an index that is out of bounds', inject(function ($controller) {
+  it('should not allow for the removal of an index that is out of bounds', function () {
     scope.hideResult(8);
     expect(scope.results.length).to.equal(8);
 
@@ -64,10 +74,10 @@ describe('ResultsController', function (done) {
     scope.hideResult(MAX_RESULTS_SHOWN);
     expect(scope.results.length).to.equal(8);
 
-  }));
+  });
 
   //Attempt to remove an element after all are removed
-  it('should not allow for results manipulation after none are showing', inject(function ($controller) {
+  it('should not allow for results manipulation after none are showing', function () {
     //Clear the results.
     for (var i = 0; i < 8; i++) {
       scope.hideResult(0);
@@ -75,6 +85,11 @@ describe('ResultsController', function (done) {
     expect(scope.results.length).to.equal(0);
     scope.hideResult(0);
     expect(scope.results.length).to.equal(0);
-  }));
+  });
+
+  it('should display an info notification when no results are available', function() {
+    ctrl.update([]);
+    expect(notification.info).to.have.been.called;
+  });
 
 });

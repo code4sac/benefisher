@@ -1,1 +1,1 @@
-angular.module('benefisher.services', []);
+angular.module('benefisher.services', ['ngSanitize']);

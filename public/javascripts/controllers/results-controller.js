@@ -1,7 +1,15 @@
 /**
  * Created by anthony on 9/26/14.
  */
-var ResultsController = function ($scope, search) {
+
+/**
+ * ResultsController
+ * @param $scope
+ * @param search
+ * @param notification
+ * @constructor
+ */
+var ResultsController = function ($scope, search, notification) {
 
   //Used to trim the results array to display, at maximum, MAX_DISPLAY_RESULTS at a time.
   var MAX_DISPLAY_RESULTS = 4;
@@ -13,10 +21,17 @@ var ResultsController = function ($scope, search) {
 
   function _update(data) {
     removeResults();
+    if ( ! data.length) {
+      notification.info("We couldn't find any services matching your search in this area.<br />" +
+        "Try removing some terms from your search, or zoom out on the map to search a wider area.");
+      $scope.results = [];
+      return;
+    }
     data.forEach(function (service) {
       addResult(service);
     });
   }
+
 
   /**
    * Subscribes to search.

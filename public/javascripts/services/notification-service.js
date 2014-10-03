@@ -8,10 +8,12 @@ var services = angular.module('benefisher.services');
  * Receives notifications and adds them to root scope.
  * @param $rootScope
  * @param $timeout
+ * @param $sce Service of ngSanitize
  * @constructor
  */
-var NotificationService = function ($rootScope, $timeout) {
-  var notifications = [];
+var NotificationService = function ($rootScope, $timeout, $sce) {
+  // Init root scope
+  $rootScope.notifications = [];
   var self = this;
   // Expose public methods;
   self.info = _info;
@@ -107,19 +109,17 @@ var NotificationService = function ($rootScope, $timeout) {
    */
   function _addNotification(notification)
   {
-    var key = notifications.length;
-    notifications.push(notification);
-    $rootScope.notifications = notifications;
+    var key = $rootScope.notifications.length;
+    $rootScope.notifications.push(notification);
     // Broadcast a 'new notification' event.
     $rootScope.$broadcast('notification.new', { notification: notification, index: key });
     return $timeout(function() {
-      notifications.splice(key, 1);
+      $rootScope.notifications.splice(key, 1);
       // Broadcast a 'notification removed' event.
       $rootScope.$broadcast('notification.removed', { notification: notification, index: key });
-      $rootScope.notifications = notifications;
     }, notification.status.duration);
   }
 
 };
 
-services.service('notification', ['$rootScope', '$timeout', NotificationService]);
+services.service('notification', ['$rootScope', '$timeout', '$sce', NotificationService]);
