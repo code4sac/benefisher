@@ -1,7 +1,8 @@
 .row.results {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   padding: 0;
   .info {
     text-align: center;
@@ -13,22 +14,42 @@
 
 .result {
   flex: 1;
-  position: relative;
-  max-width: 420px;
-  min-width: 280px;
+  min-width: 320px;
   text-align: center;
   border-bottom: 1px solid $muted;
-  width: 25%;
   padding: 20px;
   box-sizing: border-box;
-  .close {
-    position: absolute;
-    float: right;
-    top: 10px;
-    right: 10px;
+  &:last-of-type {
+    border-right: none;
+  }
+
+  .thumbs {
+    padding: 10px 0 10px 0;
+  }
+
+  .thumbs a {
+    font-size: 1.2em;
+    padding: 0 10px;
+    line-height: 1.4em;
+  }
+  .buttons {
+    padding: 10px 0;
   }
   .buttons a {
     padding: 10px;
   }
 }
-
+@media screen and (max-width: $screen-sm) {
+  .row.results {
+    flex-direction: column;
+  }
+  .result {
+    .buttons {
+      padding: 20px 0 10px 0;
+    }
+    .buttons a {
+      font-size: 1.2em;
+      padding: 0 20px;
+    }
+  }
+}

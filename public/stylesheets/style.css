@@ -5318,8 +5318,9 @@ ul.notifications {
 
 .row.results {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   padding: 0; }
   .row.results .info {
     text-align: center;
@@ -5329,22 +5330,33 @@ ul.notifications {
 
 .result {
   flex: 1;
-  position: relative;
-  max-width: 420px;
-  min-width: 280px;
+  min-width: 320px;
   text-align: center;
   border-bottom: 1px solid #c0c5c7;
-  width: 25%;
   padding: 20px;
   box-sizing: border-box; }
-  .result .close {
-    position: absolute;
-    float: right;
-    top: 10px;
-    right: 10px; }
+  .result:last-of-type {
+    border-right: none; }
+  .result .thumbs {
+    padding: 10px 0 10px 0; }
+  .result .thumbs a {
+    font-size: 1.2em;
+    padding: 0 10px;
+    line-height: 1.4em; }
+  .result .buttons {
+    padding: 10px 0; }
   .result .buttons a {
     padding: 10px; }
 
+@media screen and (max-width: 768px) {
+  .row.results {
+    flex-direction: column; }
+
+  .result .buttons {
+    padding: 20px 0 10px 0; }
+  .result .buttons a {
+    font-size: 1.2em;
+    padding: 0 20px; } }
 .map-container {
   height: 50%;
   padding: 0; }
