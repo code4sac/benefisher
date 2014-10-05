@@ -6,10 +6,18 @@ div(class='results row', ng-controller='ResultsController')
         p
             | We couldn't find any services matching your search in this area.<br />
             | Try removing some terms from your search, or zooming out on the map to search a wider area.
-    div(ng-repeat='result in results | limitTo: 4', class="result col-lg-3 col-md-3 col-sm-12 col-xs-12", id="result-{{$index}}")
-        div(class="nav navbar-nav navbar-right")
-            button(ng-click="hideResult($index)", class="btn btn-default btn-xs" ) X
+    div(ng-repeat='result in results | limitTo: 4', class="result", id="result-{{$index}}")
+        button(ng-click="hideResult($index)", class="close" ) &times;
         h5 {{result.name}}
         p {{result.description}}
         p {{result.address}}
         p {{result.hours}}
+        div(class='buttons')
+            a(href='{{result.url}}', target='_blank', title='Website: {{result.url}}')
+                span(class='glyphicon glyphicon-link')
+            a(href='{{result.phoneUrl}}', target='_blank', title='Call: {{result.phone}}')
+                span(class='glyphicon glyphicon-phone')
+            a(href='{{result.directionsUrl}}', target='_blank', title='Directions to: {{result.address}}')
+                span(class='glyphicon glyphicon-road')
+            a(href='{{result.emailUrl}}', target='_blank', title='Email: {{result.email}}')
+                span(class='glyphicon glyphicon-envelope')
