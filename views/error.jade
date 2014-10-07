@@ -1,6 +1,8 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
+  div.notification
+      h1 Whoops, something's wrong here...
+      h2 #{error.status} - #{message}
+  include footer
   pre #{error.stack}
