@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+// Load environment variables
+var dotenv = require('dotenv');
+dotenv.load();
 
 /* GET home page. */
 router.get('/', function(req, res) {
