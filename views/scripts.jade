@@ -10,3 +10,9 @@ script(type="text/javascript" src="/javascripts/services/search-service.js")
 script(type="text/javascript" src="/javascripts/controllers/map-controller.js")
 script(type="text/javascript" src="/javascripts/controllers/results-controller.js")
 script(type="text/javascript" src="/javascripts/app.js")
+script(type="text/javascript").
+    angular.module('benefisher.constants', [])
+        .constant('constants', Object.freeze({
+            mapboxId: '#{mapboxId}',
+            mapboxToken: '#{mapboxToken}'
+        }));

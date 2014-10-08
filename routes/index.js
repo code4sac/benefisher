@@ -6,7 +6,11 @@ dotenv.load();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Benefisher' });
+  res.render('index', {
+    title: 'Benefisher',
+    mapboxId: process.env.MAPBOX_ID,
+    mapboxToken: process.env.MAPBOX_TOKEN
+  });
 });
 
 module.exports = router;

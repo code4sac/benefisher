@@ -5,18 +5,20 @@
 /**
  * Map Controller
  * @param $scope
- * @param $http
  * @param search
+ * @param notification
+ * @param constants
  * @param leafletData
  * @constructor
  */
-var MapController = function($scope, search, notification, leafletData) {
+var MapController = function($scope, search, notification, constants, leafletData) {
 
   /** CONSTANTS **/
   // The ID of the Mapbox project to use for map tiles.
-  var MAP_ID = 'jesserosato.jihh0bm7';
+  var MAP_ID = constants.mapboxId;
+  var MAP_TOKEN = constants.mapboxToken;
   // The map tiles URL.
-  var TILE_URL = "https://{s}.tiles.mapbox.com/v3/" + MAP_ID + "/{z}/{x}/{y}.png";
+  var TILE_URL = "https://{s}.tiles.mapbox.com/v3/" + MAP_ID + "/{z}/{x}/{y}.png?access_token=" + MAP_TOKEN;
   // The default, maximum and minimum zoom levels for the map
   var ZOOM_DEFAULT = 13;
   var ZOOM_MAX = 18;
