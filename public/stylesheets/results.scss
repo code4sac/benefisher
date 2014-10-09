@@ -1,8 +1,8 @@
 .row.results {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  @include flexbox();
+  @include flex-direction(row);
+  @include flex-wrap(wrap);
+  @include justify-content(center);
   padding: 0;
   .info {
     text-align: center;
@@ -12,16 +12,13 @@
   }
 }
 
+
 .result {
-  flex: 1;
-  min-width: 320px;
+  @include flex(4 2);
   text-align: center;
   border-bottom: 1px solid $muted;
   padding: 20px;
   box-sizing: border-box;
-  &:last-of-type {
-    border-right: none;
-  }
 
   .thumbs {
     padding: 10px 0 10px 0;
@@ -39,11 +36,19 @@
     padding: 10px;
   }
 }
+
+@media screen and (max-width: $screen-md) {
+  .result {
+    @include flex(1 45%);
+  }
+}
+
 @media screen and (max-width: $screen-sm) {
   .row.results {
-    flex-direction: column;
+    @include flex-direction(column);
   }
   .result {
+    @include flex(1);
     .buttons {
       padding: 20px 0 10px 0;
     }
