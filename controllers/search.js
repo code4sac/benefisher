@@ -43,7 +43,6 @@ var SearchController = function(req, res, Result, fileSystem)
           results.push(new Result(data[i]));
         }
         output = output.concat.apply(output, results);
-        console.log(output);
         res.json(output);
       }
     });
