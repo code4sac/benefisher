@@ -41,6 +41,7 @@ var Result = function(data) {
       var email = location.emails[0];
       var emailUrl = 'mailto:' + email;
       var directionsUrl = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + encodeURIComponent(address);
+      var popup = '<h4>' + name + '<h4>\n<h5>' + desc + '</h5>\n<h5>' + hours + '</h5>';
       var result = {
         name: name,
         lat: lat,
@@ -53,7 +54,8 @@ var Result = function(data) {
         phoneUrl: phoneUrl,
         email: email,
         emailurl: emailUrl,
-        url: url
+        url: url,
+        popup: popup
       };
       results.push(result);
     }
