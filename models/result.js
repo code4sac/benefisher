@@ -41,7 +41,7 @@ var Result = function(data) {
       var email = location.emails[0];
       var emailUrl = 'mailto:' + email;
       var directionsUrl = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + encodeURIComponent(address);
-      results.push({
+      var result = {
         name: name,
         lat: lat,
         lng: lng,
@@ -54,7 +54,8 @@ var Result = function(data) {
         email: email,
         emailurl: emailUrl,
         url: url
-      });
+      };
+      results.push(result);
     }
   }
 

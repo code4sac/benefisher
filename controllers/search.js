@@ -38,13 +38,12 @@ var SearchController = function(req, res, Result, fileSystem)
           data = data.filter(containsQueryTerms);
         }
         var dataCount = data.length;
+        var results = [];
         for(var i = 0; i < dataCount; i++) {
-          var results = new Result(data[i]);
-          var numResults = results.length;
-          for (var j = 0; j < numResults; j++) {
-            output.push(results[i]);
-          }
+          results.push(new Result(data[i]));
         }
+        output = output.concat.apply(output, results);
+        console.log(output);
         res.json(output);
       }
     });
