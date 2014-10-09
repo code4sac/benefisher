@@ -10,6 +10,5 @@ describe('GET /search', function() { // Describes the
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200, done) // note that we're passing the done as parameter to the expect
-
   });
 });

@@ -6,9 +6,11 @@
  * Controller for search.
  * @param req
  * @param res
+ * @param Result The Result model.
  * @param fileSystem
+ * @constructor
  */
-var SearchController = function(req, res, fileSystem)
+var SearchController = function(req, res, Result, fileSystem)
 {
 
   var terms = constructQueryTermsArray(req.query);
@@ -20,20 +22,30 @@ var SearchController = function(req, res, fileSystem)
    */
   this.render = function()
   {
+    var output = [];
+
     // Load JSON from file.
     return fileSystem.readFile('sample_data/sample.json', null, function(err, data) {
       if (err) {
         // Error
         res.status(500).send("Error loading data.");
       } else {
-        var result = JSON.parse(data);
+        data = JSON.parse(data);
         if (bounds) {
-          result = filterByQueryBounds(result);
+          data = filterByQueryBounds(data);
         }
         if (terms.length) {
-          result = result.filter(containsQueryTerms);
+          data = data.filter(containsQueryTerms);
         }
-        res.json(result);
+        var dataCount = data.length;
+        for(var i = 0; i < dataCount; i++) {
+          var results = new Result(data[i]);
+          var numResults = results.length;
+          for (var j = 0; j < numResults; j++) {
+            output.push(results[i]);
+          }
+        }
+        res.json(output);
       }
     });
   };

@@ -137,22 +137,10 @@ var MapController = function($scope, search, notification, constants, leafletDat
    * @param service - The service object to add to the map.
    */
   function addMarker(service) {
-    var name = service.name;
-    var lat = service.locations[0].latitude;
-    var lng = service.locations[0].longitude;
-    var desc = service.locations[0].description;
-    var city = service.locations[0].address_attributes.city;
-    var state = service.locations[0].address_attributes.state;
-    var street = service.locations[0].address_attributes.street;
-    var zip = service.locations[0].address_attributes.zip;
-    var hours = service.locations[0].hours;
-    var urls = service.locations[0].urls;
-
-    var message = '<h4>' + name + '<h4>\n<h5>' + desc + '</h5>\n<h5>' + hours + '</h5>';
-
+    var message = '<h4>' + service.name + '<h4>\n<h5>' + service.description + '</h5>\n<h5>' + service.hours + '</h5>';
     $scope.markers.push({
-        lat: lat,
-        lng: lng,
+        lat: service.lat,
+        lng: service.lng,
         message: message
     });
   }

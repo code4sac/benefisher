@@ -11,6 +11,8 @@
  */
 var ResultsController = function ($scope, search, notification) {
 
+  // Initialize $scope.results
+  $scope.results = [];
   //Used to trim the results array to display, at maximum, MAX_DISPLAY_RESULTS at a time.
   var MAX_DISPLAY_RESULTS = 4;
   var self = this;
@@ -26,7 +28,7 @@ var ResultsController = function ($scope, search, notification) {
     } else {
       $scope.noResults = false;
       data.forEach(function (service) {
-        addResult(service);
+        $scope.results.push(service);
       });
     }
   }
@@ -41,44 +43,7 @@ var ResultsController = function ($scope, search, notification) {
     search.subscribe(self.update);
     angular.extend($scope, {
       results: []
-    })
-  }
-
-  /**
-   * Adds a service object containing detailed information about it into the results array.
-   * TODO: Move services into their own model, and do all this munging there.
-   * @param service - The service and its information to be added to the results window.
-   */
-  function addResult(service) {
-    var name = service.name;
-    var numLocations = service.locations.length;
-    for (var i = 0; i < numLocations; i++) {
-      var location = service.locations[i];
-      var lat = location.latitude;
-      var lng = location.longitude;
-      var desc = location.description;
-      var address = formatAddress(location);
-      var hours = location.hours;
-      var url = location.urls;
-      var phone = formatPhone(location);
-      var phoneUrl = formatPhoneUrl(location);
-      var email = location.emails[0];
-      var emailUrl = 'mailto:' + email;
-      var directionsUrl =  'http://maps.google.com/maps?saddr=Current+Location&daddr=' + encodeURIComponent(address);
-      $scope.results.push({
-        name: name,
-        description: desc,
-        address: address,
-        directionsUrl: directionsUrl,
-        hours: hours,
-        phone: phone,
-        phoneUrl: phoneUrl,
-        email: email,
-        emailurl: emailUrl,
-        url: url
-      });
-
-    }
+    });
   }
 
   /**
@@ -86,48 +51,6 @@ var ResultsController = function ($scope, search, notification) {
    */
   function removeResults() {
     $scope.results = [];
-  }
-
-  /**
-   * Format a location's street address.
-   * @param location
-   * @returns {string}
-   */
-  function formatAddress(location)
-  {
-    var city = location.address_attributes.city;
-    var state = location.address_attributes.state;
-    var street = location.address_attributes.street;
-    var zip = location.address_attributes.zip;
-    return street + ', ' + city + ', ' + state + ' ' + zip;
-  }
-
-  /**
-   * Format a telephone number
-   * @param location
-   * @returns {string}
-   */
-  function formatPhone(location)
-  {
-    var rawPhone = location.phones_attributes[0].number;
-    var extension = location.phones_attributes[0].extension;
-    // For simplicity, only attempt to format phone numbers that are just 10 plain digits.
-    if (rawPhone.match(/^[0-9]{10}$/)) {
-      var phone = '(' + rawPhone.substr(0, 3) + ') ' + rawPhone.substr(3,3) + '-' + rawPhone.substr(6,4);
-    }
-    return (phone ? phone : rawPhone) + (extension ? ' ' + extension : '');
-  }
-
-  /**
-   * Format a telephone URL for mobile devices.
-   * @param location
-   * @returns {string}
-   */
-  function formatPhoneUrl(location)
-  {
-    var rawPhone = location.phones_attributes[0].number;
-    var extension = location.phones_attributes[0].extension;
-    return phoneUrl = 'tel: ' + rawPhone + (extension ? ',' + extension.replace(/[^0-9]/g, '') : '');
   }
 
   /**

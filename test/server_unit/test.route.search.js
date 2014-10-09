@@ -10,12 +10,7 @@ var mockData = [
   {"name":"Something Place", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "10248 Kiefer Blvd", "zip" : "95827" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 39.542546, "longitude": -120.327161, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "WIC" } ], "hours" : "Monday-Saturday 7am-5pm", "languages" : ["English"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "Something" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] },
   {"name":"Emergency Food", "locations":[{"accessibility" : [ "elevator", "restroom" ], "address_attributes" : { "city" : "Sacramento", "state" : "CA", "street" : "7242 Kari Ann Cir", "zip" : "95824" }, "contacts_attributes" : [ { "name" : "Literally D'Boss", "title" : "Director" } ], "latitude" : 37.520703, "longitude": -122.419106, "description" : "This is a description", "emails" : [ "eml@example.org" ], "faxes_attributes" : [ { "number" : "911", "department" : "Something" } ], "hours" : "Monday-Friday 10am-5pm", "languages" : ["Spanish", "English"], "name" : "Admin Test Location", "phones_attributes" : [ { "number" : "7035551212", "vanity_number" : "703555-ABCD", "extension" : "x1223", "department" : "CalFresh" } ], "short_desc" : "This is a short description", "transportation" : "SAMTRANS stops within 1/2 mile.", "urls" : [ "http://codeforamerica.org" ], "services_attributes":[{"name":"Service for Admin Test Location","description":"just a test service","service_areas":["Sacramento County"]}] }] }
 ];
-// Mock the file system
-var fs = {};
-fs.readFile = function(filename, options, callback)
-{
-  callback(null, new Buffer(JSON.stringify(mockData)));
-};
+
 
 // Mock request and response objects.
 var request = {};
@@ -25,33 +20,50 @@ var response = {
     this.viewData = data;
   }
 };
+
+// Mock the result model.
+var Result = function(data) {
+  var results = [];
+  data.locations.forEach(function() {
+    results.push({});
+  });
+  return results;
+};
+
+// Mock the file system
+var fs = {};
+fs.readFile = function(filename, options, callback)
+{
+  callback(null, new Buffer(JSON.stringify(mockData)));
+};
+
 var controller = require('../../controllers/search');
 
 describe('SearchController', function(done) {
 
   it('should get all elements the query is empty', function(done) {
-    var ctrl = new controller(request, response, fs).render();
+    var ctrl = new controller(request, response, Result, fs).render();
     expect(response.viewData.length).to.equal(8);
     done();
   });
 
   it('should be able to search by lat/long bounds', function(done) {
     request.query = { bounds: '39.0000,-122.00000,37.00000,-119.000' };
-    var ctrl = new controller(request, response, fs).render();
+    var ctrl = new controller(request, response, Result, fs).render();
     expect(response.viewData.length).to.equal(3);
     done();
   });
 
   it('should be able to search by a single term', function(done) {
     request.query = { terms: 'god' };
-    var ctrl = new controller(request, response, fs).render();
+    var ctrl = new controller(request, response, Result, fs).render();
     expect(response.viewData.length).to.equal(1);
     done();
   });
 
   it('should handle comma separated terms', function(done) {
     request.query = { terms: 'Something,god'};
-    new controller(request, response, fs).render();
+    new controller(request, response, Result, fs).render();
     expect(response.viewData.length).to.equal(3);
     done();
   });
@@ -61,7 +73,7 @@ describe('SearchController', function(done) {
       bounds: '39.0000,-122.00000,37.00000,-119.000',
       terms: 'CalFresh'
     };
-    new controller(request, response, fs).render();
+    new controller(request, response, Result, fs).render();
     expect(response.viewData.length).to.equal(2);
     done();
   });

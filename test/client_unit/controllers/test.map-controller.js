@@ -20,6 +20,8 @@ var SAMPLE_DATA = [
 
 describe('MapController', function(done) {
 
+  // Mock constants module since the script is hardcoded into scripts.jade and doesn't get loaded.
+  angular.module('benefisher.constants', []).constant('constants', {});
   /** SETUP **/
   beforeEach(module('benefisher'));
   // Mock controller dependencies.
