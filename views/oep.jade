@@ -1,0 +1,7 @@
+div(ng-controller='OepController')
+    div(ng-repeat='oepterm in oepterms')
+        div(ng-repeat='taxonomy in oepterm')
+            div(ng-repeat='services in taxonomy')
+                div(ng-repeat='descriptions in services')
+                    div(ng-repeat='category in descriptions')
+                        p {{category.title}}
