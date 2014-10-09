@@ -1,0 +1,1755 @@
+{
+  "taxonomy": {
+    "services": {
+      "descriptions": {
+        "category": [
+          {
+            "id": "1101",
+            "title": "emergency",
+            "text": "Services for psychiatric emergencies, emergency financial assistance, immediate safety needs, disaster preparedness and disaster responses"
+          },
+          {
+            "id": "1102",
+            "title": "food",
+            "text": "Services for free meals, food pantries, help paying for food, food delivery, food benefits and nutrition support."
+          },
+          {
+            "id": "1103",
+            "title": "housing",
+            "text": "Services for emergency, short-term and long-term housing, housing advice, help finding housing and help paying for housing."
+          },
+          {
+            "id": "1104",
+            "title": "goods",
+            "text": "Services for clothing, furniture, baby supplies, toys and gifts and other physical goods."
+          },
+          {
+            "id": "1105",
+            "title": "transit",
+            "text": "Services for bus passes, transportation to school, healthcare, appointments and more"
+          },
+          {
+            "id": "1106",
+            "title": "health",
+            "text": "Services for medical care, dental care, health education, addiction and recovery, help finding services and help paying for healthcare."
+          },
+          {
+            "id": "1107",
+            "title": "money",
+            "text": "Services to help pay for housing, education, childcare, school, food and goods, financial education, tax preparation, insurance, government benefits, vouchers and more."
+          },
+          {
+            "id": "1108",
+            "title": "care",
+            "text": "Services for animal welfare, residential caregiving, daytime caregiving, adoption & foster care, building support networks, end-of-life care and help navigating the system."
+          },
+          {
+            "id": "1109",
+            "title": "education",
+            "text": "Services for preschool, after-school, special education, help finding school, help paying for school, alternative education tutoring and more."
+          },
+          {
+            "id": "1110",
+            "title": "work",
+            "text": "Services for finding and sustaining work and improving job skills and abilities."
+          },
+          {
+            "id": "1111",
+            "title": "legal",
+            "text": "Services for legal representation, mediation, advocacy, citizenship and immigration, adoption and foster care, guardianship, civil rights and more."
+          }
+        ]
+      },
+      "top_level": [
+        {
+          "id": "1101",
+          "title": "Emergency",
+          "second_level": [
+            {
+              "id": "1112",
+              "title": "Disaster Response"
+            },
+            {
+              "id": "1113",
+              "title": "Emergency Payments",
+              "third_level": [
+                {
+                  "id": "1114",
+                  "title": "Help Pay for Food"
+                },
+                {
+                  "id": "1115",
+                  "title": "Help Pay for Healthcare"
+                },
+                {
+                  "id": "1116",
+                  "title": "Help Pay for Housing"
+                },
+                {
+                  "id": "1117",
+                  "title": "Help Pay for Gas"
+                },
+                {
+                  "id": "1118",
+                  "title": "Help Pay for School"
+                },
+                {
+                  "id": "1119",
+                  "title": "Help Pay for Utilities"
+                }
+              ]
+            },
+            {
+              "id": "1120",
+              "title": "Emergency Food"
+            },
+            {
+              "id": "1121",
+              "title": "Emergency Shelter"
+            },
+            {
+              "id": "1122",
+              "title": "Help Find Missing Persons"
+            },
+            {
+              "id": "1123",
+              "title": "Immediate Safety",
+              "third_level": [
+                {
+                  "id": "1124",
+                  "title": "Help Escape Violence"
+                },
+                {
+                  "id": "1125",
+                  "title": "Safe Housing"
+                }
+              ]
+            },
+            {
+              "id": "1126",
+              "title": "Psychiatric Emergency Services"
+            }
+          ]
+        },
+        {
+          "id": "1102",
+          "title": "Food",
+          "second_level": [
+            {
+              "id": "1127",
+              "title": "Community Gardens"
+            },
+            {
+              "id": "1128",
+              "title": "Emergency Food"
+            },
+            {
+              "id": "1129",
+              "title": "Food Delivery"
+            },
+            {
+              "id": "1130",
+              "title": "Food Pantry"
+            },
+            {
+              "id": "1131",
+              "title": "Free Meals"
+            },
+            {
+              "id": "1132",
+              "title": "Help Pay for Food",
+              "third_level": {
+                "id": "1133",
+                "title": "Food Benefits"
+              }
+            },
+            {
+              "id": "1134",
+              "title": "Nutrition"
+            }
+          ]
+        },
+        {
+          "id": "1103",
+          "title": "Housing",
+          "second_level": [
+            {
+              "id": "1135",
+              "title": "Emergency Shelter"
+            },
+            {
+              "id": "1136",
+              "title": "Help Find Housing"
+            },
+            {
+              "id": "1137",
+              "title": "Help Pay for Housing",
+              "third_level": [
+                {
+                  "id": "1138",
+                  "title": "Help Pay for Utilities"
+                },
+                {
+                  "id": "1139",
+                  "title": "Home & Renters Insurance"
+                },
+                {
+                  "id": "1140",
+                  "title": "Housing Vouchers"
+                },
+                {
+                  "id": "1141",
+                  "title": "Maintenance & Repairs"
+                }
+              ]
+            },
+            {
+              "id": "1142",
+              "title": "Housing Advice",
+              "third_level": [
+                {
+                  "id": "1143",
+                  "title": "Foreclosure Counseling"
+                },
+                {
+                  "id": "1144",
+                  "title": "Homebuyer Education"
+                }
+              ]
+            },
+            {
+              "id": "1145",
+              "title": "Residential Housing",
+              "third_level": [
+                {
+                  "id": "1146",
+                  "title": "Long-Term Housing",
+                  "fourth_level": [
+                    {
+                      "id": "1147",
+                      "title": "Assisted Living"
+                    },
+                    {
+                      "id": "1148",
+                      "title": "Independent Living"
+                    },
+                    {
+                      "id": "1149",
+                      "title": "Nursing Home"
+                    },
+                    {
+                      "id": "1150",
+                      "title": "Public Housing"
+                    }
+                  ]
+                },
+                {
+                  "id": "1151",
+                  "title": "Safe Housing"
+                },
+                {
+                  "id": "1152",
+                  "title": "Short-Term Housing",
+                  "fourth_level": [
+                    {
+                      "id": "1153",
+                      "title": "Nursing Home"
+                    },
+                    {
+                      "id": "1154",
+                      "title": "Sober Living"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1104",
+          "title": "Goods",
+          "second_level": [
+            {
+              "id": "1155",
+              "title": "Baby Supplies",
+              "third_level": [
+                {
+                  "id": "1156",
+                  "title": "Baby Clothes"
+                },
+                {
+                  "id": "1157",
+                  "title": "Diapers & Formula"
+                }
+              ]
+            },
+            {
+              "id": "1158",
+              "title": "Clothing",
+              "third_level": [
+                {
+                  "id": "1159",
+                  "title": "Baby Clothes"
+                },
+                {
+                  "id": "1160",
+                  "title": "Clothes for School"
+                },
+                {
+                  "id": "1161",
+                  "title": "Clothes for Work"
+                },
+                {
+                  "id": "1162",
+                  "title": "Clothing Vouchers"
+                }
+              ]
+            },
+            {
+              "id": "1163",
+              "title": "Home Goods",
+              "third_level": [
+                {
+                  "id": "1164",
+                  "title": "Blankets & Fans"
+                },
+                {
+                  "id": "1165",
+                  "title": "Books"
+                },
+                {
+                  "id": "1166",
+                  "title": "Furniture"
+                },
+                {
+                  "id": "1167",
+                  "title": "Personal Care Items"
+                },
+                {
+                  "id": "1168",
+                  "title": "Supplies for Work"
+                }
+              ]
+            },
+            {
+              "id": "1169",
+              "title": "Medical Supplies"
+            },
+            {
+              "id": "1171",
+              "title": "Toys & Gifts"
+            }
+          ],
+          "third_level": {
+            "id": "1170",
+            "title": "Assistive Technology"
+          }
+        },
+        {
+          "id": "1105",
+          "title": "Transit",
+          "second_level": [
+            {
+              "id": "1172",
+              "title": "Help Pay for Transit",
+              "third_level": [
+                {
+                  "id": "1173",
+                  "title": "Bus Passes"
+                },
+                {
+                  "id": "1174",
+                  "title": "Help Pay for Gas"
+                }
+              ]
+            },
+            {
+              "id": "1175",
+              "title": "Transportation",
+              "third_level": [
+                {
+                  "id": "1176",
+                  "title": "Transportation for Healthcare"
+                },
+                {
+                  "id": "1177",
+                  "title": "Transportation for School"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1106",
+          "title": "Health",
+          "second_level": [
+            {
+              "id": "1178",
+              "title": "Addiction & Recovery",
+              "third_level": [
+                {
+                  "id": "1179",
+                  "title": "12-Step"
+                },
+                {
+                  "id": "1180",
+                  "title": "Detox"
+                },
+                {
+                  "id": "1181",
+                  "title": "Outpatient Treatment"
+                },
+                {
+                  "id": "1182",
+                  "title": "Residential Treatment"
+                },
+                {
+                  "id": "1183",
+                  "title": "Sober Living"
+                }
+              ]
+            },
+            {
+              "id": "1184",
+              "title": "Dental Care"
+            },
+            {
+              "id": "1185",
+              "title": "End-of-Life Care",
+              "third_level": [
+                {
+                  "id": "1186",
+                  "title": "Bereavement"
+                },
+                {
+                  "id": "1187",
+                  "title": "Burial & Funeral Help"
+                },
+                {
+                  "id": "1188",
+                  "title": "Hospice"
+                },
+                {
+                  "id": "1189",
+                  "title": "Pain Management"
+                }
+              ]
+            },
+            {
+              "id": "1190",
+              "title": "Health Education",
+              "third_level": [
+                {
+                  "id": "1191",
+                  "title": "Daily Life Skills"
+                },
+                {
+                  "id": "1192",
+                  "title": "Disease Management"
+                },
+                {
+                  "id": "1193",
+                  "title": "Family Planning"
+                },
+                {
+                  "id": "1194",
+                  "title": "Nutrition"
+                },
+                {
+                  "id": "1195",
+                  "title": "Parenting Education"
+                },
+                {
+                  "id": "1196",
+                  "title": "Sex Education"
+                },
+                {
+                  "id": "1197",
+                  "title": "Understand Disability"
+                },
+                {
+                  "id": "1198",
+                  "title": "Understand Mental Health"
+                }
+              ]
+            },
+            {
+              "id": "1199",
+              "title": "Help Pay for Healthcare",
+              "third_level": [
+                {
+                  "id": "1200",
+                  "title": "Disability Benefits"
+                },
+                {
+                  "id": "1201",
+                  "title": "Discounted Healthcare"
+                },
+                {
+                  "id": "1202",
+                  "title": "Health Insurance"
+                },
+                {
+                  "id": "1203",
+                  "title": "Medical Supplies"
+                },
+                {
+                  "id": "1204",
+                  "title": "Prescription Assistance"
+                },
+                {
+                  "id": "1205",
+                  "title": "Transportation for Healthcare"
+                }
+              ]
+            },
+            {
+              "id": "1206",
+              "title": "Medical Care",
+              "third_level": [
+                {
+                  "id": "1206",
+                  "title": "Primary Care"
+                },
+                {
+                  "id": "1207",
+                  "title": "Alternative Medicine"
+                },
+                {
+                  "id": "1208",
+                  "title": "Assistive Technology"
+                },
+                {
+                  "id": "1209",
+                  "title": "Birth Control"
+                },
+                {
+                  "id": "1210",
+                  "title": "Checkup & Test",
+                  "fourth_level": [
+                    {
+                      "id": "1211",
+                      "title": "Disability Screening"
+                    },
+                    {
+                      "id": "1212",
+                      "title": "Disease Screening"
+                    },
+                    {
+                      "id": "1213",
+                      "title": "Hearing Tests"
+                    },
+                    {
+                      "id": "1214",
+                      "title": "Mental Health Evaluation"
+                    },
+                    {
+                      "id": "1215",
+                      "title": "Pregnancy Tests"
+                    },
+                    {
+                      "id": "1216",
+                      "title": "Vision Tests"
+                    }
+                  ]
+                },
+                {
+                  "id": "1217",
+                  "title": "Maternity Care"
+                },
+                {
+                  "id": "1218",
+                  "title": "Personal Hygiene"
+                },
+                {
+                  "id": "1219",
+                  "title": "Prevent & Treat",
+                  "fourth_level": [
+                    {
+                      "id": "1220",
+                      "title": "Counseling"
+                    },
+                    {
+                      "id": "1221",
+                      "title": "HIV Treatment"
+                    },
+                    {
+                      "id": "1222",
+                      "title": "Pain Management"
+                    },
+                    {
+                      "id": "1223",
+                      "title": "Disease Management"
+                    },
+                    {
+                      "id": "1224",
+                      "title": "Nursing Home"
+                    },
+                    {
+                      "id": "1225",
+                      "title": "Physical Therapy"
+                    },
+                    {
+                      "id": "1226",
+                      "title": "Specialized Therapy"
+                    },
+                    {
+                      "id": "1227",
+                      "title": "Vaccinations"
+                    },
+                    {
+                      "id": "1228",
+                      "title": "In-Home Support"
+                    },
+                    {
+                      "id": "1229",
+                      "title": "Residential Treatment"
+                    },
+                    {
+                      "id": "1230",
+                      "title": "Outpatient Treatment"
+                    }
+                  ]
+                },
+                {
+                  "id": "1231",
+                  "title": "Psychiatric Emergency Services"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1107",
+          "title": "Money",
+          "second_level": [
+            {
+              "id": "1232",
+              "title": "Financial Assistance",
+              "third_level": [
+                {
+                  "id": "1233",
+                  "title": "Help Pay for Childcare"
+                },
+                {
+                  "id": "1234",
+                  "title": "Help Pay for Food",
+                  "fourth_level": {
+                    "id": "1235",
+                    "title": "Food Benefits"
+                  }
+                },
+                {
+                  "id": "1236",
+                  "title": "Help Pay for Healthcare",
+                  "fourth_level": [
+                    {
+                      "id": "1237",
+                      "title": "Disability Benefits"
+                    },
+                    {
+                      "id": "1238",
+                      "title": "Discounted Healthcare"
+                    },
+                    {
+                      "id": "1239",
+                      "title": "Health Insurance"
+                    },
+                    {
+                      "id": "1240",
+                      "title": "Medical Supplies"
+                    },
+                    {
+                      "id": "1241",
+                      "title": "Prescription Assistance"
+                    },
+                    {
+                      "id": "1242",
+                      "title": "Transportation for Healthcare"
+                    }
+                  ]
+                },
+                {
+                  "id": "1243",
+                  "title": "Help Pay for Housing",
+                  "fourth_level": [
+                    {
+                      "id": "1244",
+                      "title": "Help Pay for Utilities"
+                    },
+                    {
+                      "id": "1245",
+                      "title": "Home & Renters Insurance"
+                    },
+                    {
+                      "id": "1246",
+                      "title": "Maintenance & Repairs"
+                    }
+                  ]
+                },
+                {
+                  "id": "1247",
+                  "title": "Help Pay for School",
+                  "fourth_level": [
+                    {
+                      "id": "1248",
+                      "title": "Books"
+                    },
+                    {
+                      "id": "1249",
+                      "title": "Clothes for School"
+                    },
+                    {
+                      "id": "1250",
+                      "title": "Financial Aid & Loans"
+                    },
+                    {
+                      "id": "1251",
+                      "title": "Transportation for School"
+                    }
+                  ]
+                },
+                {
+                  "id": "1252",
+                  "title": "Help Pay for Transit",
+                  "fourth_level": [
+                    {
+                      "id": "1253",
+                      "title": "Help Pay for Gas"
+                    },
+                    {
+                      "id": "1254",
+                      "title": "Bus Passes"
+                    }
+                  ]
+                },
+                {
+                  "id": "1255",
+                  "title": "Help Pay for Work Expenses"
+                }
+              ]
+            },
+            {
+              "id": "1256",
+              "title": "Government Benefits",
+              "third_level": [
+                {
+                  "id": "1257",
+                  "title": "Disability Benefits"
+                },
+                {
+                  "id": "1258",
+                  "title": "Food Benefits"
+                },
+                {
+                  "id": "1259",
+                  "title": "Retirement Benefits"
+                },
+                {
+                  "id": "1260",
+                  "title": "Understand Government Programs"
+                },
+                {
+                  "id": "1261",
+                  "title": "Unemployment Benefits"
+                }
+              ]
+            },
+            {
+              "id": "1262",
+              "title": "Financial Education",
+              "third_level": [
+                {
+                  "id": "1263",
+                  "title": "Credit Counseling"
+                },
+                {
+                  "id": "1264",
+                  "title": "Foreclosure Counseling"
+                },
+                {
+                  "id": "1265",
+                  "title": "Homebuyer Education"
+                },
+                {
+                  "id": "1266",
+                  "title": "Savings Program"
+                }
+              ]
+            },
+            {
+              "id": "1267",
+              "title": "Insurance",
+              "third_level": [
+                {
+                  "id": "1268",
+                  "title": "Health Insurance"
+                },
+                {
+                  "id": "1269",
+                  "title": "Home & Renters Insurance"
+                }
+              ]
+            },
+            {
+              "id": "1270",
+              "title": "Tax Preparation"
+            }
+          ]
+        },
+        {
+          "id": "1108",
+          "title": "Care",
+          "second_level": [
+            {
+              "id": "1271",
+              "title": "Adoption & Foster Care",
+              "third_level": [
+                {
+                  "id": "1272",
+                  "title": "Adoption & Foster Placement"
+                },
+                {
+                  "id": "1273",
+                  "title": "Adoption & Foster Parenting"
+                },
+                {
+                  "id": "1274",
+                  "title": "Adoption Planning"
+                },
+                {
+                  "id": "1275",
+                  "title": "Post-Adoption Support"
+                }
+              ]
+            },
+            {
+              "id": "1276",
+              "title": "Animal Welfare"
+            },
+            {
+              "id": "1277",
+              "title": "Daytime Care",
+              "third_level": [
+                {
+                  "id": "1278",
+                  "title": "Adult Daycare"
+                },
+                {
+                  "id": "1279",
+                  "title": "Afterschool Care"
+                },
+                {
+                  "id": "1280",
+                  "title": "Childcare",
+                  "fourth_level": [
+                    {
+                      "id": "1281",
+                      "title": "Help Find Childcare"
+                    },
+                    {
+                      "id": "1282",
+                      "title": "Help Pay for Childcare"
+                    }
+                  ]
+                },
+                {
+                  "id": "1283",
+                  "title": "Day Camp"
+                },
+                {
+                  "id": "1284",
+                  "title": "Preschool"
+                },
+                {
+                  "id": "1285",
+                  "title": "Recreation"
+                },
+                {
+                  "id": "1286",
+                  "title": "Relief for Caregivers"
+                }
+              ]
+            },
+            {
+              "id": "1287",
+              "title": "End-of-Life Care",
+              "third_level": [
+                {
+                  "id": "1288",
+                  "title": "Bereavement"
+                },
+                {
+                  "id": "1289",
+                  "title": "Burial & Funeral Help"
+                },
+                {
+                  "id": "1290",
+                  "title": "Hospice"
+                },
+                {
+                  "id": "1291",
+                  "title": "Pain Management"
+                }
+              ]
+            },
+            {
+              "id": "1292",
+              "title": "Navigating the System",
+              "third_level": [
+                {
+                  "id": "1293",
+                  "title": "Help Fill out Forms"
+                },
+                {
+                  "id": "1294",
+                  "title": "Help Find Childcare"
+                },
+                {
+                  "id": "1295",
+                  "title": "Help Find Housing"
+                },
+                {
+                  "id": "1296",
+                  "title": "Help Find School"
+                },
+                {
+                  "id": "1297",
+                  "title": "Help Find Work"
+                }
+              ]
+            },
+            {
+              "id": "1298",
+              "title": "Residential Care",
+              "third_level": [
+                {
+                  "id": "1299",
+                  "title": "Assisted Living"
+                },
+                {
+                  "id": "1300",
+                  "title": "Residential Treatment"
+                },
+                {
+                  "id": "1301",
+                  "title": "Nursing Home"
+                },
+                {
+                  "id": "1302",
+                  "title": "Overnight Camp"
+                }
+              ]
+            },
+            {
+              "id": "1303",
+              "title": "Support Network",
+              "third_level": [
+                {
+                  "id": "1304",
+                  "title": "Counseling"
+                },
+                {
+                  "id": "1305",
+                  "title": "Help Hotlines"
+                },
+                {
+                  "id": "1306",
+                  "title": "Home Visiting"
+                },
+                {
+                  "id": "1307",
+                  "title": "In-Home Support"
+                },
+                {
+                  "id": "1308",
+                  "title": "Mentoring"
+                },
+                {
+                  "id": "1309",
+                  "title": "One-on-One Support"
+                },
+                {
+                  "id": "1310",
+                  "title": "Peer Support"
+                },
+                {
+                  "id": "1311",
+                  "title": "Spiritual Support"
+                },
+                {
+                  "id": "1312",
+                  "title": "Support Groups",
+                  "fourth_level": [
+                    {
+                      "id": "1313",
+                      "title": "12-Step"
+                    },
+                    {
+                      "id": "1314",
+                      "title": "Bereavement"
+                    },
+                    {
+                      "id": "1315",
+                      "title": "Parenting Education"
+                    }
+                  ]
+                },
+                {
+                  "id": "1316",
+                  "title": "Virtual Support"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1109",
+          "title": "Education",
+          "second_level": [
+            {
+              "id": "1317",
+              "title": "Help Find School"
+            },
+            {
+              "id": "1318",
+              "title": "Help Pay for School",
+              "third_level": [
+                {
+                  "id": "1319",
+                  "title": "Books"
+                },
+                {
+                  "id": "1320",
+                  "title": "Clothes for School"
+                },
+                {
+                  "id": "1321",
+                  "title": "Financial Aid & Loans"
+                },
+                {
+                  "id": "1322",
+                  "title": "Transportation for School"
+                }
+              ]
+            },
+            {
+              "id": "1323",
+              "title": "More Education",
+              "third_level": [
+                {
+                  "id": "1324",
+                  "title": "Alternative Education"
+                },
+                {
+                  "id": "1325",
+                  "title": "Disaster Preparedness & Response"
+                },
+                {
+                  "id": "1326",
+                  "title": "English as a Second Language (ESL)"
+                },
+                {
+                  "id": "1327",
+                  "title": "Financial Education",
+                  "fourth_level": [
+                    {
+                      "id": "1328",
+                      "title": "Credit Counseling"
+                    },
+                    {
+                      "id": "1329",
+                      "title": "Foreclosure Counseling"
+                    },
+                    {
+                      "id": "1330",
+                      "title": "Homebuyer Education"
+                    }
+                  ]
+                },
+                {
+                  "id": "1331",
+                  "title": "Foreign Languages"
+                },
+                {
+                  "id": "1332",
+                  "title": "GED/High-School Equivalency"
+                },
+                {
+                  "id": "1333",
+                  "title": "Health Education",
+                  "fourth_level": [
+                    {
+                      "id": "1334",
+                      "title": "Disease Management"
+                    },
+                    {
+                      "id": "1335",
+                      "title": "Family Planning"
+                    },
+                    {
+                      "id": "1336",
+                      "title": "Nutrition Education"
+                    },
+                    {
+                      "id": "1337",
+                      "title": "Parenting Education"
+                    },
+                    {
+                      "id": "1338",
+                      "title": "Sex Education"
+                    },
+                    {
+                      "id": "1339",
+                      "title": "Understand Disability"
+                    },
+                    {
+                      "id": "1340",
+                      "title": "Understand Mental Health"
+                    }
+                  ]
+                },
+                {
+                  "id": "1341",
+                  "title": "Supported Employment"
+                },
+                {
+                  "id": "1342",
+                  "title": "Special Education"
+                },
+                {
+                  "id": "1343",
+                  "title": "Tutoring"
+                }
+              ]
+            },
+            {
+              "id": "1344",
+              "title": "Preschool"
+            },
+            {
+              "id": "1345",
+              "title": "Screening & Exams",
+              "third_level": [
+                {
+                  "id": "1346",
+                  "title": "Citizenship & Immigration"
+                },
+                {
+                  "id": "1347",
+                  "title": "GED/High-School Equivalency"
+                },
+                {
+                  "id": "1348",
+                  "title": "English as a Second Language (ESL)"
+                }
+              ]
+            },
+            {
+              "id": "1349",
+              "title": "Skills & Training",
+              "third_level": [
+                {
+                  "id": "1350",
+                  "title": "Basic Literacy"
+                },
+                {
+                  "id": "1351",
+                  "title": "Computer Class"
+                },
+                {
+                  "id": "1352",
+                  "title": "Daily Life Skills"
+                },
+                {
+                  "id": "1353",
+                  "title": "Interview Training"
+                },
+                {
+                  "id": "1354",
+                  "title": "Resume Development"
+                },
+                {
+                  "id": "1355",
+                  "title": "Skills Assessment"
+                },
+                {
+                  "id": "1356",
+                  "title": "Specialized Training"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1110",
+          "title": "Work",
+          "second_level": [
+            {
+              "id": "1357",
+              "title": "Help Find Work",
+              "third_level": [
+                {
+                  "id": "1358",
+                  "title": "Job Placement"
+                },
+                {
+                  "id": "1359",
+                  "title": "Supported Employment"
+                }
+              ]
+            },
+            {
+              "id": "1360",
+              "title": "Help Pay for Work Expenses",
+              "third_level": [
+                {
+                  "id": "1361",
+                  "title": "Clothes for Work"
+                },
+                {
+                  "id": "1362",
+                  "title": "Retirement Benefits"
+                },
+                {
+                  "id": "1363",
+                  "title": "Supplies for Work"
+                },
+                {
+                  "id": "1364",
+                  "title": "Unemployment Benefits"
+                }
+              ]
+            },
+            {
+              "id": "1365",
+              "title": "Skills & Training",
+              "third_level": [
+                {
+                  "id": "1366",
+                  "title": "Basic Literacy"
+                },
+                {
+                  "id": "1367",
+                  "title": "Computer Class"
+                },
+                {
+                  "id": "1368",
+                  "title": "GED/High-School Equivalency"
+                },
+                {
+                  "id": "1369",
+                  "title": "Interview Training"
+                },
+                {
+                  "id": "1370",
+                  "title": "Resume Development"
+                },
+                {
+                  "id": "1371",
+                  "title": "Skills Assessment"
+                },
+                {
+                  "id": "1372",
+                  "title": "Specialized Training"
+                }
+              ]
+            },
+            {
+              "id": "1373",
+              "title": "Supported Employment"
+            },
+            {
+              "id": "1374",
+              "title": "Workplace Rights"
+            }
+          ]
+        },
+        {
+          "id": "1111",
+          "title": "Legal",
+          "second_level": [
+            {
+              "id": "1375",
+              "title": "Advocacy & Legal Aid",
+              "third_level": [
+                {
+                  "id": "1376",
+                  "title": "Adoption & Foster Care",
+                  "fourth_level": [
+                    {
+                      "id": "1377",
+                      "title": "Adoption & Foster Placement"
+                    },
+                    {
+                      "id": "1378",
+                      "title": "Adoption & Foster Parenting"
+                    },
+                    {
+                      "id": "1379",
+                      "title": "Adoption Planning"
+                    },
+                    {
+                      "id": "1380",
+                      "title": "Post-Adoption Support"
+                    }
+                  ]
+                },
+                {
+                  "id": "1381",
+                  "title": "Citizenship & Immigration"
+                },
+                {
+                  "id": "1382",
+                  "title": "Discrimination & Civil Rights"
+                },
+                {
+                  "id": "1383",
+                  "title": "Guardianship"
+                },
+                {
+                  "id": "1384",
+                  "title": "Identification Recovery"
+                },
+                {
+                  "id": "1385",
+                  "title": "Understand Government Programs"
+                },
+                {
+                  "id": "1386",
+                  "title": "Workplace Rights"
+                }
+              ]
+            },
+            {
+              "id": "1387",
+              "title": "Mediation"
+            },
+            {
+              "id": "1388",
+              "title": "Notary"
+            },
+            {
+              "id": "1389",
+              "title": "Representation"
+            },
+            {
+              "id": "1390",
+              "title": "Translation & Interpretation"
+            }
+          ]
+        }
+      ]
+    },
+    "situations": {
+      "top_level": [
+        {
+          "id": "20000",
+          "title": "General",
+          "second_level": {
+            "id": "20001",
+            "title": "Anyone in Need"
+          }
+        },
+        {
+          "id": "20002",
+          "title": "Age Group",
+          "second_level": [
+            {
+              "id": "20003",
+              "title": "Adults"
+            },
+            {
+              "id": "20004",
+              "title": "Teens"
+            },
+            {
+              "id": "20005",
+              "title": "Children"
+            },
+            {
+              "id": "20006",
+              "title": "Seniors"
+            }
+          ]
+        },
+        {
+          "id": "20007",
+          "title": "Armed Forces",
+          "second_level": [
+            {
+              "id": "20008",
+              "title": "Active Duty"
+            },
+            {
+              "id": "20009",
+              "title": "National Guard"
+            },
+            {
+              "id": "20010",
+              "title": "Veterans"
+            }
+          ]
+        },
+        {
+          "id": "20011",
+          "title": "Citizenship",
+          "second_level": [
+            {
+              "id": "20012",
+              "title": "Immigrants"
+            },
+            {
+              "id": "20013",
+              "title": "Refugees"
+            },
+            {
+              "id": "20014",
+              "title": "Undocumented"
+            }
+          ]
+        },
+        {
+          "id": "20015",
+          "title": "Criminal History",
+          "second_level": {
+            "id": "20016",
+            "title": "Ex-Offenders"
+          }
+        },
+        {
+          "id": "20017",
+          "title": "Disability",
+          "second_level": [
+            {
+              "id": "20018",
+              "title": "Learning Disability"
+            },
+            {
+              "id": "20019",
+              "title": "Developmental Disability"
+            },
+            {
+              "id": "20020",
+              "title": "Physical Disability"
+            },
+            {
+              "id": "20093",
+              "title": "Intellectual Disability"
+            },
+            {
+              "id": "20021",
+              "title": "Mentally Incapacitated"
+            },
+            {
+              "id": "20022",
+              "title": "Limited Mobility"
+            },
+            {
+              "id": "20023",
+              "title": "Hearing Impairment"
+            },
+            {
+              "id": "20024",
+              "title": "Visual Impairment"
+            },
+            {
+              "id": "20025",
+              "title": "Mental Illness"
+            }
+          ]
+        },
+        {
+          "id": "20026",
+          "title": "Education",
+          "second_level": [
+            {
+              "id": "20027",
+              "title": "Dropouts"
+            },
+            {
+              "id": "20028",
+              "title": "Students"
+            }
+          ]
+        },
+        {
+          "id": "20029",
+          "title": "Emotional State",
+          "second_level": {
+            "id": "20030",
+            "title": "Grieving"
+          }
+        },
+        {
+          "id": "20031",
+          "title": "Employment",
+          "second_level": [
+            {
+              "id": "20032",
+              "title": "Employed"
+            },
+            {
+              "id": "20033",
+              "title": "Retirement"
+            },
+            {
+              "id": "20034",
+              "title": "Unemployed"
+            }
+          ]
+        },
+        {
+          "id": "20035",
+          "title": "Gender",
+          "second_level": [
+            {
+              "id": "20036",
+              "title": "Women"
+            },
+            {
+              "id": "20037",
+              "title": "Men"
+            },
+            {
+              "id": "20038",
+              "title": "Transgender"
+            }
+          ]
+        },
+        {
+          "id": "20039",
+          "title": "Guardianship",
+          "second_level": {
+            "id": "20040",
+            "title": "Foster Youth"
+          }
+        },
+        {
+          "id": "20041",
+          "title": "Health",
+          "second_level": [
+            {
+              "id": "20042",
+              "title": "Hospitalized"
+            },
+            {
+              "id": "20043",
+              "title": "Pregnant"
+            },
+            {
+              "id": "20044",
+              "title": "Cancer"
+            },
+            {
+              "id": "20045",
+              "title": "Alzheimers"
+            },
+            {
+              "id": "20046",
+              "title": "Seizure Disorder"
+            },
+            {
+              "id": "20047",
+              "title": "Terminal Illness"
+            },
+            {
+              "id": "20048",
+              "title": "Infectious Disease"
+            },
+            {
+              "id": "20049",
+              "title": "Neuromuscular Disease"
+            },
+            {
+              "id": "20050",
+              "title": "Substance Dependency"
+            },
+            {
+              "id": "20051",
+              "title": "Mental Illness"
+            },
+            {
+              "id": "20090",
+              "title": "Chronic Illness"
+            }
+          ]
+        },
+        {
+          "id": "20052",
+          "title": "Household",
+          "second_level": [
+            {
+              "id": "20053",
+              "title": "Individuals"
+            },
+            {
+              "id": "20054",
+              "title": "Families"
+            }
+          ]
+        },
+        {
+          "id": "20055",
+          "title": "Housing",
+          "second_level": [
+            {
+              "id": "20056",
+              "title": "Home Owners"
+            },
+            {
+              "id": "20057",
+              "title": "Home Renters"
+            },
+            {
+              "id": "20058",
+              "title": "Homeless"
+            },
+            {
+              "id": "20059",
+              "title": "Near Homeless"
+            },
+            {
+              "id": "20060",
+              "title": "Runaways"
+            }
+          ]
+        },
+        {
+          "id": "20061",
+          "title": "Income",
+          "second_level": [
+            {
+              "id": "20062",
+              "title": "Benefit Recipients"
+            },
+            {
+              "id": "20063",
+              "title": "Low-Income"
+            }
+          ]
+        },
+        {
+          "id": "20064",
+          "title": "Insurance",
+          "second_level": {
+            "id": "20065",
+            "title": "Uninsured"
+          }
+        },
+        {
+          "id": "20066",
+          "title": "Language",
+          "second_level": {
+            "id": "20067",
+            "title": "Limited English"
+          }
+        },
+        {
+          "id": "20068",
+          "title": "Race/Ethnicity",
+          "second_level": [
+            {
+              "id": "20069",
+              "title": "African American"
+            },
+            {
+              "id": "20070",
+              "title": "Asian"
+            },
+            {
+              "id": "20071",
+              "title": "Latino"
+            }
+          ]
+        },
+        {
+          "id": "20072",
+          "title": "Role",
+          "second_level": [
+            {
+              "id": "20073",
+              "title": "Caregivers"
+            },
+            {
+              "id": "20091",
+              "title": "Spouses"
+            },
+            {
+              "id": "20092",
+              "title": "Dependents"
+            },
+            {
+              "id": "20074",
+              "title": "Fathers"
+            },
+            {
+              "id": "20075",
+              "title": "Mothers"
+            },
+            {
+              "id": "20076",
+              "title": "Parents"
+            }
+          ]
+        },
+        {
+          "id": "20077",
+          "title": "Sexuality",
+          "second_level": {
+            "id": "20078",
+            "title": "LGBTQ"
+          }
+        },
+        {
+          "id": "20079",
+          "title": "Survivors",
+          "second_level": [
+            {
+              "id": "20080",
+              "title": "All Survivors"
+            },
+            {
+              "id": "20081",
+              "title": "Abuse or Neglect Survivors"
+            },
+            {
+              "id": "20082",
+              "title": "Burn Survivors"
+            },
+            {
+              "id": "20083",
+              "title": "Domestic Violence Survivors"
+            },
+            {
+              "id": "20084",
+              "title": "Human Trafficking Survivors"
+            },
+            {
+              "id": "20085",
+              "title": "Natural Disaster Survivors"
+            },
+            {
+              "id": "20086",
+              "title": "Sexual Assault Survivors"
+            }
+          ]
+        },
+        {
+          "id": "20087",
+          "title": "Urgency",
+          "second_level": [
+            {
+              "id": "20088",
+              "title": "In Crisis"
+            },
+            {
+              "id": "20089",
+              "title": "In Danger"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
