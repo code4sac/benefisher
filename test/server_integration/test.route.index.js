@@ -10,6 +10,7 @@ describe('GET /', function() { // Describes the
       .get('/')
       .set('Accept', 'text/html')
       .expect('Content-Type', /html/)
-      .expect(200, done); // note that we're passing the done as parameter to the expect
+      .expect(200);
+    done();
   });
 });

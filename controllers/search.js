@@ -7,15 +7,21 @@
  * @param req
  * @param res
  * @param Result The Result model.
- * @param fileSystem
+ * @param request
  * @constructor
  */
-var SearchController = function(req, res, Result, fileSystem)
+var SearchController = function(req, res, Result, request)
 {
 
-  var terms = constructQueryTermsArray(req.query);
   // Bounds query string should look like: 'top,left,bottom,right'.
   var bounds = constructQueryBounds(req.query);
+
+  var apiUrl = 'https://ohana-api-demo.herokuapp.com/api/search';
+
+  var requestOptions = {
+    uri: apiUrl,
+    qs: req.query
+  };
 
   /**
    * Filter all the results based on query parameters, and render the results.
@@ -24,48 +30,37 @@ var SearchController = function(req, res, Result, fileSystem)
   {
     var output = [];
 
-    // Load JSON from file.
-    return fileSystem.readFile('sample_data/sample.json', null, function(err, data) {
-      if (err) {
-        // Error
+    // Load JSON from API.
+    request(requestOptions, handleHttpResponse);
+
+    /**
+     * Handle the HTTP response
+     * @param error
+     * @param response
+     * @param body
+     */
+    function handleHttpResponse(error, response, body)
+    {
+      // Throw a 500 if our response returned an error, or if the response code is not between 200 and 399.
+      if (error || response.statusCode < 200 || response.statusCode >= 400) {
         res.status(500).send("Error loading data.");
       } else {
-        data = JSON.parse(data);
+        data = JSON.parse(body);
         // Only search by bounds if the bounds parameter exists
         if (bounds) {
-          data = filterByQueryBounds(data);
+          data = data.filter(isInQueryBounds);
         }
-        // Only search by terms if the terms parameter exists
-        if (terms.length) {
-          data = data.filter(containsQueryTerms);
-        }
+
         var results = [];
         // Extract data into Result models
         data.forEach(function(element) {
           results.push(new Result(element));
         });
-        // Flatten results into array of locations
-        output = output.concat.apply(output, results);
-        res.json(output);
-      }
-    });
-  };
 
-  /**
-   * Construct an array of query terms from the 'terms' query parameter.
-   * @returns {Array}
-   */
-  function constructQueryTermsArray(query)
-  {
-    var terms = [];
-    if ( query && query.terms && query.terms.length > 2) {
-      terms = query.terms.split(',');
-      terms.forEach(function (term, index, terms) {
-        terms[index] = new RegExp(term.trim(), 'gi');
-      });
+        res.json(results);
+      }
     }
-    return terms;
-  }
+  };
 
   /**
    * Build a coordinates object from query parameters.
@@ -89,68 +84,24 @@ var SearchController = function(req, res, Result, fileSystem)
   }
 
   /**
-   * Filter the data array based on query bounds.
-   * @param data
-   * @returns {*}
-   */
-  function filterByQueryBounds(data)
-  {
-    var i = data.length;
-    while (i--) {
-      data[i].locations = data[i].locations.filter(isInQueryBounds);
-      // If there's no locations, remove the result.
-      if ( ! data[i].locations.length) {
-        data.splice(i, 1);
-      }
-    }
-    return data;
-  }
-
-  /**
    * Determine whether a location is within the query bounds.
    * @param location
    * @returns {boolean}
    */
   function isInQueryBounds(location)
   {
-    if ( ! location.latitude || ! location.longitude) {
+    var coords = location.coordinates;
+    if ( ! coords || ! coords[0] || ! coords[1]) {
       return false;
     }
-    return location.latitude <= bounds.top
-      && location.longitude >= bounds.left
-      && location.latitude >= bounds.bottom
-      && location.longitude <= bounds.right;
+    var longitude = coords[0];
+    var latitude = coords[1];
+    return latitude <= bounds.top
+      && longitude >= bounds.left
+      && latitude >= bounds.bottom
+      && longitude <= bounds.right;
   }
 
-  /**
-   * Recursive function to filter an item by search terms.
-   * @param item
-   */
-  function containsQueryTerms(item)
-  {
-    // Recursive case: item is array.
-    if (Object.prototype.toString.call(item) === '[object Array]') {
-      // If there are any objects left in the filtered array, query terms were found.
-      return item.filter(containsQueryTerms).length;
-
-    }
-    // Recursive case: item is object.
-    if (typeof item === 'object') {
-      for (property in item) {
-        if (containsQueryTerms(item[property])) {
-          return true;
-        }
-      }
-    }
-    // Terminating case: item is string.
-    if (typeof item === 'string') {
-      for (var i = 0; i < terms.length; i++) {
-        if (item.match(terms[i])) {
-          return true;
-        }
-      }
-    }
-  }
-}
+};
 
 module.exports = SearchController;

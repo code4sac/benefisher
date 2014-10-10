@@ -81,8 +81,8 @@ var MapController = function($scope, search, notification, constants, leafletDat
     };
     // Use Sacramento as default center
     var center = {
-      lat: 38.5556,
-      lng: -121.4689,
+      lat: 37.5520,
+      lng: -122.3131,
       zoom: ZOOM_DEFAULT
     };
     // Extend scope object with defaults and center for map.
