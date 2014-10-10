@@ -1,7 +1,8 @@
 // Created by anthony on 9/20/14.
 
 //TODO: Should eventually take the full screen.. margin is too high.
-div(class="col-sm-6 col-xs-12 input-container")
-    input(type="text", name="situation", placeholder="Where I'm at...", class="search-input situation-input")
-div(class="col-sm-6 col-xs-12 input-container")
-    input(type="text", name="need", placeholder="What I need...", class="search-input need-input")
+div
+    div(class="col-sm-6 col-xs-12 input-container")
+        input(type="text", name="situation", placeholder="Where I'm at...", class="search-input situation-input")
+    div(class="col-sm-6 col-xs-12 input-container")
+        input(type="text", name="need", placeholder="What I need...", class="search-input need-input", ng-model="need")
