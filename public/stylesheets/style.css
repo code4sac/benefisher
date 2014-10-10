@@ -5308,10 +5308,14 @@ ul.notifications {
   min-width: 240px;
   text-align: center; }
 
+.search-container {
+  padding-top: 10px; }
+
 .search-input {
   width: 100%;
   text-align: center;
-  padding-top: 20px;
+  padding-top: 10px;
+  margin-bottom: 10px;
   font-size: 1.5em;
   border: 0;
   border-bottom: 1px dashed orange; }
