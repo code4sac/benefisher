@@ -37,11 +37,10 @@ var SearchController = function(req, res, Result, fileSystem)
         if (terms.length) {
           data = data.filter(containsQueryTerms);
         }
-        var dataCount = data.length;
         var results = [];
-        for(var i = 0; i < dataCount; i++) {
-          results.push(new Result(data[i]));
-        }
+        data.forEach(function(element) {
+          results.push(new Result(element));
+        });
         output = output.concat.apply(output, results);
         res.json(output);
       }
