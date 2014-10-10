@@ -31,16 +31,20 @@ var SearchController = function(req, res, Result, fileSystem)
         res.status(500).send("Error loading data.");
       } else {
         data = JSON.parse(data);
+        // Only search by bounds if the bounds parameter exists
         if (bounds) {
           data = filterByQueryBounds(data);
         }
+        // Only search by terms if the terms parameter exists
         if (terms.length) {
           data = data.filter(containsQueryTerms);
         }
         var results = [];
+        // Extract data into Result models
         data.forEach(function(element) {
           results.push(new Result(element));
         });
+        // Flatten results into array of locations
         output = output.concat.apply(output, results);
         res.json(output);
       }
