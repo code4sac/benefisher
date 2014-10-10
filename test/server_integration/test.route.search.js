@@ -4,7 +4,7 @@ var nock = require('nock');
 // Here we get hold of the express application
 var app = require("../../app.js");
 
-var baseUrl = 'https://ohana-api-demo.herokuapp.com';
+var baseUrl = 'http://ohanapi.herokuapp.com';
 var path = '/api/search';
 
 describe('GET /search', function() {

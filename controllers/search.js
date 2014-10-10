@@ -16,11 +16,15 @@ var SearchController = function(req, res, Result, request)
   // Bounds query string should look like: 'top,left,bottom,right'.
   var bounds = constructQueryBounds(req.query);
 
-  var apiUrl = 'https://ohana-api-demo.herokuapp.com/api/search';
+  var apiUrl = 'http://ohanapi.herokuapp.com/api/search';
 
+  // TODO: move API token to .env
   var requestOptions = {
     uri: apiUrl,
-    qs: req.query
+    qs: req.query,
+    headers: {
+      "A-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
+    }
   };
 
   /**
