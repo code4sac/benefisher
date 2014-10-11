@@ -36,6 +36,8 @@ describe('ResultsController', function (done) {
   beforeEach(inject(function ($rootScope, $controller) {
     // Create stub notification info method.
     notification.info = sinon.spy();
+    // Stub search remove method
+    search.remove = sinon.spy()
     // Create a fresh scope object.
     scope = $rootScope.$new();
     // Initialize the controller with sample data.
@@ -60,31 +62,27 @@ describe('ResultsController', function (done) {
   //Remove 1 element from the array normally
   it('should remove an element from the array when told', function () {
     scope.hideResult(1);
-    expect(scope.results.length).to.equal(7);
+    expect(search.remove).to.have.been.called;
   });
 
   //Try to remove elements that are out of bounds (larger than array len, below 0, and above max results shown)
   it('should not allow for the removal of an index that is out of bounds', function () {
     scope.hideResult(8);
-    expect(scope.results.length).to.equal(8);
+    expect(search.remove).to.not.have.been.called;
 
     scope.hideResult(-1);
-    expect(scope.results.length).to.equal(8);
+    expect(search.remove).to.not.have.been.called;
 
     scope.hideResult(MAX_RESULTS_SHOWN);
-    expect(scope.results.length).to.equal(8);
+    expect(search.remove).to.not.have.been.called;
 
   });
 
   //Attempt to remove an element after all are removed
   it('should not allow for results manipulation after none are showing', function () {
-    //Clear the results.
-    for (var i = 0; i < 8; i++) {
-      scope.hideResult(0);
-    }
-    expect(scope.results.length).to.equal(0);
+    ctrl.update([]);
     scope.hideResult(0);
-    expect(scope.results.length).to.equal(0);
+    expect(search.remove).to.not.have.been.called;
   });
 
   it('should set variable on scope when no results are available', function() {
