@@ -126,7 +126,6 @@ var MapController = function($scope, search, notification, constants, leafletDat
    */
   function updateMarkers(data) {
     // Remove all the previous markers before adding new ones.
-    removeMarkers();
     data.forEach(function (service) {
       addMarker(service);
     });
@@ -142,10 +141,6 @@ var MapController = function($scope, search, notification, constants, leafletDat
         lng: service.lng,
         message: service.popup
     });
-  }
-
-  function hideMarker() {
-
   }
 
   /**
