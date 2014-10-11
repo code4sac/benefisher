@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "grunt test"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
@@ -14,6 +15,7 @@
     "dotenv": "^0.4.0",
     "express": "~4.2.0",
     "grunt": "^0.4.5",
+    "grunt-bower-task": "^0.4.0",
     "grunt-contrib-sass": "^0.8.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-express-server": "^0.4.19",

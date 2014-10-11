@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
 
+  grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-sass');
@@ -8,6 +9,11 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    bower: {
+      install: {
+        //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
+      }
+    },
     express: {
       dev: {
         options: {
@@ -53,6 +59,7 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('build', ['bower:install']);
   grunt.registerTask('test', ['mochaTest', 'karma:unit']);
   grunt.registerTask('dev', [ 'express:dev', 'watch' ]);
 }
