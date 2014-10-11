@@ -144,6 +144,10 @@ var MapController = function($scope, search, notification, constants, leafletDat
     });
   }
 
+  function hideMarker() {
+
+  }
+
   /**
    * Removes all markers from the array by creating a new one.
    */

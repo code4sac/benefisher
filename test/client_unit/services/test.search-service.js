@@ -14,7 +14,7 @@ describe('Search Service', function() {
   // Inject the $httpBackend service for mocking http requests
   beforeEach(inject(function ($httpBackend) {
     $httpMock = $httpBackend;
-    $httpMock.when('GET', url).respond("Test Response");
+    $httpMock.when('GET', url).respond([]);
   }));
 
   // Setup a mock controller
@@ -55,7 +55,7 @@ describe('Search Service', function() {
     search.subscribe(mockCtrl.update);
     search.search(mockCtrl.params);
     $httpMock.flush();
-    expect(mockCtrl.update).to.have.been.calledWith("Test Response");
+    expect(mockCtrl.update).to.have.been.calledWith([]);
   }));
 
   it('should create an error notification on an http error', inject(function(search) {
