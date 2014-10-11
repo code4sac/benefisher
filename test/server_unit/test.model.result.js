@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var Result = require('../../models/Result');
+var Result = require('../../models/result');
 
 // Mock data
 var location = {
