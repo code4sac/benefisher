@@ -1,0 +1,4 @@
+div(ng-controller='OepController')
+    ul(class="list-inline")
+        li(ng-repeat="oepterm in oepterms | filter:need", ng-if="need.length > 2")
+            p {{oepterm.name}}
