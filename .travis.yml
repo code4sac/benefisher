@@ -6,3 +6,5 @@ node_js:
 before_install: npm install -g grunt-cli
 install: npm install
 before_script: grunt build
+notifications:
+  slack: wakati:3iYgzXNQmlXRUmfl702XqQ5Q

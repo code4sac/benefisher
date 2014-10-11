@@ -35,3 +35,6 @@ public/components/*
 
 # SASS cache (compiled on local machines before push)
 .sass-cache/*
+
+# .env config file
+.env
