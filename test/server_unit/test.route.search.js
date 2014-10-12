@@ -22,8 +22,13 @@ var res = {
 };
 
 // Mock the result model.
-var Result = function(data) {
-  return data;
+var Result = {
+  build: function() {
+    return this;
+  },
+  setLocation: function(data) {
+    return this;
+  }
 };
 
 var request;

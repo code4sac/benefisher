@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
-var Result = require('../../models/result');
+var models = require('../../models')
+var Result = models.Result;
 
 // Mock data
 var location = {
@@ -56,28 +57,28 @@ location3.phones[0].number = '703-555-1212';
 describe('Result', function() {
 
   it('should format the phone number', function() {
-    var result = new Result(location);
+    var result = Result.build().setLocation(location);
     expect(result.phone).to.equal('(703) 555-1212 x1223');
   });
 
   it('should format the phone link for phone numbers with extensions', function() {
-    var result = new Result(location);
+    var result = Result.build().setLocation(location);
     expect(result.phoneUrl).to.contain('tel:');
   });
 
   it('should format the phone link for phone numbers without extensions', function() {
-    var result = new Result(location2);
+    var result = Result.build().setLocation(location2);
     expect(result.phone).to.equal('(703) 555-1212');
   });
 
   it('should not try to format malformed phone numbers', function() {
-    var result = new Result(location3);
+    var result = Result.build().setLocation(location3);
     expect(result.phone).to.equal('703-555-1212 x1223');
   });
 
   it('should format the email link', function() {
-    var result = new Result(location);
-    expect(result.emailurl).to.contain('mailto:');
+    var result = Result.build().setLocation(location);
+    expect(result.emailUrl).to.contain('mailto:');
   });
 
 });

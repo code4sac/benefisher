@@ -2,7 +2,8 @@ var express = require('express');
 var request = require('request');
 var controller = require('../controllers/search');
 var router = express.Router();
-var Result = require('../models/result');
+var models = require('../models');
+var Result = models.Result;
 
 /* GET search results */
 router.get('/', function(req, res) {

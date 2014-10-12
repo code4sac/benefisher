@@ -57,8 +57,8 @@ var SearchController = function(req, res, Result, request)
 
         var results = [];
         // Extract data into Result models
-        data.forEach(function(element) {
-          results.push(new Result(element));
+        data.forEach(function(location) {
+          results.push(Result.build().setLocation(location));
         });
 
         res.json(results);

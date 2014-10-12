@@ -18,7 +18,6 @@ var StatsController = function(req, res)
     var stat = req.body.stat;
     if (stat) {
       stat = saveStat(stat);
-      console.log(stat);
       res.status(201).json(stat);
     } else {
       res.status(400).send('"stat" parameter empty.');
