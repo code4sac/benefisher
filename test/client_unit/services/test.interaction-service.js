@@ -1,11 +1,11 @@
 var expect = chai.expect;
 
-describe('Stats Service', function() {
+describe('Interaction Service', function() {
 
   var $httpMock;
 
   // Search url with test parameters (see mockCtrl).
-  var url = '/stats';
+  var url = '/interactions';
 
   /** SETUP **/
   // Load the benefisher.services module
@@ -23,16 +23,9 @@ describe('Stats Service', function() {
     $httpMock.verifyNoOutstandingRequest();
   });
 
-  it('should make http request when a query is added', inject(function(stats) {
+  it('should make http request when an interaction is saved', inject(function(interaction) {
     $httpMock.expectPOST(url);
-    stats.query({terms: 'term1,term2'});
-    $httpMock.flush();
-  }));
-
-
-  it('should make http request when an interaction is added', inject(function(stats) {
-    $httpMock.expectPOST(url);
-    stats.interaction({result: '123', type: 'click', target: 'phone'});
+    interaction.save({result: '123', type: 'click', target: 'phone'});
     $httpMock.flush();
   }));
 
