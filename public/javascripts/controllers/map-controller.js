@@ -41,6 +41,12 @@ var MapController = function($scope, search, notification, constants, leafletDat
     leafletData.getMap().then(updateMap);
   });
 
+  // Listen for click event on markers
+  $scope.$on('leafletDirectiveMarker.click', function(event, args){
+      console.log("Marker Clicked");
+      console.log($scope.markers[args.markerName]);
+  });
+
   /** METHODS **/
 
   /**
@@ -125,7 +131,7 @@ var MapController = function($scope, search, notification, constants, leafletDat
    * Identify locations returned through user search by adding markers on the map.
    */
   function updateMarkers(data) {
-    // Remove all the previous markers before adding new ones.
+    // Adds the data to the list of markers.
     data.forEach(function (service) {
       addMarker(service);
     });
