@@ -26,14 +26,16 @@ var Result = function(data) {
    * @param service
    */
   function mungeData(location) {
+    var name = location.name;
     var phone = formatPhone(location);
     var phoneUrl = formatPhoneUrl(location);
     var email = location.emails ? location.emails[0] : null;
     var address = formatAddress(location);
     var latitude = location.coordinates ? location.coordinates[1] : null;
     var longitude = location.coordinates ? location.coordinates[0] : null;
+
     result = {
-      name: location.name,
+      name: name,
       lat: latitude,
       lng: longitude,
       description: location.description,
@@ -44,9 +46,11 @@ var Result = function(data) {
       phoneUrl: phoneUrl,
       email: email,
       emailurl: 'mailto:' + email,
-      url: location.urls
+      url: location.urls,
+      selected: false
     };
     result.popup = generatePopupHtml(result);
+    result.hashKey = generateHashKey(result);
   }
 
   /**
@@ -116,6 +120,20 @@ var Result = function(data) {
    */
   function generatePopupHtml(result) {
     return '<h4>' + result.name + '</h4><h5>' + result.hours + '</h5>';
+  }
+
+   /**
+   * Generates a unique key for each result so that it is easier to find.
+   * @param result
+   * @returns hashKey
+   */
+  function generateHashKey(result) {
+      var lat = result.lat ? result.lat : "null";
+      var lng = result.lng ? result.lng : "null";
+      var name = result.name ? result.name : "null";
+
+      // Takes the last 4 characters from lat, lng, and name and combines them to create a unique key.
+      return lat.substring(-5) + lng.substring(-5) + name.substring(-5);
   }
 
 };
