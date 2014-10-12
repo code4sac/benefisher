@@ -7,10 +7,11 @@
  * @param req
  * @param res
  * @param Result The Result model.
+ * @param Query The Query model.
  * @param request
  * @constructor
  */
-var SearchController = function(req, res, Result, request)
+var SearchController = function(req, res, Result, Query, request)
 {
 
   // Bounds query string should look like: 'top,left,bottom,right'.
@@ -58,10 +59,21 @@ var SearchController = function(req, res, Result, request)
         var results = [];
         // Extract data into Result models
         data.forEach(function(location) {
+          // Save result if necessary
           var result = Result.build().setLocation(location);
           Result.upsert(result);
           results.push(result);
         });
+
+        // Save query
+        var query = Query.build({
+          bounds: req.query.bounds,
+          terms: req.query.terms,
+          userPostalCode: req.query.userPostalCode
+        });
+        query.setResults(results);
+        // TODO: handle errors
+        query.save();
 
         res.json(results);
       }

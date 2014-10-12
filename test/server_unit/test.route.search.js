@@ -8,7 +8,9 @@ var sinon = require('sinon');
 var mockData = require('../data/locations');
 
 // Mock request and response objects.
-var req = {};
+var req = {
+  query: {}
+};
 var res = {
   viewData : {},
   statusCode: null,
@@ -34,6 +36,18 @@ var Result = {
   }
 };
 
+// Mock the query model.
+var Query = {
+  results: [],
+  build: function() {
+    return this;
+  },
+  setResults: function(results){
+    this.results = results;
+    return this;
+  }
+}
+
 var request;
 
 var controller = require('../../controllers/search');
@@ -44,10 +58,11 @@ describe('SearchController', function(done) {
     // Mock HTTP service
     request = sinon.spy();
     Result.upsert = sinon.spy();
+    Query.save = sinon.spy();
   });
 
   it('should make an http request', function(done) {
-    new controller(req, res, Result, request).render();
+    new controller(req, res, Result, Query, request).render();
     expect(request).to.have.been.called;
     done();
   });
@@ -56,7 +71,7 @@ describe('SearchController', function(done) {
     request = function(options, callback) {
       callback(null, { statusCode: 200 }, JSON.stringify(mockData));
     };
-    new controller(req, res, Result, request).render();
+    new controller(req, res, Result, Query, request).render();
     expect(res.viewData.length).to.equal(30);
     done();
   });
@@ -65,8 +80,18 @@ describe('SearchController', function(done) {
     request = function(options, callback) {
       callback(null, { statusCode: 200 }, JSON.stringify(mockData));
     };
-    new controller(req, res, Result, request).render();
+    new controller(req, res, Result, Query, request).render();
     expect(Result.upsert).to.have.callCount(30);
+    done();
+  });
+  
+  it('should attempt to save query with results', function(done) {
+    request = function(options, callback) {
+      callback(null, { statusCode: 200 }, JSON.stringify(mockData));
+    };
+    new controller(req, res, Result, Query, request).render();
+    expect(Query.results.length).to.equal(30);
+    expect(Query.save).to.have.been.calledOnce;
     done();
   });
 
@@ -75,7 +100,7 @@ describe('SearchController', function(done) {
     request = function(options, callback) {
       callback(null, { statusCode: 200 }, JSON.stringify(mockData));
     };
-    new controller(req, res, Result, request).render();
+    new controller(req, res, Result, Query, request).render();
     expect(res.viewData.length).to.equal(8);
     done();
   });
@@ -84,9 +109,8 @@ describe('SearchController', function(done) {
     request = function(options, callback) {
       callback({ error: "error" }, { statusCode: 500 }, JSON.stringify(mockData));
     };
-    new controller(req, res, Result, request).render();
+    new controller(req, res, Result, Query, request).render();
     expect(res.statusCode).to.equal(500);
     done();
   });
-
 });

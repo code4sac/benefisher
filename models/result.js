@@ -1,5 +1,11 @@
 "use strict";
 
+/**
+ * Result model
+ * @param sequelize
+ * @param DataTypes
+ * @returns {*}
+ */
 module.exports = function(sequelize, DataTypes) {
   var Result = sequelize.define("Result", {
     name: DataTypes.STRING,
@@ -15,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     emailurl: DataTypes.STRING,
     url: DataTypes.STRING
   }, {
+    // Use getter methods to set up virtual properties.
     getterMethods: {
       directionsUrl: function() {
         return formatDirectionsUrl(this.getDataValue('address'));
