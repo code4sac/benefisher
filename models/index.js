@@ -5,8 +5,11 @@
 var fs        = require("fs");
 var path      = require("path");
 var Sequelize = require("sequelize");
+var dotenv    = require("dotenv");
+dotenv.load();
 var env       = process.env.NODE_ENV || "development";
 var config    = require(__dirname + '/../config/config.json')[env];
+config = configure(config);
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 var db        = {};
 
@@ -25,6 +28,16 @@ Object.keys(db).forEach(function(modelName) {
     db[modelName].associate(db);
   }
 });
+
+function configure(config) {
+  config.database = process.env.DB_NAME ? process.env.DB_NAME : config.database;
+  config.username = process.env.DB_USERNAME ? process.env.DB_USERNAME : config.username;
+  config.password = process.env.DB_PASSWORD ? process.env.DB_PASSWORD : config.password;
+  config.host = process.env.DB_HOST ? process.env.DB_HOST : config.host;
+  config.port = process.env.DB_PORT ? process.env.DB_PORT : config.port;
+  config.dialect = process.env.DB_DIALECT ? process.env.DB_DIALECT : config.dialect;
+  return config;
+}
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
