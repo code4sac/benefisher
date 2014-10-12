@@ -1,4 +1,7 @@
-var expect = require('chai').expect;
+var chai = require('chai');
+var sinonChai = require("sinon-chai");
+chai.use(sinonChai);
+var expect = chai.expect;
 var sinon = require('sinon');
 
 // Mock data
@@ -26,7 +29,7 @@ var Result = {
   build: function() {
     return this;
   },
-  setLocation: function(data) {
+  setLocation: function() {
     return this;
   }
 };
@@ -40,6 +43,7 @@ describe('SearchController', function(done) {
   beforeEach(function() {
     // Mock HTTP service
     request = sinon.spy();
+    Result.upsert = sinon.spy();
   });
 
   it('should make an http request', function(done) {
@@ -57,13 +61,22 @@ describe('SearchController', function(done) {
     done();
   });
 
-  it('should limit search results by lat/long bounds', function(done) {
-    req.query = { bounds: '39.0000,-123.00000,37.00000,-119.000' };
+  it('should attempt to upsert results', function(done) {
     request = function(options, callback) {
       callback(null, { statusCode: 200 }, JSON.stringify(mockData));
     };
     new controller(req, res, Result, request).render();
-    expect(res.viewData.length).to.equal(30);
+    expect(Result.upsert).to.have.callCount(30);
+    done();
+  });
+
+  it('should limit search results by lat/long bounds', function(done) {
+    req.query = { bounds: '39.0000,-123.00000,37.40000,-122.4000' };
+    request = function(options, callback) {
+      callback(null, { statusCode: 200 }, JSON.stringify(mockData));
+    };
+    new controller(req, res, Result, request).render();
+    expect(res.viewData.length).to.equal(8);
     done();
   });
 

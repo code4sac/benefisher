@@ -23,7 +23,7 @@ var SearchController = function(req, res, Result, request)
     uri: apiUrl,
     qs: req.query,
     headers: {
-      "A-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
+      "X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
     }
   };
 
@@ -58,7 +58,9 @@ var SearchController = function(req, res, Result, request)
         var results = [];
         // Extract data into Result models
         data.forEach(function(location) {
-          results.push(Result.build().setLocation(location));
+          var result = Result.build().setLocation(location);
+          Result.upsert(result);
+          results.push(result);
         });
 
         res.json(results);

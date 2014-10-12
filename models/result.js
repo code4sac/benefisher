@@ -45,8 +45,21 @@ module.exports = function(sequelize, DataTypes) {
         this.setDataValue('phone', formatPhone(location));
         this.setDataValue('rawPhone', formatRawPhone(location));
         this.setDataValue('email', email);
-        this.setDataValue('url', location.urls);
+        this.setDataValue('url', location.urls[0]);
         return this;
+      }
+    },
+    classMethods: {
+      upsert: function(result) {
+        var whereName = { where: { name: result.name } };
+        var whereLat = { where: { lat: result.lat } };
+        var whereLng = { where: { lng: result.lng } };
+        this.findOrInitialize(whereName, whereLat, whereLng).spread(function(instance, isNew) {
+          if (isNew) {
+            // TODO: Log errors
+            result.save().success(function() {}).error(function(error) {});
+          }
+        });
       }
     }
   });
