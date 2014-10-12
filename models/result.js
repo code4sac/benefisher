@@ -3,6 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Result = sequelize.define("Result", {
     name: DataTypes.STRING,
+    externalId: DataTypes.STRING,
     lat: DataTypes.FLOAT,
     lng: DataTypes.FLOAT,
     description: DataTypes.TEXT,
@@ -37,6 +38,7 @@ module.exports = function(sequelize, DataTypes) {
       setLocation: function(location) {
         var email = location.emails ? location.emails[0] : null;
         this.setDataValue('name', location.name);
+        this.setDataValue('externalId', location._id);
         this.setDataValue('lat', location.coordinates ? location.coordinates[1] : null);
         this.setDataValue('lng', location.coordinates ? location.coordinates[0] : null);
         this.setDataValue('description', location.description);
@@ -52,9 +54,10 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       upsert: function(result) {
         var whereName = { where: { name: result.name } };
+        var whereExternalId = { where: { externalId: result.externalId } };
         var whereLat = { where: { lat: result.lat } };
         var whereLng = { where: { lng: result.lng } };
-        this.findOrInitialize(whereName, whereLat, whereLng).spread(function(instance, isNew) {
+        this.findOrInitialize(whereName, whereLat, whereLng, whereExternalId).spread(function(instance, isNew) {
           if (isNew) {
             // TODO: Log errors
             result.save().success(function() {}).error(function(error) {});
