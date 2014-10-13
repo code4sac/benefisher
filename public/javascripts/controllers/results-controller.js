@@ -50,10 +50,10 @@ var ResultsController = function ($scope, search, notification) {
       results: []
     });
 
-    $scope.onClick = function (item, event) {
+    // Adds a click listener to the results controller.
+    $scope.onClick = function (item) {
         console.log("Result click!");
-        console.log(item);
-        console.log(event);
+        search.selected($scope.results[item]);
     }
   }
 
