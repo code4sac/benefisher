@@ -47,7 +47,8 @@ var Result = function(data) {
       email: email,
       emailurl: 'mailto:' + email,
       url: location.urls,
-      selected: false
+      selected: false,
+      ignored: false
     };
     result.popup = generatePopupHtml(result);
     result.hashKey = generateHashKey(result);
@@ -128,12 +129,12 @@ var Result = function(data) {
    * @returns hashKey
    */
   function generateHashKey(result) {
-      var lat = result.lat ? result.lat : "null";
-      var lng = result.lng ? result.lng : "null";
-      var name = result.name ? result.name : "null";
+      var lat = result.lat ? result.lat.toString() : "null";
+      var lng = result.lng ? result.lng.toString() : "null";
+      var name = result.name ? result.name.toString() : "null";
 
-      // Takes the last 4 characters from lat, lng, and name and combines them to create a unique key.
-      return lat.substring(-5) + lng.substring(-5) + name.substring(-5);
+      // Takes the last 7 characters from lat, lng, and name and combines them to create a unique key.
+      return lat.slice(-4) + lng.slice(-4) + name.slice(-4) + name.substring(0, 4);
   }
 
 };

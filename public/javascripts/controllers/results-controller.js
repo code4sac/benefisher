@@ -28,7 +28,9 @@ var ResultsController = function ($scope, search, notification) {
     } else {
       $scope.noResults = false;
       data.forEach(function (service) {
-        $scope.results.push(service);
+        // If the service was marked as ignored, it will not be pushed to the list of results.
+        if (!service.ignored)
+            $scope.results.push(service);
       });
     }
   }

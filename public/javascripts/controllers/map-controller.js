@@ -45,6 +45,7 @@ var MapController = function($scope, search, notification, constants, leafletDat
   $scope.$on('leafletDirectiveMarker.click', function(event, args){
       console.log("Marker Clicked");
       console.log($scope.markers[args.markerName]);
+      search.selected($scope.markers[args.markerName]);
   });
 
   /** METHODS **/
@@ -133,7 +134,11 @@ var MapController = function($scope, search, notification, constants, leafletDat
   function updateMarkers(data) {
     // Adds the data to the list of markers.
     data.forEach(function (service) {
-      addMarker(service);
+      // The marker will only be added to the list of markers if it has not been ignored.
+      if (!service.ignored)
+        addMarker(service);
+      else
+        removeMarker(service);
     });
   }
 
@@ -145,8 +150,24 @@ var MapController = function($scope, search, notification, constants, leafletDat
     $scope.markers.push({
         lat: service.lat,
         lng: service.lng,
-        message: service.popup
+        message: service.popup,
+        hashKey: service.hashKey
     });
+  }
+
+  /**
+  * Removes a specific marker from the map.
+  * @param service
+  */
+  function removeMarker(service) {
+      var i = $scope.markers.length;
+
+      // If the marker's hashKey matches that of the service being passed in, it will be removed.
+      while (i--) {
+          if ($scope.markers[i].hashKey == service.hashKey) {
+              $scope.markers.splice(i, 1);
+          }
+      }
   }
 
   /**

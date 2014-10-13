@@ -37,7 +37,7 @@ var SearchService = function ($http, notification) {
             //   to subscribers.
             results = data;
             removeIgnored();
-            updateSubscribers();//
+            updateSubscribers();
         })
         .error(httpError);
   };
@@ -47,22 +47,20 @@ var SearchService = function ($http, notification) {
   * @param removeItem
   */
   this.remove = function (removeItem) {
-      // Grabs 3 attributes from the item to be removed.
-      var lat = removeItem.lat.toString();
-      var lng = removeItem.lat.toString();
-      var name = removeItem.name.toString();
-      // Takes the last 4 characters from the above attrs and combines them to create a unique string.
-      var latKey = lat.substring(-5);
-      var lngKey = lng.substring(-5);
-      var nameKey = name.substring(-5);
+      var hashKey = removeItem.hashKey;
 
       // Uses key-value pairs to keep track of all items in the ignore list.
-      ignoreList[nameKey + latKey + lngKey] = removeItem;
+      ignoreList[hashKey] = removeItem;
 
       // Removes the ignored items from the results and then pushes them to the subscribers.
       removeIgnored();
       updateSubscribers();
   };
+
+  this.selected = function (selectedItem) {
+      console.log(selectedItem);
+      console.log(results);
+  }
 
   /**
   * Goes through the list of data and removes all items that are on the ignore list.
@@ -74,18 +72,11 @@ var SearchService = function ($http, notification) {
 
     // Goes through each data item starting from the top.
     while (i--) {
-      // Grabs 3 attributes from the data item.
-      var lat = results[i].lat.toString();
-      var lng = results[i].lat.toString();
-      var name = results[i].name.toString();
-      // Takes the last 4 characters from the above attrs and combines them to create a unique string.
-      var latKey = lat.substring(-5);
-      var lngKey = lng.substring(-5);
-      var nameKey = name.substring(-5);
+      var hashKey = results[i].hashKey;
 
-      // If the object exists in the ignore list, remove it from the list of data.
-      if (ignoreList[nameKey + latKey + lngKey] != undefined) {
-        results.splice(i, 1);
+      // If the object exists in the ignore list, set its property to be ignored..
+      if (ignoreList[hashKey] != undefined) {
+        results[i].ignored = true;
       }
     }
   }
