@@ -44,7 +44,6 @@ var MapController = function($scope, search, notification, constants, leafletDat
   // Listen for click event on markers
   $scope.$on('leafletDirectiveMarker.click', function(event, args){
       console.log("Marker Clicked");
-      console.log($scope.markers[args.markerName]);
       search.selected($scope.markers[args.markerName]);
   });
 

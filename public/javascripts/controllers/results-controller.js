@@ -31,6 +31,9 @@ var ResultsController = function ($scope, search, notification) {
         // If the service was marked as ignored, it will not be pushed to the list of results.
         if (!service.ignored)
             $scope.results.push(service);
+
+        if (service.selected)
+            console.log(service.name + " is selected and results got it!");
       });
     }
   }

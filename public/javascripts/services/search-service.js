@@ -57,9 +57,28 @@ var SearchService = function ($http, notification) {
       updateSubscribers();
   };
 
+  /**
+  * Lets subscribers know that a user clicked on an item.
+  * @param selectedItem
+  */
   this.selected = function (selectedItem) {
       console.log(selectedItem);
+
+      var i = results.length;
+      var selectedKey = selectedItem ? selectedItem.hashKey : "";
+
+      // Changes the "selected" property of the selected item in results to true and all others
+      //   to false.
+      while (i--) {
+          if (results[i].hashKey == selectedKey)
+            results[i].selected = true;
+          else
+            results[i].selected = false;
+      }
+
       console.log(results);
+      // Will then pass this data to the subscribers.
+      updateSubscribers();
   }
 
   /**
