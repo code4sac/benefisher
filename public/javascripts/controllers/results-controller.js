@@ -49,6 +49,12 @@ var ResultsController = function ($scope, search, notification) {
     angular.extend($scope, {
       results: []
     });
+
+    $scope.onClick = function (item, event) {
+        console.log("Result click!");
+        console.log(item);
+        console.log(event);
+    }
   }
 
   /**

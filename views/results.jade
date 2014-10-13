@@ -6,7 +6,7 @@ div(class='results row', ng-controller='ResultsController')
         p
             | We couldn't find any services matching your search in this area.<br />
             | Try removing some terms from your search, or zooming out on the map to search a wider area.
-    div(ng-repeat='result in results | limitTo: 4', class="result", id="result-{{$index}}")
+    div(ng-repeat='result in results | limitTo: 4', ng-click='onClick($event, $index)', class="result", id="result-{{$index}}")
         h4 {{result.name}}
         div(class="thumbs")
             a(href="#" title="This result is helpful." ng-click="alert('IMPLEMENT ME!!!')")
