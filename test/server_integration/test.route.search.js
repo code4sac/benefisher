@@ -1,4 +1,5 @@
 var request = require('supertest');
+// Use nock to mock HTTP requests from controller.
 var nock = require('nock');
 
 // Here we get hold of the express application

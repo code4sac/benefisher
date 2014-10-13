@@ -10,8 +10,6 @@ dotenv.load();
 var env       = process.env.NODE_ENV || "development";
 var config    = require(__dirname + '/../config/config.json')[env];
 config = configure(config);
-console.log(env);
-console.log(config);
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 var db        = {};
 
@@ -43,5 +41,7 @@ function configure(config) {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+// Initialize DB in test env
 
 module.exports = db;

@@ -1,5 +1,3 @@
-process.env.NODE_ENV = "test";
-
 var request = require('supertest');
 
 // Here we get hold of the express application
@@ -14,7 +12,6 @@ describe('POST /interactions', function() {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(201, done);
-
   });
 
   it('should throw 400 when no data is provided', function(done) {
