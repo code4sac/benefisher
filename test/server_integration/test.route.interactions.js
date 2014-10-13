@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "test";
+
 var request = require('supertest');
 
 // Here we get hold of the express application
@@ -8,10 +10,11 @@ describe('POST /interactions', function() {
   it('should respond with json and 201 when good data is provided', function(done){
     request(app) // the request-object is the supertest top level api
       .post('/interactions')
-      .send({ stat: { data: "test" }})
+      .send({ interaction: { data: "test", ResultId: "1" }})
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(201, done) // note that we're passing the done as parameter to the expect
+      .expect(201, done);
+
   });
 
   it('should throw 400 when no data is provided', function(done) {

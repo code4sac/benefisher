@@ -12,11 +12,10 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Interaction.hasOne(models.Result)
+        Interaction.hasOne(models.Result);
       }
     }
   });
 
   return Interaction;
-
 };
