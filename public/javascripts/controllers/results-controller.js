@@ -51,8 +51,12 @@ var ResultsController = function ($scope, search, notification) {
     });
 
     // Adds a click listener to the results controller.
-    $scope.onClick = function (item) {
-        search.selected($scope.results[item]);
+    $scope.onMouseOver = function (item) {
+        var result = $scope.results[item];
+        // If the result isn't already selected, send it to the service to become selected.
+        //  This stops the popup from continually being opened.
+        if (!result.selected)
+            search.selected($scope.results[item]);
     }
   }
 
