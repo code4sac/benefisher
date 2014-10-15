@@ -38,7 +38,6 @@ var ResultsController = function ($scope, search, notification) {
     }
   }
 
-
   /**
    * Subscribes to search.
    * Creates a results array inside of the scope object. Each result from user search will
@@ -57,45 +56,6 @@ var ResultsController = function ($scope, search, notification) {
         //  This stops the popup from continually being opened.
         if (!result.selected)
             search.selected($scope.results[item]);
-    }
-  }
-
-  /**
-   * Adds a service object containing detailed information about it into the results array.
-   * TODO: Move services into their own model, and do all this munging there.
-   * @param service - The service and its information to be added to the results window.
-   */
-  function addResult(service) {
-    var name = service.name;
-    var numLocations = service.locations.length;
-    for (var i = 0; i < numLocations; i++) {
-      var location = service.locations[i];
-      var lat = location.latitude;
-      var lng = location.longitude;
-      var desc = location.description;
-      var address = formatAddress(location);
-      var hours = location.hours;
-      var url = location.urls;
-      var phone = formatPhone(location);
-      var phoneUrl = formatPhoneUrl(location);
-      var email = location.emails[0];
-      var emailUrl = 'mailto:' + email;
-      var directionsUrl =  'http://maps.google.com/maps?saddr=Current+Location&daddr=' + encodeURIComponent(address);
-      $scope.results.push({
-        name: name,
-        description: desc,
-        address: address,
-        lat: lat,
-        lng: lng,
-        directionsUrl: directionsUrl,
-        hours: hours,
-        phone: phone,
-        phoneUrl: phoneUrl,
-        email: email,
-        emailurl: emailUrl,
-        url: url
-      });
-
     }
   }
 
