@@ -87,22 +87,12 @@ describe('Result', function() {
   });
 
   it('should generate a unique key', function () {
-    var result = new Result(location);
+    var result = Result.build().setLocation(location);
     expect(result.hashKey).to.equal('94961978tionAdmi')
   });
 
   it('should generate a unique key even if name, lat, and lng are null', function () {
-    var result = new Result(location4);
+    var result = Result.build().setLocation(location4);
     expect(result.hashKey).to.equal('nullnullnullnull');
-  });
-
-  it('should have a property of "ignored" set to false', function () {
-    var result = new Result(location);
-    expect(result.ignored).to.equal(false);
-  });
-
-  it('should have a property of "selected" set to false', function () {
-    var result = new Result(location);
-    expect(result.selected).to.equal(false);
   });
 });

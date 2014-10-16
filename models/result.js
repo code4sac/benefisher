@@ -35,6 +35,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       emailUrl: function() {
         return formatEmailUrl(this.getDataValue('email'));
+      },
+      hashKey: function() {
+        return generateHashKey(this.getDataValue('lat'), this.getDataValue('lng'), this.getDataValue('name'));
       }
     },
     instanceMethods: {
@@ -43,6 +46,7 @@ module.exports = function(sequelize, DataTypes) {
         json.directionsUrl = formatDirectionsUrl(this.getDataValue('address'));
         json.phoneUrl = formatPhoneUrl(this.getDataValue('rawPhone'));
         json.emailUrl = formatEmailUrl(this.getDataValue('email'));
+        json.hashKey = generateHashKey(this.getDataValue('lat'), this.getDataValue('lng'), this.getDataValue('name'));
         json.popup = generatePopupHtml(this.getDataValue('name'), this.getDataValue('hours'));
         return json;
       },
@@ -146,17 +150,6 @@ function formatAddress(location)
 function formatDirectionsUrl(address)
 {
   return 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + encodeURIComponent(address);
-      hours: location.hours,
-      phone: phone,
-      phoneUrl: phoneUrl,
-      email: email,
-      emailurl: 'mailto:' + email,
-      url: location.urls,
-      selected: false,
-      ignored: false
-    };
-    result.popup = generatePopupHtml(result);
-    result.hashKey = generateHashKey(result);
 }
 
 /**
@@ -226,13 +219,15 @@ function getPhones(location)
 
 /**
  * Generates a unique key for each result so that it is easier to find.
- * @param result
- * @returns hashKey
+ * @param lat
+ * @param lng
+ * @param name
+ * @returns {string}
  */
-function generateHashKey(result) {
-  var lat = result.lat ? result.lat.toString() : "null";
-  var lng = result.lng ? result.lng.toString() : "null";
-  var name = result.name ? result.name.toString() : "null";
+function generateHashKey(lat, lng, name) {
+  lat = lat ? lat.toString() : "null";
+  lng = lng ? lng.toString() : "null";
+  name = name ? name.toString() : "null";
   // Takes the last 7 characters from lat, lng, and name and combines them to create a unique key.
   return lat.slice(-4) + lng.slice(-4) + name.slice(-4) + name.substring(0, 4);
 }

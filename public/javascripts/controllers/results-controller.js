@@ -67,7 +67,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
   }
 
   function _update(data) {
-    removeResults();
+    _removeResults();
     if ( ! data.length) {
       $scope.noResults = true;
     } else {
