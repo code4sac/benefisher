@@ -39,3 +39,4 @@ public/components/*
 # Sensitive config files
 .env
 .env.test
+config/config.json
