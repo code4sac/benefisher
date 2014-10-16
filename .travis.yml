@@ -2,7 +2,7 @@ language: node_js
 node_js:
  - "0.10"
 env:
-  - NODE_ENV=test DB_NAME=benefisher_test DB_USERNAME=root DB_HOST=127.0.0.1 DB_PASSWORD=
+  - NODE_ENV=test DB_NAME=benefisher_test DB_USERNAME=root DB_HOST=127.0.0.1
 before_install:
   - npm update -q
   - npm install -g grunt-cli
@@ -11,4 +11,4 @@ before_script:
   - mysql -e 'create database benefisher_test;'
   - grunt build
 notifications:
-  slack: wakati:3iYgzXNQmlXRUmfl702XqQ5Q
+  slack: wakati:3iYgzXNQmlXRUmfl702XqQ5Q""
