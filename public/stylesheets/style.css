@@ -4645,11 +4645,13 @@ ul.notifications {
   .result .thumbs a {
     font-size: 1.2em;
     padding: 0 10px;
-    line-height: 1.4em; }
+    line-height: 1.4em;
+    cursor: pointer; }
   .result .buttons {
     padding: 10px 0; }
   .result .buttons a {
-    padding: 10px; }
+    padding: 10px;
+    cursor: pointer; }
 
 @media screen and (max-width: 992px) {
   .result {

@@ -7,10 +7,11 @@
  * @param req
  * @param res
  * @param Result The Result model.
+ * @param Query The Query model.
  * @param request
  * @constructor
  */
-var SearchController = function(req, res, Result, request)
+var SearchController = function(req, res, Result, Query, request)
 {
 
   // Bounds query string should look like: 'top,left,bottom,right'.
@@ -23,7 +24,7 @@ var SearchController = function(req, res, Result, request)
     uri: apiUrl,
     qs: req.query,
     headers: {
-      "A-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
+      "X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
     }
   };
 
@@ -55,13 +56,37 @@ var SearchController = function(req, res, Result, request)
           data = data.filter(isInQueryBounds);
         }
 
-        var results = [];
-        // Extract data into Result models
-        data.forEach(function(element) {
-          results.push(new Result(element));
+        // Initialize individual Results
+        var unsavedResults = [];
+        data.forEach(function(location) {
+          unsavedResults.push(Result.build().setLocation(location));
         });
 
-        res.json(results);
+        // We want to search the DB for results that already exist, and save the ones that don't.
+        // This is important to pass DB ID's to client for use in saving Interactions, as well as
+        // for saving Queries.
+        // Search DB for existing results.
+        Result.multiFind(unsavedResults).success(function(foundResults) {
+          // Filter out the existing results
+          var newResults = unsavedResults.filter(filterExistingResult, foundResults);
+          if (newResults.length) {
+            // Save DB results
+            Result.multiInsert(newResults).success(function(results) {
+              var allResults = foundResults.concat(results);
+              saveQuery(allResults)
+              res.json(allResults);
+            }).error(function(error) {
+              // TODO: Handle error (log it, at least).
+              res.json(unsavedResults);
+            });
+          } else {
+            saveQuery(foundResults);
+            res.json(foundResults);
+          }
+        }).error(function(error) {
+          // TODO: Handler error (log it, at least).
+          res.json(unsavedResults);
+        });
       }
     }
   };
@@ -104,6 +129,37 @@ var SearchController = function(req, res, Result, request)
       && longitude >= bounds.left
       && latitude >= bounds.bottom
       && longitude <= bounds.right;
+  }
+
+  /**
+   * Filter results that already exist. 'this' should be the array of found results.
+   * @param unsavedResult
+   * @returns {boolean}
+   */
+  function filterExistingResult(unsavedResult)
+  {
+    this.forEach(function(foundResult) {
+      if (unsavedResult.equals(foundResult)) {
+        return false;
+      }
+    });
+    return true;
+  }
+
+  /**
+   * Save the search query to the DB
+   * @param results
+   */
+  function saveQuery(results)
+  {
+    var query = Query.build({
+      bounds: req.query.bounds,
+      terms: req.query.terms,
+      userPostalCode: req.query.userPostalCode
+    });
+    query.setResults(results);
+    // TODO: handle errors
+    query.save();
   }
 
 };
