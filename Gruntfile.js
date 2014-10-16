@@ -33,8 +33,7 @@ module.exports = function(grunt) {
       test: {
         options: {
           reporter: 'nyan',
-          clearRequireCache: true,
-          require: 'test/server_setup/init.js'
+          clearRequireCache: true
         },
         src: ['test/server_*/*.js']
       }

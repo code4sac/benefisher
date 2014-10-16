@@ -42,6 +42,13 @@ function configure(config) {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.create = function() {
+  return db.sequelize.sync();
+}
+db.clear = function() {
+  return db.sequelize.dropAllSchemas();
+}
+
 // Initialize DB in test env
 
 module.exports = db;
