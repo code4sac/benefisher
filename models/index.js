@@ -8,9 +8,9 @@ var Sequelize = require("sequelize");
 var dotenv    = require("dotenv");
 dotenv.load();
 var env       = process.env.NODE_ENV || "development";
-console.log("ENVIRONMENT: " + env);
 var config    = require(__dirname + '/../config/config.json')[env];
 config = configure(config);
+console.log(config);
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 var db        = {};
 
