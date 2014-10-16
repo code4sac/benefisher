@@ -43,10 +43,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.create = function() {
-  return db.sequelize.sync();
-}
-db.clear = function() {
-  return db.sequelize.dropAllSchemas();
+  return db.sequelize.sync({ force: true });
 }
 
 // Initialize DB in test env
