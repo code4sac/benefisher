@@ -69,7 +69,7 @@ var SearchController = function(req, res, Result, Query, chainer, request)
         // Initialize search criteria for Results
         var where = generateFindResultsCriteria(unsavedResults);
         // Search DB for existing results.
-        Result.findAll(where).success(sfunction(foundResults) {
+        Result.findAll(where).success(function(foundResults) {
           // Filter out the existing results
           var newResults = unsavedResults.filter(filterExistingResult, foundResults);
 
