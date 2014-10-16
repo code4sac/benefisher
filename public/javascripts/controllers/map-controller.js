@@ -36,14 +36,24 @@ var MapController = function($scope, search, notification, constants, leafletDat
 
   /** CONSTRUCTOR LOGIC **/
   initMap();
-  // Listen for map movement
-  $scope.$on('leafletDirectiveMap.moveend', function(event){
+
+  // Updates the map after the map loads.
+  $scope.$on('leafletDirectiveMap.load', function(event){
+    leafletData.getMap().then(updateMap);
+  });
+
+  // Updates the map after user stops scrolling.
+  $scope.$on('leafletDirectiveMap.dragend', function(event){
+    leafletData.getMap().then(updateMap);
+  });
+
+  // Updates the map after user stop zooming.
+  $scope.$on('leafletDirectiveMap.zoomend', function(event){
     leafletData.getMap().then(updateMap);
   });
 
   // Listen for click event on markers
   $scope.$on('leafletDirectiveMarker.click', function(event, args){
-      console.log("Marker Clicked");
       search.selected($scope.markers[args.markerName]);
   });
 
@@ -133,7 +143,7 @@ var MapController = function($scope, search, notification, constants, leafletDat
   function updateMarkers(data) {
     //TODO: Duplicate markers are added anytime this function is called.
     // Adds the data to the list of markers.
-    data.forEach(function (service) {
+    data.forEach(function (service, index) {
       // The marker will only be added to the list of markers if it has not been ignored.
       if (!service.ignored)
         addMarker(service);
@@ -154,6 +164,7 @@ var MapController = function($scope, search, notification, constants, leafletDat
         focus: service.selected,
         hashKey: service.hashKey
     });
+
   }
 
   /**
