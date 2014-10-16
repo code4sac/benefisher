@@ -2,7 +2,7 @@ language: node_js
 node_js:
  - "0.10"
 env:
-  - NODE_ENV=test DB_NAME=benefisher_test DB_USERNAME=root DB_HOST=127.0.0.1
+  - NODE_ENV=test DB_NAME=benefisher_test DB_USERNAME=root DB_HOST=127.0.0.1 DB_PASSWORD=
 before_install:
   - npm update -q
   - npm install -g grunt-cli
