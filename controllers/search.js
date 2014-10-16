@@ -8,11 +8,10 @@
  * @param res
  * @param Result The Result model.
  * @param Query The Query model.
- * @param chainer Sequelize query chainer
  * @param request
  * @constructor
  */
-var SearchController = function(req, res, Result, Query, chainer, request)
+var SearchController = function(req, res, Result, Query, request)
 {
 
   // Bounds query string should look like: 'top,left,bottom,right'.
@@ -61,36 +60,28 @@ var SearchController = function(req, res, Result, Query, chainer, request)
         var unsavedResults = [];
         data.forEach(function(location) {
           unsavedResults.push(Result.build().setLocation(location));
-        })
+        });
 
-        // TODO: Move the Results logic to the model as bulkUpsert()
-        // The following is kind of a nightmare. It presents a lot of problems for concurrent operations.
-        // Basically, if two users run this at the same time, we could end up with cruft in the DB.
-        // Initialize search criteria for Results
-        var where = generateFindResultsCriteria(unsavedResults);
         // Search DB for existing results.
-        Result.findAll(where).success(function(foundResults) {
+        Result.multiFind(unsavedResults).success(function(foundResults) {
           // Filter out the existing results
           var newResults = unsavedResults.filter(filterExistingResult, foundResults);
-
-          if ( ! newResults.length) {
-            saveQuery(foundResults);
-            res.json(foundResults);
-          } else {
+          if (newResults.length) {
             // Save DB results
-            newResults.forEach(function(newResult) {
-              chainer.add(newResult.save());
-            });
-
-            // Run DB saves
-            chainer.run().success(function(results) {
+            Result.multiInsert(newResults).success(function(results) {
               var allResults = foundResults.concat(results);
               saveQuery(allResults)
               res.json(allResults);
+            }).error(function(error) {
+              // TODO: Handle error (log it, at least).
+              res.json(unsavedResults);
             });
+          } else {
+            saveQuery(foundResults);
+            res.json(foundResults);
           }
         }).error(function(error) {
-          // TODO: Handler error appropriately.
+          // TODO: Handler error (log it, at least).
           res.json(unsavedResults);
         });
       }
@@ -135,38 +126,6 @@ var SearchController = function(req, res, Result, Query, chainer, request)
       && longitude >= bounds.left
       && latitude >= bounds.bottom
       && longitude <= bounds.right;
-  }
-
-  /**
-   * Generate 'where' clause for find Results query
-   * @param locations
-   * @returns {{where: {name: {in: *}, externalId: {in: *}, lat: {in: *}, lng: {in: *}}}}
-   */
-  function generateFindResultsCriteria(results)
-  {
-    var wheres = {
-      names: [],
-      externalIds: [],
-      lats: [],
-      lngs: []
-    };
-    // Compile data to search DB for existing results
-    results.forEach(function(result) {
-      wheres.names.push(result.name);
-      wheres.externalIds.push(result.externalId);
-      wheres.lats.push(result.lat);
-      wheres.lngs.push(result.lng);
-    });
-
-    // Compile DB search criteria
-    return {
-      where: {
-        name: { in: wheres.names },
-        externalId: { in: wheres.externalIds },
-        lat: { in: wheres.lats },
-        lng: { in: wheres.lngs }
-      }
-    };
   }
 
   /**

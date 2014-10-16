@@ -72,31 +72,57 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     classMethods: {
-      upsert: function(result) {
-        var where = {
-          where: {
-            name: result.name,
-            externalId: result.externalId,
-            lat: result.lat,
-            lng: result.lng
-          }
-        };
-        return this.find(where).success(function(instance) {
-          console.log("INSTANCE: ");
-          console.log(instance);
-          if (instance) {
-            // TODO: Log errors
-            return instance;
-          } else {
-            return result.save();
-          }
+      multiFind: function(toFind) {
+        // Initialize search criteria for Results
+        var where = generateFindResultsCriteria(toFind);
+        return Result.findAll(where);
+      },
+      multiInsert: function(toInserts) {
+        var chainer = new sequelize.Utils.QueryChainer;
+        // Save DB results
+        toInserts.forEach(function(toInsert) {
+          chainer.add(toInsert.save());
         });
+        // Run DB saves
+        return chainer.run();
       }
     }
   }, config);
 
   return Result;
 };
+
+/**
+ * Generate 'where' clause for find Results query
+ * @param locations
+ * @returns {{where: {name: {in: *}, externalId: {in: *}, lat: {in: *}, lng: {in: *}}}}
+ */
+function generateFindResultsCriteria(results)
+{
+  var wheres = {
+    names: [],
+    externalIds: [],
+    lats: [],
+    lngs: []
+  };
+  // Compile data to search DB for existing results
+  results.forEach(function(result) {
+    wheres.names.push(result.name);
+    wheres.externalIds.push(result.externalId);
+    wheres.lats.push(result.lat);
+    wheres.lngs.push(result.lng);
+  });
+
+  // Compile DB search criteria
+  return {
+    where: {
+      name: { in: wheres.names },
+      externalId: { in: wheres.externalIds },
+      lat: { in: wheres.lats },
+      lng: { in: wheres.lngs }
+    }
+  };
+}
 
 /**
  * Format a location's street address.
