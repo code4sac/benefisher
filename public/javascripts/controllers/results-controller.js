@@ -7,32 +7,60 @@
  * @param $scope
  * @param search
  * @param notification
+ * @param interaction
  * @constructor
  */
-var ResultsController = function ($scope, search, notification) {
+var ResultsController = function ($scope, search, notification, interaction) {
 
-  // Initialize $scope.results
+  /**
+   * Interaction targets
+   * @type {{HIDE: string, LIKE: string, PHONE: string, LINK: string, DIRECTIONS: string, EMAIL: string}}
+   * @private
+   */
+  var _TARGETS = {
+    HIDE: 'hide',
+    LIKE: 'like',
+    PHONE: 'phone',
+    LINK: 'link',
+    DIRECTIONS: 'directions',
+    EMAIL: 'email'
+  };
+
+  // Expose properties to $scope
   $scope.results = [];
+  $scope.TARGET = _TARGETS;
+
   //Used to trim the results array to display, at maximum, MAX_DISPLAY_RESULTS at a time.
   var MAX_DISPLAY_RESULTS = 4;
   var self = this;
+
   // Expose public methods
   self.update = _update;
 
+  // Initialize controller
   initResults();
 
+  // Expose methods to scope
+  $scope.hideResult = _hideResult;
+  $scope.interaction = _interaction;
+
+  /**
+   * Update results
+   * @param data
+   * @private
+   */
   function _update(data) {
-    removeResults();
+    _removeResults();
     if ( ! data.length) {
       $scope.noResults = true;
     } else {
       $scope.noResults = false;
       data.forEach(function (service) {
+        console.log(service);
         $scope.results.push(service);
       });
     }
   }
-
 
   /**
    * Subscribes to search.
@@ -47,48 +75,9 @@ var ResultsController = function ($scope, search, notification) {
   }
 
   /**
-   * Adds a service object containing detailed information about it into the results array.
-   * TODO: Move services into their own model, and do all this munging there.
-   * @param service - The service and its information to be added to the results window.
-   */
-  function addResult(service) {
-    var name = service.name;
-    var numLocations = service.locations.length;
-    for (var i = 0; i < numLocations; i++) {
-      var location = service.locations[i];
-      var lat = location.latitude;
-      var lng = location.longitude;
-      var desc = location.description;
-      var address = formatAddress(location);
-      var hours = location.hours;
-      var url = location.urls;
-      var phone = formatPhone(location);
-      var phoneUrl = formatPhoneUrl(location);
-      var email = location.emails[0];
-      var emailUrl = 'mailto:' + email;
-      var directionsUrl =  'http://maps.google.com/maps?saddr=Current+Location&daddr=' + encodeURIComponent(address);
-      $scope.results.push({
-        name: name,
-        description: desc,
-        address: address,
-        lat: lat,
-        lng: lng,
-        directionsUrl: directionsUrl,
-        hours: hours,
-        phone: phone,
-        phoneUrl: phoneUrl,
-        email: email,
-        emailurl: emailUrl,
-        url: url
-      });
-
-    }
-  }
-
-  /**
    * Removes all results from the array by creating a new one.
    */
-  function removeResults() {
+  function _removeResults() {
     $scope.results = [];
   }
 
@@ -99,12 +88,31 @@ var ResultsController = function ($scope, search, notification) {
    *
    * @param index The index of the result to hide from the user. Used to remove and shift array.
    */
-  $scope.hideResult = function (index) {
+  function _hideResult(index) {
     //We remove the clicked element from the array and shift the remaining over.
     if (index >= MAX_DISPLAY_RESULTS || index < 0 || index >= $scope.results.length) {
       return;
     }
-
+    _interaction($scope.results[index].id, _TARGETS.HIDE);
     search.remove($scope.results[index]);
-  };
+  }
+
+  /**
+   * Save a result interaction
+   * @param resultId
+   * @param target
+   * @param redirect
+   */
+  function _interaction(resultId, target, redirect) {
+    var toSave = {
+      ResultId: resultId,
+      target: target
+    };
+    interaction.save(toSave).then(function() {
+      if (redirect) {
+        $location.path(redirect);
+      }
+    })
+  }
+
 };

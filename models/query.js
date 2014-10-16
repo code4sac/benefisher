@@ -7,6 +7,7 @@
  * @returns {*}
  */
 module.exports = function(sequelize, DataTypes) {
+  var config = { tableName: 'query' };
   var Query = sequelize.define("Query", {
     bounds: DataTypes.STRING,
     terms: DataTypes.STRING,
@@ -17,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
         Query.hasMany(models.Result)
       }
     }
-  });
+  }, config);
 
   return Query;
 

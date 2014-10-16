@@ -33,6 +33,13 @@ var Result = {
   },
   setLocation: function() {
     return this;
+  },
+  findAll: function() {
+    return: {
+      success: function() {
+
+      }
+    }
   }
 };
 
@@ -48,6 +55,19 @@ var Query = {
   }
 }
 
+var QueryChainer = {
+  add: function() {
+
+  },
+  run: function() {
+    return {
+      success: function(callback) {
+
+      }
+    }
+  }
+}
+
 var request;
 
 var controller = require('../../controllers/search');
@@ -57,7 +77,6 @@ describe('SearchController', function(done) {
   beforeEach(function() {
     // Mock HTTP service
     request = sinon.spy();
-    Result.upsert = sinon.spy();
     Query.save = sinon.spy();
   });
 
@@ -76,15 +95,6 @@ describe('SearchController', function(done) {
     done();
   });
 
-  it('should attempt to upsert results', function(done) {
-    request = function(options, callback) {
-      callback(null, { statusCode: 200 }, JSON.stringify(mockData));
-    };
-    new controller(req, res, Result, Query, request).render();
-    expect(Result.upsert).to.have.callCount(30);
-    done();
-  });
-  
   it('should attempt to save query with results', function(done) {
     request = function(options, callback) {
       callback(null, { statusCode: 200 }, JSON.stringify(mockData));

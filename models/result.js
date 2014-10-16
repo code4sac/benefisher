@@ -7,11 +7,15 @@
  * @returns {*}
  */
 module.exports = function(sequelize, DataTypes) {
+
+  // Use lowercase table names.
+  var config = { tableName: 'result' };
+
   var Result = sequelize.define("Result", {
     name: DataTypes.STRING,
     externalId: DataTypes.STRING,
-    lat: DataTypes.FLOAT,
-    lng: DataTypes.FLOAT,
+    lat: DataTypes.DECIMAL(18,12),
+    lng: DataTypes.DECIMAL(18,12),
     description: DataTypes.TEXT,
     address: DataTypes.STRING,
     hours: DataTypes.STRING,
@@ -42,6 +46,15 @@ module.exports = function(sequelize, DataTypes) {
         json.popup = generatePopupHtml(this.getDataValue('name'), this.getDataValue('hours'));
         return json;
       },
+      equals: function(result) {
+        if (result.id && this.getDataValue('id')) {
+          return result.id === this.getDataValue('id');
+        }
+        return result.name === this.getDataValue('name')
+          && result.externalId === this.getDataValue('externalId')
+          && result.lat.toString() === this.getDataValue('lat').toString()
+          && result.lng.toString() === this.getDataValue('lng').toString();
+      },
       setLocation: function(location) {
         var email = location.emails ? location.emails[0] : null;
         this.setDataValue('name', location.name);
@@ -54,25 +67,33 @@ module.exports = function(sequelize, DataTypes) {
         this.setDataValue('phone', formatPhone(location));
         this.setDataValue('rawPhone', formatRawPhone(location));
         this.setDataValue('email', email);
-        this.setDataValue('url', location.urls[0]);
+        this.setDataValue('url', getUrl(location));
         return this;
       }
     },
     classMethods: {
       upsert: function(result) {
-        var whereName = { where: { name: result.name } };
-        var whereExternalId = { where: { externalId: result.externalId } };
-        var whereLat = { where: { lat: result.lat } };
-        var whereLng = { where: { lng: result.lng } };
-        this.findOrInitialize(whereName, whereLat, whereLng, whereExternalId).spread(function(instance, isNew) {
-          if (isNew) {
+        var where = {
+          where: {
+            name: result.name,
+            externalId: result.externalId,
+            lat: result.lat,
+            lng: result.lng
+          }
+        };
+        return this.find(where).success(function(instance) {
+          console.log("INSTANCE: ");
+          console.log(instance);
+          if (instance) {
             // TODO: Log errors
-            result.save().success(function() {}).error(function(error) {});
+            return instance;
+          } else {
+            return result.save();
           }
         });
       }
     }
-  });
+  }, config);
 
   return Result;
 };
@@ -164,6 +185,20 @@ function formatEmailUrl(email)
 function getPhones(location)
 {
   return location.phones ? location.phones[0] : (location.phones_attributes ? location.phones_attributes[0] : false);
+}
+
+/**
+ * Get URL from location
+ * @param location
+ * @returns {*}
+ */
+function getUrl(location)
+{
+  if (location.urls) {
+    return location.urls[0] ? location.urls[0] : location.urls;
+  } else {
+    return null;
+  }
 }
 
 /**

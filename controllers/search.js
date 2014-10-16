@@ -8,10 +8,11 @@
  * @param res
  * @param Result The Result model.
  * @param Query The Query model.
+ * @param chainer Sequelize query chainer
  * @param request
  * @constructor
  */
-var SearchController = function(req, res, Result, Query, request)
+var SearchController = function(req, res, Result, Query, chainer, request)
 {
 
   // Bounds query string should look like: 'top,left,bottom,right'.
@@ -56,26 +57,42 @@ var SearchController = function(req, res, Result, Query, request)
           data = data.filter(isInQueryBounds);
         }
 
-        var results = [];
-        // Extract data into Result models
+        // Initialize individual Results
+        var unsavedResults = [];
         data.forEach(function(location) {
-          // Save result if necessary
-          var result = Result.build().setLocation(location);
-          Result.upsert(result);
-          results.push(result);
-        });
+          unsavedResults.push(Result.build().setLocation(location));
+        })
 
-        // Save query
-        var query = Query.build({
-          bounds: req.query.bounds,
-          terms: req.query.terms,
-          userPostalCode: req.query.userPostalCode
-        });
-        query.setResults(results);
-        // TODO: handle errors
-        query.save();
+        // TODO: Move the Results logic to the model as bulkUpsert()
+        // The following is kind of a nightmare. It presents a lot of problems for concurrent operations.
+        // Basically, if two users run this at the same time, we could end up with cruft in the DB.
+        // Initialize search criteria for Results
+        var where = generateFindResultsCriteria(unsavedResults);
+        // Search DB for existing results.
+        Result.findAll(where).success(sfunction(foundResults) {
+          // Filter out the existing results
+          var newResults = unsavedResults.filter(filterExistingResult, foundResults);
 
-        res.json(results);
+          if ( ! newResults.length) {
+            saveQuery(foundResults);
+            res.json(foundResults);
+          } else {
+            // Save DB results
+            newResults.forEach(function(newResult) {
+              chainer.add(newResult.save());
+            });
+
+            // Run DB saves
+            chainer.run().success(function(results) {
+              var allResults = foundResults.concat(results);
+              saveQuery(allResults)
+              res.json(allResults);
+            });
+          }
+        }).error(function(error) {
+          // TODO: Handler error appropriately.
+          res.json(unsavedResults);
+        });
       }
     }
   };
@@ -118,6 +135,69 @@ var SearchController = function(req, res, Result, Query, request)
       && longitude >= bounds.left
       && latitude >= bounds.bottom
       && longitude <= bounds.right;
+  }
+
+  /**
+   * Generate 'where' clause for find Results query
+   * @param locations
+   * @returns {{where: {name: {in: *}, externalId: {in: *}, lat: {in: *}, lng: {in: *}}}}
+   */
+  function generateFindResultsCriteria(results)
+  {
+    var wheres = {
+      names: [],
+      externalIds: [],
+      lats: [],
+      lngs: []
+    };
+    // Compile data to search DB for existing results
+    results.forEach(function(result) {
+      wheres.names.push(result.name);
+      wheres.externalIds.push(result.externalId);
+      wheres.lats.push(result.lat);
+      wheres.lngs.push(result.lng);
+    });
+
+    // Compile DB search criteria
+    return {
+      where: {
+        name: { in: wheres.names },
+        externalId: { in: wheres.externalIds },
+        lat: { in: wheres.lats },
+        lng: { in: wheres.lngs }
+      }
+    };
+  }
+
+  /**
+   * Filter results that already exist. 'this' should be the array of found results.
+   * @param unsavedResult
+   * @returns {boolean}
+   */
+  function filterExistingResult(unsavedResult)
+  {
+    this.forEach(function(foundResult) {
+      if (unsavedResult.equals(foundResult)) {
+        return false;
+      }
+    });
+    return true;
+  }
+
+  /**
+   * Save the search query to the DB
+   * @param results
+   */
+  function saveQuery(results)
+  {
+    var query = Query.build({
+      bounds: req.query.bounds,
+      terms: req.query.terms,
+      userPostalCode: req.query.userPostalCode
+    });
+    query.setResults(results);
+    // TODO: handle errors
+    query.save();
   }
 
 };

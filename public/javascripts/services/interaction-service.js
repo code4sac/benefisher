@@ -13,7 +13,7 @@ var InteractionService = function ($http) {
    * @param interaction
    */
   this.save = function(interaction) {
-    $http.post('/interactions', { interaction: interaction });
+    return $http.post('/interactions', { interaction: interaction });
   };
 };
 
