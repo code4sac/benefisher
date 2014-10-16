@@ -38,4 +38,3 @@ public/components/*
 
 # Sensitive config files
 .env
-config/config.json
