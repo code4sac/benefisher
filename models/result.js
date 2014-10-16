@@ -79,7 +79,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       multiInsert: function(toInserts) {
         var chainer = new sequelize.Utils.QueryChainer;
-        // Save DB results
+        // Setup DB saves
         toInserts.forEach(function(toInsert) {
           chainer.add(toInsert.save());
         });

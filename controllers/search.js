@@ -62,6 +62,9 @@ var SearchController = function(req, res, Result, Query, request)
           unsavedResults.push(Result.build().setLocation(location));
         });
 
+        // We want to search the DB for results that already exist, and save the ones that don't.
+        // This is important to pass DB ID's to client for use in saving Interactions, as well as
+        // for saving Queries.
         // Search DB for existing results.
         Result.multiFind(unsavedResults).success(function(foundResults) {
           // Filter out the existing results
