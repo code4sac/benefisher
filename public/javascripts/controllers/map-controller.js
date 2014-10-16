@@ -143,50 +143,28 @@ var MapController = function($scope, search, notification, constants, leafletDat
   function updateMarkers(data) {
     //TODO: Duplicate markers are added anytime this function is called.
     // Adds the data to the list of markers.
+    var tmpMarkers = []
     data.forEach(function (service, index) {
       // The marker will only be added to the list of markers if it has not been ignored.
-      if (!service.ignored)
-        addMarker(service);
-      else
-        removeMarker(service);
+      if (!service.ignored) {
+        tmpMarkers.push(createMarker(service));
+      }
     });
+    $scope.markers = tmpMarkers;
   }
 
   /**
-   * Adds a marker to the map with the attributes needed.
+   * Create a marker object
    * @param service - The service object to add to the map.
    */
-  function addMarker(service) {
-    $scope.markers.push({
+  function createMarker(service) {
+    return {
         lat: service.lat,
         lng: service.lng,
         message: service.popup,
         focus: service.selected,
         hashKey: service.hashKey
-    });
-
-  }
-
-  /**
-  * Removes a specific marker from the map.
-  * @param service
-  */
-  function removeMarker(service) {
-      var i = $scope.markers.length;
-
-      // If the marker's hashKey matches that of the service being passed in, it will be removed.
-      while (i--) {
-          if ($scope.markers[i].hashKey == service.hashKey) {
-              $scope.markers.splice(i, 1);
-          }
-      }
-  }
-
-  /**
-   * Removes all markers from the array by creating a new one.
-   */
-  function removeMarkers() {
-      $scope.markers = [];
+    };
   }
 
 };
