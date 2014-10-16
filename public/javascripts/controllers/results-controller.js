@@ -5,12 +5,13 @@
 /**
  * ResultsController
  * @param $scope
+ * @param $location
  * @param search
  * @param notification
  * @param interaction
  * @constructor
  */
-var ResultsController = function ($scope, search, notification, interaction) {
+var ResultsController = function ($scope, $location, search, notification, interaction) {
 
   /**
    * Interaction targets
@@ -45,6 +46,18 @@ var ResultsController = function ($scope, search, notification, interaction) {
   $scope.interaction = _interaction;
 
   /**
+   * Subscribes to search.
+   * Creates a results array inside of the scope object. Each result from user search will
+   * be added to this array and be iterated over in the results.jade file.
+   */
+  function initResults() {
+    search.subscribe(self.update);
+    angular.extend($scope, {
+      results: []
+    });
+  }
+
+  /**
    * Update results
    * @param data
    * @private
@@ -56,22 +69,9 @@ var ResultsController = function ($scope, search, notification, interaction) {
     } else {
       $scope.noResults = false;
       data.forEach(function (service) {
-        console.log(service);
         $scope.results.push(service);
       });
     }
-  }
-
-  /**
-   * Subscribes to search.
-   * Creates a results array inside of the scope object. Each result from user search will
-   * be added to this array and be iterated over in the results.jade file.
-   */
-  function initResults() {
-    search.subscribe(self.update);
-    angular.extend($scope, {
-      results: []
-    });
   }
 
   /**
@@ -110,9 +110,9 @@ var ResultsController = function ($scope, search, notification, interaction) {
     };
     interaction.save(toSave).then(function() {
       if (redirect) {
-        $location.path(redirect);
+        window.location = redirect;
       }
-    })
+    });
   }
 
 };
