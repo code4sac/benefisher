@@ -1,9 +1,10 @@
-.row.results {
-  @include flexbox();
-  @include flex-direction(row);
-  @include flex-wrap(wrap);
-  @include justify-content(center);
+.results {
+  width: 30%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
   padding: 0;
+  display: inline-block;
   .info {
     text-align: center;
     width: 100%;
@@ -13,11 +14,19 @@
 }
 
 .result {
-  @include flex(4 2);
   text-align: center;
-  border-bottom: 1px solid $muted;
+  border-bottom: 1px solid $secondary;
   padding: 20px;
   box-sizing: border-box;
+  background-color: $lightest;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  &.selected {
+    background-color: rgba($primary, .4);
+  }
 
   .thumbs {
     padding: 10px 0 10px 0;
