@@ -4617,12 +4617,22 @@ ul.notifications {
   box-sizing: border-box;
   overflow: auto;
   padding: 0;
+  margin: 0;
   display: inline-block; }
   .results .info {
     text-align: center;
     width: 100%;
     padding: 20px;
     box-sizing: border-box; }
+
+.results-count {
+  display: block;
+  width: 100%;
+  text-align: center;
+  line-height: 40px;
+  background-color: #2F82BD;
+  color: #FFFFFF;
+  margin: 0; }
 
 .result {
   text-align: center;

@@ -6,6 +6,7 @@ div(class='results', ng-controller='ResultsController')
         p
             | We couldn't find any services matching your search in this area.<br />
             | Try removing some terms from your search, or zooming out on the map to search a wider area.
+    p(class='results-count' ng-show='! noResults'). {{results.length}} results found
     div(ng-repeat='result in results | limitTo: 4', ng-mouseover='onMouseOver($index)', ng-mousemove='onMouse($event)', class="result", ng-class="{ selected: result.selected }", id="result-{{$index}}")
         h4 {{result.name}}
         div(class="thumbs")

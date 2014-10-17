@@ -4,6 +4,7 @@
   box-sizing: border-box;
   overflow: auto;
   padding: 0;
+  margin: 0;
   display: inline-block;
   .info {
     text-align: center;
@@ -11,6 +12,16 @@
     padding: 20px;
     box-sizing: border-box;
   }
+}
+
+.results-count {
+  display: block;
+  width: 100%;
+  text-align: center;
+  line-height: 40px;
+  background-color: $secondary;
+  color: $lightest;
+  margin: 0;
 }
 
 .result {
