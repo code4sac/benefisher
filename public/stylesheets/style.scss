@@ -39,3 +39,10 @@ body {
   border-bottom: 2px solid $secondary;
   border-top: 2px solid $secondary;
 }
+
+@media screen and (max-width: $screen-md) {
+  .map-results-container {
+    height: auto;
+    border-bottom: none;
+  }
+}

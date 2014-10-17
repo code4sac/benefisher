@@ -59,23 +59,22 @@
 }
 
 @media screen and (max-width: $screen-md) {
-  .result {
-    @include flex(1 45%);
+  .results {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-left: none;
+    border-bottom: none;
   }
-}
+  .results-count {
+    display: none;
+  }
+  .result {
+    display: none;
+  }
 
-@media screen and (max-width: $screen-sm) {
-  .row.results {
-    @include flex-direction(column);
-  }
-  .result {
-    @include flex(1);
-    .buttons {
-      padding: 20px 0 10px 0;
-    }
-    .buttons a {
-      font-size: 1.2em;
-      padding: 0 20px;
-    }
+  .result.selected {
+    display: block;
+    background-color: $lightest;
   }
 }

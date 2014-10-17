@@ -10,3 +10,10 @@
   height: 100%;
   min-height: 536px;
 }
+
+@media screen and (max-width: $screen-md) {
+  .map-container {
+    width: 100%;
+    white-space: pre-line;
+  }
+}
