@@ -31,8 +31,6 @@ var ResultsController = function ($scope, $location, search, notification, inter
   $scope.results = [];
   $scope.TARGET = _TARGETS;
 
-  //Used to trim the results array to display, at maximum, MAX_DISPLAY_RESULTS at a time.
-  var MAX_DISPLAY_RESULTS = 4;
   var self = this;
 
   // Expose public methods
@@ -99,7 +97,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
    */
   function _hideResult(index) {
     //We remove the clicked element from the array and shift the remaining over.
-    if (index >= MAX_DISPLAY_RESULTS || index < 0 || index >= $scope.results.length) {
+    if (index < 0 || index >= $scope.results.length) {
       return;
     }
     _interaction($scope.results[index].id, _TARGETS.HIDE);

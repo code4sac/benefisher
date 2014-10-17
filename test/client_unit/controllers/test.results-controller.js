@@ -73,9 +73,6 @@ describe('ResultsController', function (done) {
     scope.hideResult(-1);
     expect(search.remove).to.not.have.been.called;
 
-    scope.hideResult(MAX_RESULTS_SHOWN);
-    expect(search.remove).to.not.have.been.called;
-
   });
 
   //Attempt to remove an element after all are removed

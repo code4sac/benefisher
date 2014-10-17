@@ -62,8 +62,6 @@ var SearchService = function ($http, notification) {
   * @param selectedItem
   */
   this.selected = function (selectedItem) {
-      console.log(selectedItem);
-
       var i = results.length;
       var selectedKey = selectedItem ? selectedItem.hashKey : "";
 
