@@ -54,8 +54,8 @@ module.exports = function(sequelize, DataTypes) {
         if (result.id && this.getDataValue('id')) {
           return result.id === this.getDataValue('id');
         }
-        return result.name === this.getDataValue('name')
-          && result.externalId === this.getDataValue('externalId')
+        return result.name.toString() === this.getDataValue('name').toString()
+          && result.externalId.toString() === this.getDataValue('externalId').toString()
           && result.lat.toString() === this.getDataValue('lat').toString()
           && result.lng.toString() === this.getDataValue('lng').toString();
       },

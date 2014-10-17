@@ -50,7 +50,7 @@ var SearchController = function(req, res, Result, Query, request)
       if (error || response.statusCode < 200 || response.statusCode >= 400) {
         res.status(500).send("Error loading data.");
       } else {
-        data = JSON.parse(body);
+        var data = JSON.parse(body);
         // Only search by bounds if the bounds parameter exists
         if (bounds) {
           data = data.filter(isInQueryBounds);
@@ -138,12 +138,13 @@ var SearchController = function(req, res, Result, Query, request)
    */
   function filterExistingResult(unsavedResult)
   {
+    var keep = true;
     this.forEach(function(foundResult) {
       if (unsavedResult.equals(foundResult)) {
-        return false;
+        keep = false;
       }
     });
-    return true;
+    return keep;
   }
 
   /**
