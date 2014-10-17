@@ -36,4 +36,6 @@ body {
 
 .map-results-container {
   height: 540px;
+  border-bottom: 2px solid $secondary;
+  border-top: 2px solid $secondary;
 }
