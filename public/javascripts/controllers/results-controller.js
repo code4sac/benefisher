@@ -28,6 +28,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
   };
 
   // Expose properties to $scope
+  $scope.currentOffset = 0;
   $scope.results = [];
   $scope.TARGET = _TARGETS;
 
@@ -75,8 +76,9 @@ var ResultsController = function ($scope, $location, search, notification, inter
         if (!service.ignored)
             $scope.results.push(service);
 
-        if (service.selected)
+        if (service.selected) {
             console.log(service.name + " is selected and results got it!");
+        }
       });
     }
   }
