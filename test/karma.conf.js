@@ -12,6 +12,7 @@ module.exports = function(config){
       'public/javascripts/services.js',
       'public/javascripts/app.js',
       'public/javascripts/services/*.js',
+      'public/javascripts/directives/*.js',
       'node_modules/chai/chai.js',
       'node_modules/sinon/pkg/sinon.js',
       'node_modules/sinon-chai/lib/sinon-chai.js',
