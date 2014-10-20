@@ -28,7 +28,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
   };
 
   // Expose properties to $scope
-  $scope.currentOffset = 0;
+  $scope.waitingOnPromise = false;
   $scope.results = [];
   $scope.TARGET = _TARGETS;
 
