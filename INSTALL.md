@@ -2,6 +2,7 @@
 
 ## OS X/Linux
 (Assumes you've already installed node, npm, and git)
+
 1. Fork and clone the repository.
 2. Install the grunt CLI tool: `npm install -g grunt-cli`
 3. Install server-side dependencies: `npm install`
