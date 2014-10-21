@@ -12,24 +12,25 @@ var ScrollOnClick = function () {
     return {
         restrict: 'A',
         link: function($scope, leafletData) {
-            $scope.$on('leafletDirectiveMarker.click', function(event, args){
 
+            $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+                var elem = angular.element;
                 //Grab some information about where the results are currently on the page
-                var resultOffset = $('.results').scrollTop() + $('#result-' + args.markerName).position().top
-                    - $('.results').offset().top;
+                var resultOffset = elem('.results').scrollTop() +
+                        elem('#result-' + args.markerName).position().top
+                            - elem('.results').offset().top;
 
 
                 //Animate to the result... if we've clicked a new marker!
-                if (($('#result-' + args.markerName).position().top != $('.results').offset().top)
+                if ((elem('#result-' + args.markerName).position().top != elem('.results').offset().top)
                             && !$scope.waitingOnPromise) {
 
                     //waitingOnPromise describes whether we are waiting for an animation to finish.
                     $scope.waitingOnPromise = true;
-                    $('.results').animate({scrollTop: resultOffset}, "slow");
+                    elem('.results').animate({scrollTop: resultOffset}, "slow");
 
-                    //Adjust our current offset to account for the case where the div was not able to scroll down
-                    // all the way. These calculations are done after the animation has been performed.
-                    $('.results').promise().done(function () {
+                    //Adjust the waitingOnPromise variable to unblock future animations
+                    elem('.results').promise().done(function () {
                         $scope.waitingOnPromise = false;
                     });
                 }
@@ -38,4 +39,4 @@ var ScrollOnClick = function () {
     }
 };
 
-directives.directive('scrollOnClick', ScrollOnClick);
+directives.directive('scrollOnClick',  ScrollOnClick);
