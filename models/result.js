@@ -47,7 +47,7 @@ module.exports = function(sequelize, DataTypes) {
         json.phoneUrl = formatPhoneUrl(this.getDataValue('rawPhone'));
         json.emailUrl = formatEmailUrl(this.getDataValue('email'));
         json.hashKey = generateHashKey(this.getDataValue('lat'), this.getDataValue('lng'), this.getDataValue('name'));
-        json.popup = generatePopupHtml(this.getDataValue('name'), this.getDataValue('hours'));
+        json.popup = generatePopupHtml(this.getDataValue('name'), this.getDataValue('address'));
         return json;
       },
       equals: function(result) {
@@ -228,7 +228,7 @@ function generateHashKey(lat, lng, name) {
   lat = lat ? lat.toString() : "null";
   lng = lng ? lng.toString() : "null";
   name = name ? name.toString() : "null";
-  // Takes the last 7 characters from lat, lng, and name and combines them to create a unique key.
+  // Takes the last 4 characters from lat, lng, and name, and the first 4 of name, then combines them to create a unique key.
   return lat.slice(-4) + lng.slice(-4) + name.slice(-4) + name.substring(0, 4);
 }
 
@@ -253,7 +253,7 @@ function getUrl(location)
  * @param hours
  * @returns {string}
  */
-function generatePopupHtml(name, hours)
+function generatePopupHtml(name, address)
 {
-  return '<h4>' + name + '</h4><h5>' + hours + '</h5>';
+  return '<h4>' + name + '</h4><h5>' + address + '</h5>';
 }
