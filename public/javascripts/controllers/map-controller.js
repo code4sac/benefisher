@@ -144,8 +144,9 @@ var MapController = function ($scope, search, notification, constants, leafletDa
     var tmpMarkers = [];
     data.forEach(function (service, index) {
       // The marker will only be added to the list of markers if it has not been ignored.
+      //  An icon with the marker's number will be created and then applied to the marker.
       if (!service.ignored) {
-        var icon = createIcon(index);
+        var icon = createIcon(tmpMarkers.length+1);
         tmpMarkers.push(createMarker(service, icon));
       }
     });
@@ -169,13 +170,19 @@ var MapController = function ($scope, search, notification, constants, leafletDa
 
   /**
    * Creates an icon for a marker object.
+   * @param icon - The icon that will be displayed on the marker.
+   * @param color - The color to apply to the marker.
    */
-  function createIcon(icon) {
+  function createIcon(icon, color, size) {
+    // If color is null, will make the color the secondary color (located in color.scss).
+    var color = color ? color : "#2F82BD";
+    // If size is null, will make the marker the large size.
+    var size = size ? size : "l";
     return {
       type: 'makiMarker',
       icon: icon,
-      color: "#2F82BD",
-      size: "l"
+      color: color,
+      size: size
     }
   }
 
