@@ -11,7 +11,7 @@
  * @param leafletData
  * @constructor
  */
-var MapController = function($scope, search, notification, constants, leafletData) {
+var MapController = function ($scope, search, notification, constants, leafletData) {
 
   /** CONSTANTS **/
   // The ID of the Mapbox project to use for map tiles.
@@ -38,23 +38,23 @@ var MapController = function($scope, search, notification, constants, leafletDat
   initMap();
 
   // Updates the map after the map loads.
-  $scope.$on('leafletDirectiveMap.load', function(event){
+  $scope.$on('leafletDirectiveMap.load', function (event) {
     leafletData.getMap().then(updateMap);
   });
 
   // Updates the map after user stops scrolling.
-  $scope.$on('leafletDirectiveMap.dragend', function(event){
+  $scope.$on('leafletDirectiveMap.dragend', function (event) {
     leafletData.getMap().then(updateMap);
   });
 
   // Updates the map after user stop zooming.
-  $scope.$on('leafletDirectiveMap.zoomend', function(event){
+  $scope.$on('leafletDirectiveMap.zoomend', function (event) {
     leafletData.getMap().then(updateMap);
   });
 
   // Listen for click event on markers
-  $scope.$on('leafletDirectiveMarker.click', function(event, args){
-      search.selected($scope.markers[args.markerName]);
+  $scope.$on('leafletDirectiveMarker.click', function (event, args) {
+    search.selected($scope.markers[args.markerName]);
   });
 
   /** METHODS **/
@@ -101,6 +101,7 @@ var MapController = function($scope, search, notification, constants, leafletDat
       lng: -122.3131,
       zoom: ZOOM_DEFAULT
     };
+
     // Extend scope object with defaults and center for map.
     angular.extend($scope, { defaults: defaults, center: center, markers: [], results: [] });
   }
@@ -109,8 +110,7 @@ var MapController = function($scope, search, notification, constants, leafletDat
    * Update the current and previous bounds properties.
    * @param map
    */
-  function updateBounds(map)
-  {
+  function updateBounds(map) {
     if (curBounds) {
       prevBounds = curBounds;
     }
@@ -121,17 +121,15 @@ var MapController = function($scope, search, notification, constants, leafletDat
    * Returns true if the current bounds are not contained by the previous bounds.
    * @returns {boolean}
    */
-  function boundsHaveChanged(map)
-  {
-    return ( ! prevBounds || ! prevBounds.contains(curBounds));
+  function boundsHaveChanged(map) {
+    return ( !prevBounds || !prevBounds.contains(curBounds));
   }
 
   /**
    * Get the current map bounds as a comma-separated parameter string.
    * @returns {string}
    */
-  function getBoundsString()
-  {
+  function getBoundsString() {
     var nw = curBounds.getNorthWest();
     var se = curBounds.getSouthEast();
     return nw.lat + ',' + nw.lng + ',' + se.lat + ',' + se.lng;
@@ -143,11 +141,12 @@ var MapController = function($scope, search, notification, constants, leafletDat
   function updateMarkers(data) {
     //TODO: Duplicate markers are added anytime this function is called.
     // Adds the data to the list of markers.
-    var tmpMarkers = []
+    var tmpMarkers = [];
     data.forEach(function (service, index) {
       // The marker will only be added to the list of markers if it has not been ignored.
       if (!service.ignored) {
-        tmpMarkers.push(createMarker(service));
+        var icon = createIcon(index);
+        tmpMarkers.push(createMarker(service, icon));
       }
     });
     $scope.markers = tmpMarkers;
@@ -157,14 +156,27 @@ var MapController = function($scope, search, notification, constants, leafletDat
    * Create a marker object
    * @param service - The service object to add to the map.
    */
-  function createMarker(service) {
+  function createMarker(service, icon) {
     return {
-        lat: service.lat,
-        lng: service.lng,
-        message: service.popup,
-        focus: service.selected,
-        hashKey: service.hashKey
+      icon: icon,
+      lat: service.lat,
+      lng: service.lng,
+      message: service.popup,
+      focus: service.selected,
+      hashKey: service.hashKey
     };
+  }
+
+  /**
+   * Creates an icon for a marker object.
+   */
+  function createIcon(icon) {
+    return {
+      type: 'makiMarker',
+      icon: icon,
+      color: "#2F82BD",
+      size: "l"
+    }
   }
 
 };
