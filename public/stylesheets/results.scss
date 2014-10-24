@@ -40,6 +40,11 @@
     background-color: rgba($primary, .4);
   }
 
+  .number {
+    border-radius: 100px;
+    background: $primary;
+  }
+
   .thumbs {
     padding: 10px 0 10px 0;
   }
