@@ -74,7 +74,6 @@ var SearchService = function ($http, notification) {
             results[i].selected = false;
       }
 
-      console.log(results);
       // Will then pass this data to the subscribers.
       updateSubscribers();
   }
