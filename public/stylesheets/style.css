@@ -4645,9 +4645,17 @@ ul.notifications {
     border-bottom: none; }
   .result.selected {
     background-color: rgba(115, 182, 230, 0.4); }
+  .result h4 {
+    padding: 0 25px; }
   .result .number {
-    border-radius: 100px;
-    background: #73B6E6; }
+    color: #FFFFFF;
+    font-weight: bold;
+    float: left;
+    line-height: 100%;
+    margin: 0;
+    padding: 10px;
+    border-radius: 50%;
+    background: #2F82BD; }
   .result .thumbs {
     padding: 10px 0 10px 0; }
   .result .thumbs a {

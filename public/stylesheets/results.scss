@@ -40,9 +40,19 @@
     background-color: rgba($primary, .4);
   }
 
+  h4 {
+    padding: 0 25px;
+  }
+
   .number {
-    border-radius: 100px;
-    background: $primary;
+    color: $lightest;
+    font-weight: bold;
+    float: left;
+    line-height: 100%;
+    margin: 0;
+    padding: 10px;
+    border-radius: 50%;
+    background: $secondary;
   }
 
   .thumbs {

@@ -8,9 +8,7 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
             | Try removing some terms from your search, or zooming out on the map to search a wider area.
     p(class='results-count' ng-show='! noResults'). {{results.length}} results found
     div(ng-repeat='result in results', ng-mouseover='onMouseOver($index)', ng-mousemove='onMouse($event)', class="result", ng-class="{ selected: result.selected }", id="result-{{$index}}")
-        p
-            span(class='number')
-                {{$index+1}}
+        p(class='number'){{$index+1}}
         h4 {{result.name}}
         div(class="thumbs")
             a(href="#", title="This result is helpful.", ng-click="interaction(result.id, TARGET.LIKE)")
