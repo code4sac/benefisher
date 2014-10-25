@@ -139,7 +139,6 @@ var MapController = function ($scope, search, notification, constants, leafletDa
    * Identify locations returned through user search by adding markers on the map.
    */
   function updateMarkers(data) {
-    //TODO: Duplicate markers are added anytime this function is called.
     // Adds the data to the list of markers.
     var tmpMarkers = [];
     data.forEach(function (service, index) {
