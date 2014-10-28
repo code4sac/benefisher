@@ -49,9 +49,7 @@ function configure(config) {
   config.host = process.env.DB_HOST ? process.env.DB_HOST : config.host;
   config.port = process.env.DB_PORT ? process.env.DB_PORT : config.port;
   config.dialect = process.env.DB_DIALECT ? process.env.DB_DIALECT : config.dialect;
-  if (env == 'test' || env == 'development') {
-    config.logging = log;
-  }
+  config.logging = log;
   return config;
 }
 
