@@ -22,7 +22,6 @@ module.exports = function(sequelize, DataTypes) {
     phone: DataTypes.STRING,
     rawPhone: DataTypes.STRING,
     email: DataTypes.STRING,
-    emailurl: DataTypes.STRING,
     url: DataTypes.STRING
   }, {
     // Use getter methods to set up virtual properties.
@@ -76,6 +75,10 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     classMethods: {
+      associate: function(models) {
+        Result.hasMany(models.Query);
+        Result.hasMany(models.Interaction);
+      },
       multiFind: function(toFind) {
         // Initialize search criteria for Results
         var where = generateFindResultsCriteria(toFind);
