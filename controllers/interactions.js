@@ -20,8 +20,7 @@ var InteractionsController = function(req, res, Interaction)
       serverError('Interaction must include the "ResultId" parameter.', 400);
     } else {
       var interactionModel = Interaction.build(interaction);
-      interactionModel.setResult(interaction.ResultId);
-      interactionModel.save().success(function() {
+      interactionModel.setResult(interaction.ResultId).success(function() {
         res.status(201).json(interaction);
       }).error(function(error) {
         serverError("Unable to save Interaction.", 500)

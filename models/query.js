@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Query.hasMany(models.Result);
+        Query.hasMany(models.Result, { as: 'Results', through: 'Queries_Results' });
       }
     }
   }, config);

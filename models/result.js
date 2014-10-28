@@ -76,8 +76,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     classMethods: {
       associate: function(models) {
-        Result.hasMany(models.Query);
-        Result.hasMany(models.Interaction);
+        Result.hasMany(models.Query, { as: 'Queries', through: 'Queries_Results' });
+        Result.hasMany(models.Interaction, { as: 'Interactions' });
       },
       multiFind: function(toFind) {
         // Initialize search criteria for Results

@@ -10,7 +10,12 @@ module.exports = function(sequelize, DataTypes) {
   var config = { tableName: 'interaction' };
   var Interaction = sequelize.define("Interaction", {
     target: DataTypes.STRING
-  }, {}, config);
-
+  }, {
+    classMethods: {
+      associate: function(models) {
+        Interaction.belongsTo(models.Result, { as: 'Result' });
+      }
+    }
+  }, config);
   return Interaction;
 };
