@@ -53,7 +53,7 @@ var SearchController = function(req, res, Result, Query, request)
     {
       // Throw a 500 if our response returned an error, or if the response code is not between 200 and 399.
       if (error || response.statusCode < 200 || response.statusCode >= 400) {
-        res.status(500).send("Error loading data.");
+        res.status(500).json("Error loading data.");
       } else {
         var data = JSON.parse(body);
         // Only search by bounds if the bounds parameter exists
