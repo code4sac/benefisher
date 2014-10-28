@@ -53,7 +53,7 @@ var SearchController = function(req, res, Result, Query, request)
     {
       // Throw a 500 if our response returned an error, or if the response code is not between 200 and 399.
       if (error || response.statusCode < 200 || response.statusCode >= 400) {
-        res.status(500).json("Error loading data.");
+        serverError("Error loading data.", 500);
       } else {
         var data = JSON.parse(body);
         // Only search by bounds if the bounds parameter exists
@@ -95,6 +95,16 @@ var SearchController = function(req, res, Result, Query, request)
       }
     }
   };
+
+  /**
+   * Render a server error.
+   * @param message
+   * @param status
+   */
+  function serverError(message, status)
+  {
+    res.status(status).json({error: message});
+  }
 
   /**
    * Build a coordinates object from query parameters.
