@@ -29,6 +29,19 @@ Object.keys(db).forEach(function(modelName) {
   }
 });
 
+// Refresh dev and test logs each time we start the server.
+var firstLog = true;
+function log(toLog) {
+  if (firstLog) {
+    // Sequelize doesn't append newlines to log messages.
+    fs.writeFile("logs/db.log", toLog + '\n');
+    firstLog = false;
+  } else {
+    // Sequelize doesn't append newlines to log messages.
+    fs.appendFile("logs/db.log", toLog + '\n');
+  }
+}
+
 function configure(config) {
   config.database = process.env.DB_NAME ? process.env.DB_NAME : config.database;
   config.username = process.env.DB_USERNAME ? process.env.DB_USERNAME : config.username;
@@ -36,6 +49,9 @@ function configure(config) {
   config.host = process.env.DB_HOST ? process.env.DB_HOST : config.host;
   config.port = process.env.DB_PORT ? process.env.DB_PORT : config.port;
   config.dialect = process.env.DB_DIALECT ? process.env.DB_DIALECT : config.dialect;
+  if (env == 'test' || env == 'development') {
+    config.logging = log;
+  }
   return config;
 }
 
