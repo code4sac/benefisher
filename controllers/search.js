@@ -16,6 +16,11 @@ var SearchController = function(req, res, Result, Query, request)
 
   // Bounds query string should look like: 'top,left,bottom,right'.
   var bounds = constructQueryBounds(req.query);
+  // Munge 'center' param to Ohana API's 'lat_lng'.
+  req.query.lat_lng = req.query.center;
+  // Get max results per query
+  req.query.per_page = 100;
+  req.query.radius = 50;
 
   var apiUrl = 'http://ohanapi.herokuapp.com/api/search';
 
@@ -153,12 +158,14 @@ var SearchController = function(req, res, Result, Query, request)
    */
   function saveQuery(results)
   {
-    var query = Query.create({
+    var query = Query.build({
       bounds: req.query.bounds,
       terms: req.query.terms,
       userPostalCode: req.query.userPostalCode
     });
-    query.setResults(results);
+    query.save().success(function() {
+      query.setResults(results);
+    });
   }
 
 };
