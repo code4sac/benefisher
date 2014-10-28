@@ -31,6 +31,7 @@ var MapController = function ($scope, search, notification, constants, leafletDa
   var curBounds;
   var prevBounds;
   var self = this;
+
   // Expose public methods;
   self.update = _update;
 
@@ -137,8 +138,15 @@ var MapController = function ($scope, search, notification, constants, leafletDa
 
   /**
    * Identify locations returned through user search by adding markers on the map.
+   * @param data
    */
   function updateMarkers(data) {
+    // Deselects all the markers so that the map isn't pulled back to previously selected
+    //  marker.
+    for (var i = 0; i < $scope.markers.length; i++){
+      $scope.markers[i].focus = false;
+    }
+
     // Adds the data to the list of markers.
     var tmpMarkers = [];
     data.forEach(function (service, index) {
