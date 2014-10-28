@@ -153,14 +153,12 @@ var SearchController = function(req, res, Result, Query, request)
    */
   function saveQuery(results)
   {
-    var query = Query.build({
+    var query = Query.create({
       bounds: req.query.bounds,
       terms: req.query.terms,
       userPostalCode: req.query.userPostalCode
     });
     query.setResults(results);
-    // TODO: handle errors
-    query.save();
   }
 
 };
