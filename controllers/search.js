@@ -160,8 +160,7 @@ var SearchController = function(req, res, Result, Query, request)
   {
     var query = Query.build({
       bounds: req.query.bounds,
-      terms: req.query.terms,
-      userPostalCode: req.query.userPostalCode
+      terms: req.query.terms
     });
     query.save().success(function() {
       query.setResults(results);
