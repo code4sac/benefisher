@@ -41,17 +41,21 @@
   }
 
   h4 {
-    padding: 0 25px;
+    padding: 0 40px;
+    margin-top: 0;
   }
 
   .number {
     color: $lightest;
     font-weight: bold;
     float: left;
-    line-height: 100%;
+    height: 30px;
+    width: 30px;
+    padding: 0;
     margin: 0;
-    padding: 10px;
+    line-height: 27px;
     border-radius: 50%;
+    border: 3px solid $primary;
     background: $secondary;
   }
 

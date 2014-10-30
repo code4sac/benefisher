@@ -4646,15 +4646,19 @@ ul.notifications {
   .result.selected {
     background-color: rgba(115, 182, 230, 0.4); }
   .result h4 {
-    padding: 0 25px; }
+    padding: 0 40px;
+    margin-top: 0; }
   .result .number {
     color: #FFFFFF;
     font-weight: bold;
     float: left;
-    line-height: 100%;
+    height: 30px;
+    width: 30px;
+    padding: 0;
     margin: 0;
-    padding: 10px;
+    line-height: 27px;
     border-radius: 50%;
+    border: 3px solid #73B6E6;
     background: #2F82BD; }
   .result .thumbs {
     padding: 10px 0 10px 0; }
