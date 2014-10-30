@@ -4685,8 +4685,16 @@ ul.notifications {
   .result {
     display: none; }
   .result.selected {
+    width: 100%;
     display: block;
-    background-color: #FFFFFF; } }
+    background-color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    bottom: 0;
+    left: 0; }
+    .result.selected .buttons a {
+      font-size: 1.5em; }
+    .result.selected .hours, .result.selected .address, .result.selected .thumbs {
+      display: none; } }
 
 .map-container {
   height: 100%;
@@ -4700,6 +4708,8 @@ ul.notifications {
   min-height: 536px; }
 
 @media screen and (max-width: 992px) {
+  .map {
+    min-height: 380px; }
   .map-container {
     width: 100%;
     white-space: pre-line; } }
@@ -4750,4 +4760,5 @@ body {
 @media screen and (max-width: 992px) {
   .map-results-container {
     height: auto;
-    border-bottom: none; } }
+    border-bottom: none;
+    position: relative; } }

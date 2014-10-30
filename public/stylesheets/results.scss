@@ -93,7 +93,17 @@
   }
 
   .result.selected {
+    width: 100%;
     display: block;
-    background-color: $lightest;
+    background-color: rgba($lightest, .8);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    .buttons a {
+       font-size: 1.5em;
+     }
+    .hours, .address, .thumbs {
+      display: none;
+    }
   }
 }
