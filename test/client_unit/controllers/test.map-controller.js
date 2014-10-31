@@ -153,6 +153,25 @@ describe('MapController', function (done) {
     expect(scope.markers.length).to.equal(8);
   });
 
+  it('should not add markers that have an ignored property of true', function() {
+    var IGNORED_SAMPLE = JSON.parse(JSON.stringify(SAMPLE_DATA));
+
+    IGNORED_SAMPLE[0].ignored = true;
+    IGNORED_SAMPLE[1].ignored = true;
+
+    ctrl.update(IGNORED_SAMPLE);
+    expect(scope.markers.length).to.equal(6);
+  });
+
+  it('should focus on the marker that was selected by the user', function() {
+    var SELECTED_SAMPLE = JSON.parse(JSON.stringify(SAMPLE_DATA));
+
+    SELECTED_SAMPLE[0].selected = true;
+
+    ctrl.update(SELECTED_SAMPLE);
+    expect(scope.markers[0].focus).to.equal(true);
+  });
+
   // TODO: Test Controls
 
   // Search
