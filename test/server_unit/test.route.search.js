@@ -86,18 +86,27 @@ var Result = {
   }
 };
 
-// Mock the query model.
-var Query = {
+// Mock a query instance
+var query = {
   results: [],
-  build: function() {
-    return this;
+  save: function() {
+    return {
+      success: function(callback) {
+        callback();
+      }
+    }
   },
   setResults: function(results){
     this.results = results;
     return this;
-  },
-  save: function() {
+  }
+}
 
+// Mock the query model.
+var Query = {
+  results: [],
+  build: function() {
+    return query;
   }
 };
 
@@ -110,7 +119,6 @@ describe('SearchController', function(done) {
   beforeEach(function() {
     // Mock HTTP service
     request = sinon.spy();
-    Query.save = sinon.spy();
   });
 
   it('should make an http request (all results found in DB path)', function(done) {
@@ -164,8 +172,7 @@ describe('SearchController', function(done) {
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
     new controller(req, res, Result, Query, request).render();
-    expect(Query.results.length).to.equal(30);
-    expect(Query.save).to.have.been.calledOnce;
+    expect(query.results.length).to.equal(30);
     done();
   });
 
@@ -177,8 +184,7 @@ describe('SearchController', function(done) {
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
     new controller(req, res, Result, Query, request).render();
-    expect(Query.results.length).to.equal(30);
-    expect(Query.save).to.have.been.calledOnce;
+    expect(query.results.length).to.equal(30);
     done();
   });
 

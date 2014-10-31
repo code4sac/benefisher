@@ -27,9 +27,9 @@ var MapController = function ($scope, search, notification, constants, leafletDa
   var CONTROLS_POSITION = 'bottomright';
 
   /** PROPERITES **/
-  // The current and previous bounds.
+  // The current bounds and center.
   var curBounds;
-  var prevBounds;
+  var curCenter;
   var self = this;
 
   // Expose public methods;
@@ -73,10 +73,11 @@ var MapController = function ($scope, search, notification, constants, leafletDa
    * @param map
    */
   function updateMap(map) {
-    updateBounds(map);
-    if (boundsHaveChanged()) {
-      search.search({ bounds: getBoundsString() });
-    }
+    updateCoords(map);
+    search.search({
+      bounds: getBoundsString(),
+      center: getCenterString()
+    });
   }
 
   /**
@@ -108,22 +109,12 @@ var MapController = function ($scope, search, notification, constants, leafletDa
   }
 
   /**
-   * Update the current and previous bounds properties.
+   * Update the current bounds and center properties.
    * @param map
    */
-  function updateBounds(map) {
-    if (curBounds) {
-      prevBounds = curBounds;
-    }
+  function updateCoords(map) {
     curBounds = map.getBounds();
-  }
-
-  /**
-   * Returns true if the current bounds are not contained by the previous bounds.
-   * @returns {boolean}
-   */
-  function boundsHaveChanged(map) {
-    return ( !prevBounds || !prevBounds.contains(curBounds));
+    curCenter = map.getCenter();
   }
 
   /**
@@ -134,6 +125,14 @@ var MapController = function ($scope, search, notification, constants, leafletDa
     var nw = curBounds.getNorthWest();
     var se = curBounds.getSouthEast();
     return nw.lat + ',' + nw.lng + ',' + se.lat + ',' + se.lng;
+  }
+
+  /**
+   * Get the current map center as a string: lat,lng
+   * @returns {string}
+   */
+  function getCenterString() {
+    return curCenter.lat + ',' + curCenter.lng;
   }
 
   /**

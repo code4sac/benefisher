@@ -13,10 +13,9 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Interaction.hasOne(models.Result);
+        Interaction.belongsTo(models.Result, { as: 'Result' });
       }
     }
   }, config);
-
   return Interaction;
 };

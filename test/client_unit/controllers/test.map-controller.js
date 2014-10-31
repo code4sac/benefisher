@@ -7,6 +7,7 @@ var TEST_NW_LNG = -122;
 var TEST_SE_LAT = 37;
 var TEST_SE_LNG = -120;
 var TEST_BOUNDS_STRING = TEST_NW_LAT + ',' + TEST_NW_LNG + ',' + TEST_SE_LAT + ',' + TEST_SE_LNG;
+var TEST_CENTER_STRING = TEST_NW_LAT + ',' + TEST_NW_LNG;
 var SAMPLE_DATA = [
   {"name": "St. God's Hospital", "locations": [
     {"accessibility": [ "elevator", "restroom" ], "address_attributes": { "city": "Sacramento", "state": "CA", "street": "2714 N Street", "zip": "95816" }, "contacts_attributes": [
@@ -161,17 +162,17 @@ describe('MapController', function (done) {
 
   it('should call search on map loaded event with correct parameters', function () {
     scope.fireEvent('leafletDirectiveMap.load', {});
-    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING });
+    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING, center: TEST_CENTER_STRING });
   });
 
   it('should call search on map drag end event with correct parameters', function () {
     scope.fireEvent('leafletDirectiveMap.dragend', {});
-    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING });
+    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING, center: TEST_CENTER_STRING });
   });
 
   it('should call search on map zoom end event with correct parameters', function () {
     scope.fireEvent('leafletDirectiveMap.zoomend', {});
-    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING });
+    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING, center: TEST_CENTER_STRING });
   });
 
 });
@@ -207,9 +208,16 @@ function createDependencyMocks() {
       }
     }
   };
+  var center = {
+    lat: TEST_NW_LAT,
+    lng: TEST_NW_LNG
+  }
   var map = {
     getBounds: function () {
       return bounds;
+    },
+    getCenter: function() {
+      return center;
     }
   };
   var mapPromise = {

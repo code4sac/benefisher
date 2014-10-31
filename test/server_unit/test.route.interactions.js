@@ -18,24 +18,26 @@ var res = {
   }
 };
 
-// Mock the Interaction model
-var Interaction = {
+// Mock Interaction instance
+var interaction = {
   data: {},
-  save: function() {
-    return {
-      success: function(callback) {
-        callback();
-        return {
-          error: function() {}
-        }
-      }
-    };
-  },
-  build: function(data) {
-    this.data = data;
+  setResult: function(callback) {
     return this;
   },
-  setResult: function() {}
+  success: function(callback) {
+    callback();
+    return {
+      error: function() {}
+    }
+  }
+}
+
+// Mock the Interaction model
+var Interaction = {
+  build: function(data) {
+    this.data = data;
+    return interaction;
+  }
 }
 
 var request;
