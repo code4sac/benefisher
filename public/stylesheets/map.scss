@@ -11,14 +11,22 @@
   min-height: 536px;
 }
 
-@media screen and (max-width: $screen-md) {
-
-  .map {
-    min-height: 380px;
-  }
-
+@media screen and (max-width: $screen-sm) {
   .map-container {
     width: 100%;
     white-space: pre-line;
+  }
+}
+
+@media screen and (max-width: $screen-sm) and (orientation: portrait) {
+  .map {
+    min-height: 378px;
+  }
+}
+
+@media screen and (max-width: $screen-sm) and (orientation: landscape) {
+  .map {
+    min-height: 240px;
+    height: 240px;
   }
 }

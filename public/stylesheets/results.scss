@@ -45,6 +45,10 @@
     margin-top: 0;
   }
 
+  .hours, .address, .thumbs {
+    display: none;
+  }
+
   .number {
     color: $lightest;
     font-weight: bold;
@@ -57,6 +61,43 @@
     border-radius: 50%;
     border: 3px solid $primary;
     background: $secondary;
+  }
+
+  .expand {
+    float: right;
+    color: $lightest;
+    font-weight: bold;
+    box-sizing: border-box;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    margin: 0;
+    line-height: 27px;
+    border-radius: 50%;
+    border: 3px solid $primary;
+    background: $secondary;
+    &:before {
+      content: "\2b";
+    }
+    &:hover {
+      text-decoration: none;
+      cursor: pointer;
+      background-color: $primary;
+    }
+  }
+
+  &.expanded {
+    .expand {
+      &:before {
+        content: "\2d"
+      }
+    }
+  }
+
+  &.expanded {
+    .hours, .address, .thumbs {
+      display: block;
+    }
   }
 
   .thumbs {
@@ -77,33 +118,57 @@
   }
 }
 
-@media screen and (max-width: $screen-md) {
+@media screen and (max-width: $screen-sm) {
   .results {
     width: 100%;
     height: auto;
     display: block;
     border-left: none;
-    border-bottom: none;
+    border-bottom: 2px solid $secondary;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
+
   .results-count {
     display: none;
   }
+
   .result {
     display: none;
+    border-bottom: none;
+    .hours, .address, .thumbs {
+      display: none;
+    }
+    .number {
+      line-height: 24px;
+      font-size: 14px;
+    }
+    .expand:before {
+      font-size: 14px;
+      height: 24px;
+      width: 24px;
+      line-height: 24px;
+      display: block;
+    }
+    .hours, .address, .thumbs {
+      display: none;
+    }
   }
 
   .result.selected {
     width: 100%;
     display: block;
     background-color: rgba($lightest, .8);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    .buttons a {
+    .buttons a, .thumbs a {
        font-size: 1.5em;
      }
+  }
+
+  .result.expanded {
+    background-color: rgba($lightest, .9);
     .hours, .address, .thumbs {
-      display: none;
+      display: block;
     }
   }
 }
