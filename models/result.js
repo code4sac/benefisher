@@ -50,6 +50,7 @@ module.exports = function(sequelize, DataTypes) {
         return json;
       },
       equals: function(result) {
+
         if (result.id && this.getDataValue('id')) {
           return result.id === this.getDataValue('id');
         }
@@ -62,8 +63,8 @@ module.exports = function(sequelize, DataTypes) {
         var email = location.emails ? location.emails[0] : null;
         this.setDataValue('name', location.name);
         this.setDataValue('externalId', location._id);
-        this.setDataValue('lat', location.coordinates ? location.coordinates[1] : null);
-        this.setDataValue('lng', location.coordinates ? location.coordinates[0] : null);
+        this.setDataValue('lat', truncateFloat(location.coordinates ? location.coordinates[1] : null));
+        this.setDataValue('lng', truncateFloat(location.coordinates ? location.coordinates[0] : null));
         this.setDataValue('description', location.description);
         this.setDataValue('address', formatAddress(location));
         this.setDataValue('hours', location.hours);
@@ -259,4 +260,24 @@ function getUrl(location)
 function generatePopupHtml(name, address)
 {
   return '<h4>' + name + '</h4><h5>' + address + '</h5>';
+}
+
+/**
+ * Truncates our coordinates to 12 digits after the decimal place.
+ *
+ * ex:
+ *    12.1234567890123 gets transformed to 12.123456789012
+ *    12.123 gets transformed to 12.123000000000
+ * @param floatCoordinate raw coordinate with possibly 12+ decimal places.
+ * @returns Coordinate with 12 decimal places, in float format
+ */
+function truncateFloat (floatCoordinate) {
+
+  if (floatCoordinate) {
+    var truncatedCoordinateString = floatCoordinate.toFixed(12);
+    return parseFloat(truncatedCoordinateString);
+  } else {
+    return null;
+  }
+
 }
