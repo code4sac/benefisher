@@ -37,9 +37,12 @@ describe('ResultsController', function (done) {
     // Create stub notification info method.
     notification.info = sinon.spy();
     // Stub search remove method
-    search.remove = sinon.spy()
+    search.remove = sinon.spy();
+    search.selected = sinon.spy();
+
     // Create a fresh scope object.
     scope = $rootScope.$new();
+
     // Initialize the controller with sample data.
     ctrl = $controller('ResultsController', { $scope: scope, search: search, notification: notification });
     ctrl.update(SAMPLE_DATA);
@@ -89,5 +92,21 @@ describe('ResultsController', function (done) {
     ctrl.update(SAMPLE_DATA);
     expect(scope.noResults).to.be.false;
   });
+
+  it('should expand a result when expand button is clicked', function() {
+    scope.expandResult(0);
+    expect(scope.results[0].expanded).to.be.true;
+  });
+
+  it('should only collapse a result when a different result is expanded', function() {
+    scope.expandResult(0);
+    scope.expandResult(1);
+    expect(scope.results[0].expanded).to.be.false;
+  });
+
+  it('should select the result that the mouse hovers over', function() {
+    scope.onMouseOver(0);
+    expect(search.selected).to.have.been.calledWith(scope.results[0]);
+  })
 
 });
