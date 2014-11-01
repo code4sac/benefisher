@@ -24,7 +24,7 @@ var MapController = function ($scope, search, notification, constants, leafletDa
   var ZOOM_MAX = 18;
   var ZOOM_MIN = 10;
   // The position for map controls: topright | topleft | bottomright | bottomleft
-  var CONTROLS_POSITION = 'bottomright';
+  var CONTROLS_POSITION = 'topleft';
 
   /** PROPERITES **/
   // The current bounds and center.

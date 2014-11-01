@@ -7,16 +7,17 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
             | We couldn't find any services matching your search in this area.<br />
             | Try removing some terms from your search, or zooming out on the map to search a wider area.
     p(class='results-count' ng-show='! noResults'). {{results.length}} results found
-    div(ng-repeat='result in results', ng-mouseover='onMouseOver($index)', ng-mousemove='onMouse($event)', class="result", ng-class="{ selected: result.selected }", id="result-{{$index}}")
-        p(class='number'){{$index+1}}
+    div(ng-repeat='result in results', ng-mouseover='onMouseOver($index)', ng-mousemove='onMouse($event)', class="result", ng-class="{ selected: result.selected, expanded: result.expanded }", id="result-{{$index}}")
+        p(class='number') {{ $index+1 }}
+        a(class='expand', ng-click='expandResult($index)' title='Expand result')
         h4 {{result.name}}
         div(class="thumbs")
             a(href="#", title="This result is helpful.", ng-click="interaction(result.id, TARGET.LIKE)")
                 span(class="glyphicon glyphicon-thumbs-up like")
             a(href="#", title="Remove this result.", ng-click="hideResult($index)")
                 span(class="glyphicon glyphicon-thumbs-down remove")
-        p {{result.address}}
-        p {{result.hours}}
+        p(class="address") {{result.address}}
+        p(class="hours") {{result.hours}}
         div(class='buttons')
             a(ng-click='interaction(result.id, TARGET.LINK, result.url)', target='_blank', title='Website: {{result.url}}')
                 span(class='glyphicon glyphicon-link')

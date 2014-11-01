@@ -10,7 +10,16 @@ $icon-font-path: "../components/bootstrap-sass-official/assets/fonts/bootstrap/"
 @import 'footer';
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 1em;
 }
 
 
@@ -40,9 +49,27 @@ body {
   border-top: 2px solid $secondary;
 }
 
-@media screen and (max-width: $screen-md) {
+@media screen and (max-width: $screen-xs) {
+
+  // Set smaller default text size on mobile
+  body{font-size: 10px;}
+
   .map-results-container {
     height: auto;
     border-bottom: none;
+    position: relative;
+  }
+}
+
+@media screen and (max-width: $screen-sm) and (orientation: landscape) {
+
+  // Set smaller default text size on mobile
+  body{font-size: 10px;}
+
+  .map-results-container {
+    height: auto;
+    min-height: 238px;
+    border-bottom: none;
+    position: relative;
   }
 }

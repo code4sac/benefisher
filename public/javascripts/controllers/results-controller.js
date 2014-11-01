@@ -11,7 +11,8 @@
  * @param interaction
  * @constructor
  */
-var ResultsController = function ($scope, $location, search, notification, interaction) {
+var ResultsController = function ($scope, $location, search, notification, interaction)
+{
 
   /**
    * Interaction targets
@@ -24,7 +25,8 @@ var ResultsController = function ($scope, $location, search, notification, inter
     PHONE: 'phone',
     LINK: 'link',
     DIRECTIONS: 'directions',
-    EMAIL: 'email'
+    EMAIL: 'email',
+    EXPAND: 'expand'
   };
 
   // Expose properties to $scope
@@ -42,6 +44,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
 
   // Expose methods to scope
   $scope.hideResult = _hideResult;
+  $scope.expandResult = _expandResult;
   $scope.interaction = _interaction;
 
   /**
@@ -49,7 +52,8 @@ var ResultsController = function ($scope, $location, search, notification, inter
    * Creates a results array inside of the scope object. Each result from user search will
    * be added to this array and be iterated over in the results.jade file.
    */
-  function initResults() {
+  function initResults()
+  {
     search.subscribe(self.update);
     angular.extend($scope, {
       results: []
@@ -65,7 +69,13 @@ var ResultsController = function ($scope, $location, search, notification, inter
     }
   }
 
-  function _update(data) {
+  /**
+   * Update results
+   * @param data
+   * @private
+   */
+  function _update(data)
+  {
     _removeResults();
     if ( ! data.length) {
       $scope.noResults = true;
@@ -82,7 +92,8 @@ var ResultsController = function ($scope, $location, search, notification, inter
   /**
    * Removes all results from the array by creating a new one.
    */
-  function _removeResults() {
+  function _removeResults()
+  {
     $scope.results = [];
   }
 
@@ -93,13 +104,37 @@ var ResultsController = function ($scope, $location, search, notification, inter
    *
    * @param index The index of the result to hide from the user. Used to remove and shift array.
    */
-  function _hideResult(index) {
-    //We remove the clicked element from the array and shift the remaining over.
-    if (index < 0 || index >= $scope.results.length) {
-      return;
+  function _hideResult(index)
+  {
+    if (_indexIsValid(index)) {
+      _interaction($scope.results[index].id, _TARGETS.HIDE);
+      search.remove($scope.results[index]);
     }
-    _interaction($scope.results[index].id, _TARGETS.HIDE);
-    search.remove($scope.results[index]);
+  }
+
+  /**
+   * Mark a given result as 'expanded' and save the interaction.
+   * @param index
+   * @private
+   */
+  function _expandResult(index)
+  {
+    var isExpanded;
+    if (_indexIsValid(index)) {
+      _interaction($scope.results[index].id, _TARGETS.EXPAND);
+      $scope.results.forEach(function(element, i) {
+        // Check whether the given result is already expanded
+        if ($scope.results[i].expanded && i == index) {
+          isExpanded = true;
+        }
+        // Contract all currently expanded results
+        $scope.results[i].expanded = false;
+      });
+      if ( ! isExpanded) {
+        // Expand the selected result
+        $scope.results[index].expanded = true;
+      }
+    }
   }
 
   /**
@@ -108,7 +143,8 @@ var ResultsController = function ($scope, $location, search, notification, inter
    * @param target
    * @param redirect
    */
-  function _interaction(resultId, target, redirect) {
+  function _interaction(resultId, target, redirect)
+  {
     var toSave = {
       ResultId: resultId,
       target: target
@@ -118,6 +154,17 @@ var ResultsController = function ($scope, $location, search, notification, inter
         window.location = redirect;
       }
     });
+  }
+
+  /**
+   * Whether the index is valid for the current results array
+   * @param index
+   * @returns {boolean}
+   * @private
+   */
+  function _indexIsValid(index)
+  {
+    return (index >= 0 && index < $scope.results.length);
   }
 
 };
