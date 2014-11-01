@@ -116,8 +116,8 @@ describe('MapController', function (done) {
       $on: function (eventName, callback) {
         this.events[eventName] = callback;
       },
-      fireEvent: function (eventName, event) {
-        this.events[eventName](event);
+      fireEvent: function (eventName, event, args) {
+        this.events[eventName](event, args);
       }
     });
     // Instantiate the controller.
@@ -172,6 +172,12 @@ describe('MapController', function (done) {
     expect(scope.markers[0].focus).to.equal(true);
   });
 
+  it('should call the search service\'s selected function when a marker has been clicked', function() {
+    ctrl.update(SAMPLE_DATA);
+    scope.fireEvent('leafletDirectiveMarker.click', {}, {});
+    expect(search.selected).to.have.been.called;
+  });
+
   // TODO: Test Controls
 
   // Search
@@ -206,7 +212,8 @@ function createDependencyMocks() {
     subscribe: function (subscriber) {
       this.subscribers.push(subscriber);
     },
-    search: sinon.spy()
+    search: sinon.spy(),
+    selected: sinon.spy()
   };
   // Mock notification dependency
   notification = {
