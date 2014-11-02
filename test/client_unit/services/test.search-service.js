@@ -1,4 +1,7 @@
 var expect = chai.expect;
+// Test data
+var locations = locations;
+var results;
 
 describe('Search Service', function() {
 
@@ -11,12 +14,6 @@ describe('Search Service', function() {
   // Load the benefisher.services module
   beforeEach(module('benefisher.services'));
 
-  // Inject the $httpBackend service for mocking http requests
-  beforeEach(inject(function ($httpBackend) {
-    $httpMock = $httpBackend;
-    $httpMock.when('GET', url).respond([]);
-  }));
-
   // Setup a mock controller
   beforeEach(function() {
     mockCtrl = {
@@ -24,6 +21,14 @@ describe('Search Service', function() {
       update: sinon.spy()
     };
   });
+
+  // Inject the $httpBackend service for mocking http requests
+  beforeEach(inject(function ($httpBackend) {
+    // Convert test data
+    results = convertTestData(locations);
+    $httpMock = $httpBackend;
+    $httpMock.when('GET', url).respond(results);
+  }));
 
   // Setup mock notification service
   beforeEach(inject(function(_notification_) {
@@ -55,7 +60,7 @@ describe('Search Service', function() {
     search.subscribe(mockCtrl.update);
     search.search(mockCtrl.params);
     $httpMock.flush();
-    expect(mockCtrl.update).to.have.been.calledWith([]);
+    expect(mockCtrl.update).to.have.been.calledWith(results);
   }));
 
   it('should create an error notification on an http error', inject(function(search) {
@@ -66,4 +71,30 @@ describe('Search Service', function() {
     expect(notification.error).to.have.been.called;
   }));
 
+  it('should mark a given result as ignored', inject(function(search) {
+    $httpMock.expectGET(url);
+    search.subscribe(mockCtrl.update);
+    search.remove(results[0]);
+    search.search(mockCtrl.params);
+    $httpMock.flush();
+    results[0].ignored = true;
+    expect(mockCtrl.update).to.have.been.calledWith(results);
+  }));
+
 });
+
+/**
+ * Convert raw API locations to Result models.
+ * @param locations
+ * @returns {Array}
+ */
+function convertTestData(locations)
+{
+  var results = [];
+  locations.forEach(function(location, index) {
+    // Use a dummy hashKey value.
+    result = { hashKey: location._id };
+    results.push(result);
+  });
+  return results;
+}
