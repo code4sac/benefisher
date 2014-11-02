@@ -15,3 +15,56 @@
   border: 0;
   border-bottom: 1px dashed orange;
 }
+
+.select2-container-multi {
+  margin:0;
+  padding-bottom: 0;
+}
+
+.select2-input {
+  text-align: center;
+  padding-top: 4px;
+  font-size: 1.5em;
+  border: 0;
+}
+
+.select2-results .select2-highlighted {
+  background-color: $secondary;
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+  margin: 4px 5px 4px 0;
+}
+
+.select2-search-choice-close {
+  background: none;
+  &:before {
+    content: "\00d7";
+    display: block;
+    font-size: 12px;
+    height: 100%;
+    line-height: 100%;
+    color: $muted;
+  }
+  &:hover:before {
+    color: $lightest;
+    text-decoration: none;
+  }
+}
+
+.select2-container-multi .select2-choices,
+.select2-container-multi.select2-container-active .select2-choices{
+  margin: 0 7px 0 0 !important;
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+  font-size: .8em;
+  height: auto;
+  background-color: $secondary;
+
+  p {
+    line-height: 24px;
+    color: #fff;
+    margin-bottom: 0;
+  }
+}
