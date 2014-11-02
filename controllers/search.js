@@ -78,7 +78,7 @@ var SearchController = function(req, res, Result, Query, request)
             // Save DB results
             Result.multiInsert(newResults).success(function(results) {
               var allResults = foundResults.concat(results);
-              saveQuery(allResults)
+              saveQuery(allResults);
               res.json(allResults);
             }).error(function(error) {
               // TODO: Handle error (log it, at least).

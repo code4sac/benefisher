@@ -116,8 +116,8 @@ describe('MapController', function (done) {
       $on: function (eventName, callback) {
         this.events[eventName] = callback;
       },
-      fireEvent: function (eventName, event) {
-        this.events[eventName](event);
+      fireEvent: function (eventName, event, args) {
+        this.events[eventName](event, args);
       }
     });
     // Instantiate the controller.
@@ -151,6 +151,31 @@ describe('MapController', function (done) {
   it('should add markers on update', function () {
     ctrl.update(SAMPLE_DATA);
     expect(scope.markers.length).to.equal(8);
+  });
+
+  it('should not add markers that have an ignored property of true', function() {
+    var IGNORED_SAMPLE = JSON.parse(JSON.stringify(SAMPLE_DATA));
+
+    IGNORED_SAMPLE[0].ignored = true;
+    IGNORED_SAMPLE[1].ignored = true;
+
+    ctrl.update(IGNORED_SAMPLE);
+    expect(scope.markers.length).to.equal(6);
+  });
+
+  it('should focus on the marker that was selected by the user', function() {
+    var SELECTED_SAMPLE = JSON.parse(JSON.stringify(SAMPLE_DATA));
+
+    SELECTED_SAMPLE[0].selected = true;
+
+    ctrl.update(SELECTED_SAMPLE);
+    expect(scope.markers[0].focus).to.equal(true);
+  });
+
+  it('should call the search service\'s selected function when a marker has been clicked', function() {
+    ctrl.update(SAMPLE_DATA);
+    scope.fireEvent('leafletDirectiveMarker.click', {}, {});
+    expect(search.selected).to.have.been.called;
   });
 
   // TODO: Test Controls
@@ -187,7 +212,8 @@ function createDependencyMocks() {
     subscribe: function (subscriber) {
       this.subscribers.push(subscriber);
     },
-    search: sinon.spy()
+    search: sinon.spy(),
+    selected: sinon.spy()
   };
   // Mock notification dependency
   notification = {
