@@ -33,7 +33,7 @@ module.exports = function(config){
 
     junitReporter : {
       outputFile: 'test/test_out/unit.xml',
-      suite: 'unit'
+      suite: 'dots'
     }
 
   });
