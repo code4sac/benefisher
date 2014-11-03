@@ -36,9 +36,9 @@
     "request": "^2.45.0",
     "sequelize": "^2.0.0-rc1",
     "sequelize-cli": "^0.3.3",
+    "serve-favicon": "^2.1.6",
     "sinon": "^1.10.3",
     "sinon-chai": "^2.5.0",
-    "static-favicon": "~1.0.0",
     "supertest": "^0.13.0"
   }
 }

@@ -24,18 +24,21 @@ var interaction = {
   setResult: function(callback) {
     return this;
   },
+  save: function() {
+    return this;
+  },
   success: function(callback) {
     callback();
     return {
       error: function() {}
     }
   }
-}
+};
 
 // Mock the Interaction model
 var Interaction = {
   build: function(data) {
-    this.data = data;
+    interaction.data = data;
     return interaction;
   }
 }

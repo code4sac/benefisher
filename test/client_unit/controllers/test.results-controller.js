@@ -63,13 +63,13 @@ describe('ResultsController', function (done) {
   });
 
   //Remove 1 element from the array normally
-  it('should remove an element from the array when told', function () {
+  it('should remove the result at the given index', function () {
     scope.hideResult(1);
     expect(search.remove).to.have.been.called;
   });
 
   //Try to remove elements that are out of bounds (larger than array len, below 0, and above max results shown)
-  it('should not allow for the removal of an index that is out of bounds', function () {
+  it('should not remove a result when the given index is out of bounds', function () {
     scope.hideResult(8);
     expect(search.remove).to.not.have.been.called;
 
@@ -79,7 +79,7 @@ describe('ResultsController', function (done) {
   });
 
   //Attempt to remove an element after all are removed
-  it('should not allow for results manipulation after none are showing', function () {
+  it('should not remove a result when no results are available', function () {
     ctrl.update([]);
     scope.hideResult(0);
     expect(search.remove).to.not.have.been.called;

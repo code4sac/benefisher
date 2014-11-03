@@ -20,7 +20,8 @@
     "angular-leaflet-directive": "~0.7.8",
     "angular-mocks": "~1.2.25",
     "angular-sanitize": "~1.2.26",
-    "bootstrap-tagsinput": "~0.4.2",
+    "angular-bootstrap": "~0.11.2",
+    "angular-ui-select": "~0.8.3",
     "Leaflet.MakiMarkers": "~1.0.1"
   },
   "resolutions": {
