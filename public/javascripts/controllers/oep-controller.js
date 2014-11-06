@@ -42,4 +42,5 @@
     $scope.eventResult = {item: item, model: model};
   };
   $scope.oepterms = [];
+  $scope.oepterms.selected = [];
 };

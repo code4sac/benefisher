@@ -44,4 +44,4 @@ benefisher.filter('propsFilter', function() {
 
 benefisher.controller('MapController', ['$scope', 'search', 'notification', 'constants', 'leafletData', MapController]);
 benefisher.controller('ResultsController', ['$scope', '$location', 'search', 'notification', 'interaction', ResultsController]);
-benefisher.controller('OepController', ['$scope', '$http', '$timeout', OepController]);
+benefisher.controller('SearchController', ['$scope', '$http', '$timeout', SearchController]);
