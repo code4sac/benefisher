@@ -36,10 +36,13 @@
 
   };
 
+
   $scope.counter = 0;
   $scope.someFunction = function (item, model){
     $scope.counter++;
     $scope.eventResult = {item: item, model: model};
   };
-  $scope.oepterms = [];
+  // $scope.oepterms = [];
+  $scope.oepterms = {};
+  $scope.oepterms.selected = 'oepterms';
 };

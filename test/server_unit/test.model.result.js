@@ -58,6 +58,10 @@ var location4 = JSON.parse(JSON.stringify(location));
 location4.name = null;
 location4.coordinates[0] = null;
 location4.coordinates[1] = null;
+var location5 = JSON.parse(JSON.stringify(location));
+location5.hours = "May - October Wednesday 10:00 AM to 2:00 PM";
+var location6 = JSON.parse(JSON.stringify(location));
+location6.hours = "January - December Thursday 9:00 AM to 1:00 PM, Saturday 9:00 AM to 1:00 PM"
 
 describe('Result', function() {
 
@@ -94,5 +98,41 @@ describe('Result', function() {
   it('should generate a unique key even if name, lat, and lng are null', function () {
     var result = Result.build().setLocation(location4);
     expect(result.hashKey).to.equal('nullnullnullnull');
+  });
+
+  it('should return not null for isOpen if the location string is a known format', function() {
+    // Date format 2
+    var result = Result.build().setLocation(location);
+    expect(result.isOpen).to.not.equal(null);
+    // Date format 1
+    result = Result.build().setLocation(location5);
+    expect(result.isOpen(new Date())).to.not.equal(null);
+  });
+
+  it('should return true for isOpen if the location is open', function() {
+    // Use Wednesday, 9/3/14 12:00pm
+    var now = new Date(2014, 8, 3, 12, 0);
+    // Date format 1
+    var result = Result.build().setLocation(location5);
+    expect(result.isOpen(now)).to.equal(true);
+    // Date format 2
+    result = Result.build().setLocation(location);
+    expect(result.isOpen(now)).to.equal(true);
+  });
+
+  it('should return false for isOpen if the location is closed', function() {
+    // Use Wednesday, 9/3/14 11:00pm
+    var now = new Date(2014, 8, 3, 23, 0);
+    // Date format 1
+    var result = Result.build().setLocation(location5);
+    expect(result.isOpen(now)).to.equal(false);
+    // Date format 2
+    result = Result.build().setLocation(location);
+    expect(result.isOpen(now)).to.equal(false);
+  });
+
+  it('should have a null isOpen value if the location string is not a known format', function() {
+    var result = Result.build().setLocation(location6);
+    expect(result.isOpen(new Date())).to.equal(null);
   });
 });
