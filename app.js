@@ -10,7 +10,6 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var search = require('./routes/search');
 var interactions = require('./routes/interactions');
-var test = require('./routes/test');
 
 var app = express();
 
@@ -28,7 +27,6 @@ app.use(favicon(path.join(__dirname, '/public', '/images', '/favicon.ico')));
 app.use('/', index);
 app.use('/search', search);
 app.use('/interactions', interactions);
-app.use('/test', test)
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
