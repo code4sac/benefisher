@@ -68,7 +68,7 @@ module.exports = function(sequelize, DataTypes) {
   var classMethods = {
     associate: function(models) { return associate.apply(Result, [models]) },
     multiFind: function(toFind) { return multiFind.apply(Result, [toFind]) },
-    multiInsert: function(toInserts) { return multiInsert.apply(Result, [toInserts]) }
+    multiInsert: function(toInserts) { return multiInsert.apply(Result, [sequelize, toInserts]) }
   };
   // Model getter methods
   // Use getter methods to set up virtual properties.
@@ -166,10 +166,11 @@ function multiFind(toFind)
 
 /**
  * Insert multiple Results to DB
+ * @param sequelize
  * @param toInserts
  * @returns {*}
  */
-function multiInsert(toInserts)
+function multiInsert(sequelize, toInserts)
 {
   var chainer = new sequelize.Utils.QueryChainer;
   // Setup DB saves
