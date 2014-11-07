@@ -3,9 +3,9 @@
 //TODO: Should eventually take the full screen.. margin is too high.
 div(ng-controller='SearchController')
     div(class="col-sm-6 col-xs-6 input-container")
-        input(type="text", name="situation", placeholder="What's my situation?", class="search-input situation-input")
+        input(type="text", name="situation", placeholder="What's my situation?", class="search-input situation-input", ng-cloak)
     div(class="col-sm-6 col-xs-6 input-container")
-        ui-select(multiple ng-model="oepterms.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" class="search-input need-input")
+        ui-select(multiple ng-model="oepterms.selected", theme="select2", ng-disabled="disabled", style="width: 100%;", class="search-input need-input", ng-cloak)
             ui-select-match(placeholder="What do I need?")
                 p {{$item.name}}
             ui-select-choices(repeat="oepterm in oepterms | filter:$select.search")
