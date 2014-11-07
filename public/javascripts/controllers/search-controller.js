@@ -7,6 +7,10 @@ var SearchController = function($scope, search, $http, $timeout) {
     $scope.oepterms = data;
   });
 
+  $http.get('oepterms/situations.json').success(function(data) {
+    $scope.situations = data;
+  });
+
   $scope.disabled = undefined;
   $scope.searchEnabled = undefined;
 
@@ -44,6 +48,8 @@ var SearchController = function($scope, search, $http, $timeout) {
   $scope.oepterms = [];
   $scope.oepterms.selected = [];
 
+  $scope.situations = [];
+  $scope.situations.selected = [];
   /*
    * Whenever OEPterms are changed, we must update the search.
    *
