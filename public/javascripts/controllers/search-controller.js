@@ -1,7 +1,7 @@
 /**
  * Created by jamesdoan on 10/9/14.
  */
-var SearchController = function($scope, $http, $timeout) {
+var SearchController = function($scope, search, $http, $timeout) {
 
   $http.get('oepterms/oep.json').success(function(data) {
     $scope.oepterms = data;
@@ -43,4 +43,34 @@ var SearchController = function($scope, $http, $timeout) {
   };
   $scope.oepterms = [];
   $scope.oepterms.selected = [];
+
+  $scope.needs = [];
+  $scope.oepterms.selected = [];
+
+  /*
+   * Whenever OEPterms are changed, we must update the search.
+   *
+   * When there is only 1 OEP term to search, we search by category match, otherwise,
+   * we search the entire service by all of the keywords.
+   * */
+  $scope.$watch('oepterms.selected', function () {
+    keyword = [];
+    keywordsDelimited = "";
+    if ($scope.oepterms.length > 0) {
+      if ($scope.oepterms.selected) {
+        $scope.oepterms.selected.forEach(function (oepterm) {
+          keyword.push(oepterm.name);
+        });
+        if ($scope.oepterms.selected.length == 1) {
+          search.search({category: keyword[0], keyword: ""});
+        } else {
+          keywordsDelimited = keyword.join(',');
+          search.search({keyword: keywordsDelimited, category: ""});
+        }
+      } else {
+        search.search({keyword: "", category: ""});
+      }
+    }
+
+  })
 };

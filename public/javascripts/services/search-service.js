@@ -10,18 +10,17 @@ var services = angular.module('benefisher.services');
  * @param notification
  * @constructor
  */
-var SearchService = function ($http, notification) {
+var SearchService = function ($http, notification, neuralnet) {
   var results = [];
   var subscribers = [];
   var ignoreList = {};
   var params = {};
-
   /**
    * Allows subscribers to subscribe with their update function.
    * @param updateFunction
    */
   this.subscribe = function (updateFunction) {
-    subscribers.push(updateFunction);
+		subscribers.push(updateFunction);
   };
 
   /**
@@ -29,17 +28,19 @@ var SearchService = function ($http, notification) {
    * @param newParams
    */
   this.search = function (newParams) {
-    updateParams(newParams);
-    // TODO: error handler.
-    $http.get('/search', { params: params })
-        .success(function(data) {
-            // Saves the list of data and removes the items that are ignored. Then pushes them
-            //   to subscribers.
-            results = data;
-            removeIgnored();
-            updateSubscribers();
-        })
-        .error(httpError);
+	updateParams(newParams);
+	// TODO: error handler.
+	$http.get('/search', { params: params })
+		.success(function(data) {
+			// Saves the list of data and removes the items that are ignored. Then pushes them
+			//   to subscribers.
+			results = data;
+			removeIgnored();
+
+			//TODO: Needs to combine ranking, then order.
+			updateSubscribers();
+		})
+		.error(httpError);
   };
 
   /**
@@ -47,14 +48,14 @@ var SearchService = function ($http, notification) {
   * @param removeItem
   */
   this.remove = function (removeItem) {
-      var hashKey = removeItem.hashKey;
+	  var hashKey = removeItem.hashKey;
 
-      // Uses key-value pairs to keep track of all items in the ignore list.
-      ignoreList[hashKey] = removeItem;
+	  // Uses key-value pairs to keep track of all items in the ignore list.
+	  ignoreList[hashKey] = removeItem;
 
-      // Removes the ignored items from the results and then pushes them to the subscribers.
-      removeIgnored();
-      updateSubscribers();
+	  // Removes the ignored items from the results and then pushes them to the subscribers.
+	  removeIgnored();
+	  updateSubscribers();
   };
 
   /**
@@ -62,20 +63,20 @@ var SearchService = function ($http, notification) {
   * @param selectedItem
   */
   this.selected = function (selectedItem) {
-      var i = results.length;
-      var selectedKey = selectedItem ? selectedItem.hashKey : "";
+	  var i = results.length;
+	  var selectedKey = selectedItem ? selectedItem.hashKey : "";
 
-      // Changes the "selected" property of the selected item in results to true and all others
-      //   to false.
-      while (i--) {
-          if (results[i].hashKey == selectedKey)
-            results[i].selected = true;
-          else
-            results[i].selected = false;
-      }
+	  // Changes the "selected" property of the selected item in results to true and all others
+	  //   to false.
+	  while (i--) {
+		  if (results[i].hashKey == selectedKey)
+			results[i].selected = true;
+		  else
+			results[i].selected = false;
+	  }
 
-      // Will then pass this data to the subscribers.
-      updateSubscribers();
+	  // Will then pass this data to the subscribers.
+	  updateSubscribers();
   }
 
   /**
@@ -84,30 +85,30 @@ var SearchService = function ($http, notification) {
   * @returns data
   */
   function removeIgnored() {
-    var i = results.length;
+	var i = results.length;
 
-    // Goes through each data item starting from the top.
-    while (i--) {
-      var hashKey = results[i].hashKey;
+	// Goes through each data item starting from the top.
+	while (i--) {
+	  var hashKey = results[i].hashKey;
 
-      // If the object exists in the ignore list, set its property to be ignored..
-      if (ignoreList[hashKey] != undefined) {
-        results[i].ignored = true;
-      }
-    }
+	  // If the object exists in the ignore list, set its property to be ignored..
+	  if (ignoreList[hashKey] != undefined) {
+		results[i].ignored = true;
+	  }
+	}
   }
 
   /**
    * Update subscribers with search results. Ignores results that are on the ignore list.
    */
   function updateSubscribers(data, status, headers, config) {
-    var numSubscribers = subscribers.length;
+	var numSubscribers = subscribers.length;
 
-    for (var i = 0; i < numSubscribers; i++) {
-      if (typeof subscribers[i] === 'function') {
-        subscribers[i](results);
-      }
-    }
+	for (var i = 0; i < numSubscribers; i++) {
+	  if (typeof subscribers[i] === 'function') {
+		subscribers[i](results);
+	  }
+	}
   }
 
   /**
@@ -119,7 +120,7 @@ var SearchService = function ($http, notification) {
    */
   function httpError(data, status, headers, config)
   {
-    notification.error("Uh-oh, there was an error loading data.");
+	notification.error("Uh-oh, there was an error loading data.");
   }
 
   /**
@@ -127,10 +128,11 @@ var SearchService = function ($http, notification) {
    * @param newParams
    */
   function updateParams(newParams) {
-    for(property in newParams) {
-      params[property] = newParams[property];
-    }
+		for(property in newParams) {
+			params[property] = newParams[property];
+		}
   }
+
 };
 
-services.service('search', ['$http', 'notification', SearchService]);
+services.service('search', ['$http', 'notification', 'neuralnet', SearchService]);

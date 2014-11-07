@@ -115,6 +115,9 @@ var MapController = function ($scope, search, notification, constants, leafletDa
   function updateCoords(map) {
     curBounds = map.getBounds();
     curCenter = map.getCenter();
+    $scope.curBounds = curBounds;
+    $scope.curCenter = curCenter;
+
   }
 
   /**

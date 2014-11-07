@@ -1,7 +1,8 @@
 /**
  * Created by jamesdoan on 10/9/14.
  */
- var OepController = function($scope, $http, $timeout) {
+var OepController = function($scope, search, $http, $timeout) {
+
 
   $http.get('oepterms/oep.json').success(function(data) {
     $scope.oepterms = data;
@@ -20,11 +21,11 @@
 
   $scope.enableSearch = function() {
     $scope.searchEnabled = true;
-  }
+  };
 
   $scope.disableSearch = function() {
     $scope.searchEnabled = false;
-  }
+  };
 
   $scope.someGroupFn = function (item){
 
@@ -36,11 +37,12 @@
 
   };
 
+
   $scope.counter = 0;
   $scope.someFunction = function (item, model){
     $scope.counter++;
     $scope.eventResult = {item: item, model: model};
   };
   $scope.oepterms = [];
-  $scope.oepterms.selected = [];
+
 };
