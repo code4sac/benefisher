@@ -24,6 +24,12 @@ var MONTHS_OF_YEAR = {
   'dec': 12
 };
 
+var OPEN_STATUSES = {
+  'OPEN': 'open',
+  'CLOSED': 'closed',
+  'CLOSING': 'closing'
+}
+
 
 /**
  * Result model
@@ -56,7 +62,7 @@ module.exports = function(sequelize, DataTypes) {
     toJSON: function() { return toJson.apply(this) },
     equals: function(result) { return equals.apply(this, [result]) },
     setLocation: function(location) { return setLocation.apply(this, [location]) },
-    isOpen: function(now) { return isOpen.apply(this, [now]) }
+    openStatus: function(now) { return getOpenStatus.apply(this, [now]) }
   };
   // Model 'class' methods
   var classMethods = {
@@ -95,7 +101,7 @@ function toJson()
   json.emailUrl = getEmailUrl.apply(this);
   json.hashKey = getHashKey.apply(this);
   json.popup = getPopupHtml.apply(this);
-  json.isOpen = isOpen.apply(this, [new Date()]);
+  json.openStatus = getOpenStatus.apply(this, [new Date()]);
   return json;
 }
 
@@ -219,15 +225,15 @@ function getHashKey() {
 }
 
 /**
- * Determine whether the location is currently open.
+ * Get the location's open status for a given time.
  * @param now
- * @returns {bool|null}
+ * @returns {string|false}
  */
-function isOpen(now)
+function getOpenStatus(now)
 {
   var hours = this.getDataValue('hours');
   if ( ! hours) {
-    return null;
+    return false;
   }
   var monthRegExp = new RegExp(/((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[\w]*)/gi);
   var dayRegExp = new RegExp(/((Mon|Tue|Wed|Thu|Fri|Sat|Sun)[\w]*)/gi);
@@ -241,14 +247,14 @@ function isOpen(now)
   // TODO: Add support for more formats.
   // Format 1: START MONTH - END MONTH DoW 8:00 AM to 12:00 PM
   if (numMonths == 2 && numDays == 1 && numTimes == 2) {
-    return isOpen_format1(now, monthMatches, dayMatches, timeMatches);
+    return getOpenStatus_format1(now, monthMatches, dayMatches, timeMatches);
   }
   // Format 2: START DoW-END DoW, 8:00am-5:00pm; PHONE INFO
   if ( ! numMonths && numDays == 2 && numTimes == 2) {
-    return isOpen_format2(now, dayMatches, timeMatches);
+    return getOpenStatus_format2(now, dayMatches, timeMatches);
   }
-  // If we don't have a format, return null
-  return null;
+  // If we don't have a format, return false
+  return false;
 }
 
 /**
@@ -424,9 +430,9 @@ function standardizeTime(now, timeString)
  * @param months
  * @param days
  * @param times
- * @returns {boolean}
+ * @returns {string}
  */
-function isOpen_format1(now, months, days, times)
+function getOpenStatus_format1(now, months, days, times)
 {
   var nowDayOfWeek = now.getDay();
   var nowMonth = now.getMonth();
@@ -435,11 +441,18 @@ function isOpen_format1(now, months, days, times)
   var dayOfWeek = DAYS_OF_WEEK[days[0].toLowerCase().substr(0,3)];
   var startMonth = MONTHS_OF_YEAR[months[0].toLowerCase().substr(0,3)];
   var endMonth = MONTHS_OF_YEAR[months[1].toLowerCase().substr(0,3)];
-  return nowMonth >= startMonth
-    && nowMonth <= endMonth
-    && nowDayOfWeek == dayOfWeek
-    && now >= startTime
-    && now <= endTime;
+  if (nowMonth < startMonth
+    || nowMonth > endMonth
+    || nowDayOfWeek != dayOfWeek
+    || now < startTime
+    || now > endTime ) {
+    return OPEN_STATUSES.CLOSED;
+  }
+  if (Math.floor(Math.abs(endTime - now) / 60000) < 60) {
+    return OPEN_STATUSES.CLOSING;
+  } else {
+    return OPEN_STATUSES.OPEN;
+  }
 }
 
 /**
@@ -448,17 +461,24 @@ function isOpen_format1(now, months, days, times)
  * @param now
  * @param days
  * @param times
- * @returns {boolean}
+ * @returns {string}
  */
-function isOpen_format2(now, days, times)
+function getOpenStatus_format2(now, days, times)
 {
   var nowDayOfWeek = now.getDay();
   var startDayOfWeek = DAYS_OF_WEEK[days[0].toLowerCase().substr(0,3)];
   var endDayOfWeek = DAYS_OF_WEEK[days[1].toLowerCase().substr(0,3)];
   var startTime = standardizeTime(now, times[0]);
   var endTime = standardizeTime(now, times[1]);
-  return nowDayOfWeek >= startDayOfWeek
-    && nowDayOfWeek <= endDayOfWeek
-    && now >= startTime
-    && now <= endTime;
+  if (nowDayOfWeek < startDayOfWeek
+    || nowDayOfWeek > endDayOfWeek
+    || now < startTime
+    || now > endTime) {
+    return OPEN_STATUSES.CLOSED;
+  }
+  if (Math.floor(Math.abs(endTime - now) / 60000) < 60) {
+    return OPEN_STATUSES.CLOSING;
+  } else {
+    return OPEN_STATUSES.OPEN;
+  }
 }

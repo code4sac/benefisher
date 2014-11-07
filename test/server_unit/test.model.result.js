@@ -100,39 +100,52 @@ describe('Result', function() {
     expect(result.hashKey).to.equal('nullnullnullnull');
   });
 
-  it('should return not null for isOpen if the location string is a known format', function() {
+  it('should return not false open status if the location hours string is a known format', function() {
     // Date format 2
     var result = Result.build().setLocation(location);
-    expect(result.isOpen).to.not.equal(null);
+    expect(result.openStatus(new Date())).to.not.equal(false);
     // Date format 1
     result = Result.build().setLocation(location5);
-    expect(result.isOpen(new Date())).to.not.equal(null);
+    expect(result.openStatus(new Date())).to.not.equal(false);
   });
 
-  it('should return true for isOpen if the location is open', function() {
-    // Use Wednesday, 9/3/14 12:00pm
-    var now = new Date(2014, 8, 3, 12, 0);
+  it('should have the correct open status if the location is open', function() {
+    // Use Wednesday, 9/3/14 11:55pm
+    var now = new Date(2014, 8, 3, 11, 55);
     // Date format 1
     var result = Result.build().setLocation(location5);
-    expect(result.isOpen(now)).to.equal(true);
+    expect(result.openStatus(now)).to.equal('open');
     // Date format 2
     result = Result.build().setLocation(location);
-    expect(result.isOpen(now)).to.equal(true);
+    expect(result.openStatus(now)).to.equal('open');
   });
 
-  it('should return false for isOpen if the location is closed', function() {
+  it('should have the correct open status if the location is closing soon', function() {
+    // Use Wednesday, 9/3/14 12:15pm
+    var now = new Date(2014, 8, 3, 13, 15);
+    // Date format 1
+    var result = Result.build().setLocation(location5);
+    expect(result.openStatus(now)).to.equal('closing');
+    // Date format 2
+    // Use Wednesday, 9/3/14 4:01pm
+    now = new Date(2014, 8, 3, 16, 01);
+    result = Result.build().setLocation(location);
+    expect(result.openStatus(now)).to.equal('closing');
+  });
+
+  it('should have the correct open status if the location is closed', function() {
     // Use Wednesday, 9/3/14 11:00pm
     var now = new Date(2014, 8, 3, 23, 0);
     // Date format 1
     var result = Result.build().setLocation(location5);
-    expect(result.isOpen(now)).to.equal(false);
+    expect(result.openStatus(now)).to.equal('closed');
     // Date format 2
     result = Result.build().setLocation(location);
-    expect(result.isOpen(now)).to.equal(false);
+    expect(result.openStatus(now)).to.equal('closed');
   });
 
-  it('should have a null isOpen value if the location string is not a known format', function() {
+  it('should have a false open status if the location string is not a known format', function() {
     var result = Result.build().setLocation(location6);
-    expect(result.isOpen(new Date())).to.equal(null);
+    expect(result.openStatus(new Date())).to.equal(false);
   });
 });
