@@ -4692,6 +4692,20 @@ ul.notifications {
   .result h4 {
     padding: 0 40px;
     margin-top: 0; }
+  .result .open_status {
+    margin-top: 10px; }
+    .result .open_status.open {
+      color: #29D155; }
+      .result .open_status.open:before {
+        content: "Open"; }
+    .result .open_status.closed {
+      color: #FF4A32; }
+      .result .open_status.closed:before {
+        content: "Closed"; }
+    .result .open_status.closing {
+      color: #FFA632; }
+      .result .open_status.closing:before {
+        content: "Closing soon"; }
   .result .hours, .result .address, .result .thumbs {
     display: none; }
   .result .number {

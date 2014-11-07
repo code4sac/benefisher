@@ -43,6 +43,7 @@ var OepController = function($scope, search, $http, $timeout) {
     $scope.counter++;
     $scope.eventResult = {item: item, model: model};
   };
-  $scope.oepterms = [];
+  // $scope.oepterms = [];
+  $scope.oepterms = {};
 
 };

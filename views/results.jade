@@ -17,7 +17,7 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
             a(href="#", title="Remove this result.", ng-click="hideResult($index)")
                 span(class="glyphicon glyphicon-thumbs-down remove")
         p(class="address") {{result.address}}
-        p(class="hours") {{result.hours}}
+        p(class="hours", ng-class="result.openStatus") {{result.hours}}
         div(class='buttons')
             a(ng-click='interaction(result.id, TARGET.LINK, result.url)', target='_blank', title='Website: {{result.url}}')
                 span(class='glyphicon glyphicon-link')
@@ -27,4 +27,5 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
                 span(class='glyphicon glyphicon-road')
             a(ng-click='interaction(result.id, TARGET.EMAIL, result.emailUrl)', target='_blank', title='Email: {{result.email}}')
                 span(class='glyphicon glyphicon-envelope')
+        div(class="open_status", ng-show="result.openStatus", ng-class="result.openStatus")
 
