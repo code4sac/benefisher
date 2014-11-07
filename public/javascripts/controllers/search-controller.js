@@ -44,9 +44,6 @@ var SearchController = function($scope, search, $http, $timeout) {
   $scope.oepterms = [];
   $scope.oepterms.selected = [];
 
-  $scope.needs = [];
-  $scope.oepterms.selected = [];
-
   /*
    * Whenever OEPterms are changed, we must update the search.
    *
@@ -56,12 +53,13 @@ var SearchController = function($scope, search, $http, $timeout) {
   $scope.$watch('oepterms.selected', function () {
     keyword = [];
     keywordsDelimited = "";
-    if ($scope.oepterms.length > 0) {
-      if ($scope.oepterms.selected) {
-        $scope.oepterms.selected.forEach(function (oepterm) {
+    terms = $scope.oepterms;
+    if (terms.length > 0) {
+      if (terms.selected) {
+        terms.selected.forEach(function (oepterm) {
           keyword.push(oepterm.name);
         });
-        if ($scope.oepterms.selected.length == 1) {
+        if (terms.selected.length == 1) {
           search.search({category: keyword[0], keyword: ""});
         } else {
           keywordsDelimited = keyword.join(',');
