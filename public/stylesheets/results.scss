@@ -45,6 +45,28 @@
     margin-top: 0;
   }
 
+  .open_status {
+    margin-top: 10px;
+    &.open {
+      color: $success;
+      &:before {
+        content: "Open";
+      }
+    }
+    &.closed {
+      color: $error;
+      &:before {
+        content: "Closed";
+      }
+    }
+    &.closing {
+      color: $warning;
+      &:before {
+        content: "Closing soon";
+      }
+    }
+  }
+
   .hours, .address, .thumbs {
     display: none;
   }
