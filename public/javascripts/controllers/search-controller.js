@@ -3,4 +3,4 @@
  */
 var SearchController = function ($scope, search) {
 
-}
+};

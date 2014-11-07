@@ -14,6 +14,7 @@
 var SearchController = function(req, res, Result, Query, request)
 {
 
+  var DELIMITER = ',';
   // Bounds query string should look like: 'top,left,bottom,right'.
   var bounds = constructQueryBounds(req.query);
   // Munge 'center' param to Ohana API's 'lat_lng'.
@@ -21,7 +22,6 @@ var SearchController = function(req, res, Result, Query, request)
   // Get max results per query
   req.query.per_page = 100;
   req.query.radius = 50;
-
   var apiUrl = 'http://ohanapi.herokuapp.com/api/search';
 
   // TODO: move API token to .env
@@ -64,6 +64,7 @@ var SearchController = function(req, res, Result, Query, request)
         // Initialize individual Results
         var unsavedResults = [];
         data.forEach(function(location) {
+
           unsavedResults.push(Result.build().setLocation(location));
         });
 
@@ -114,7 +115,7 @@ var SearchController = function(req, res, Result, Query, request)
   function constructQueryBounds(query)
   {
     if (query && query.bounds) {
-      var boundsArray = query.bounds.split(',');
+      var boundsArray = query.bounds.split(DELIMITER);
       if (boundsArray.length == 4) {
         bounds = {
           top: parseFloat(boundsArray[0]),
@@ -122,6 +123,8 @@ var SearchController = function(req, res, Result, Query, request)
           bottom: parseFloat(boundsArray[2]),
           right: parseFloat(boundsArray[3])
         };
+      } else {
+        bounds = this.curBounds;
       }
     }
     return bounds;
@@ -176,7 +179,8 @@ var SearchController = function(req, res, Result, Query, request)
       query.setResults(results);
     });
   }
-
 };
+
+
 
 module.exports = SearchController;

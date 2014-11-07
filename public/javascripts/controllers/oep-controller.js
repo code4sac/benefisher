@@ -1,7 +1,8 @@
 /**
  * Created by jamesdoan on 10/9/14.
  */
- var OepController = function($scope, $http, $timeout) {
+var OepController = function($scope, search, $http, $timeout) {
+
 
   $http.get('oepterms/oep.json').success(function(data) {
     $scope.oepterms = data;
@@ -20,11 +21,11 @@
 
   $scope.enableSearch = function() {
     $scope.searchEnabled = true;
-  }
+  };
 
   $scope.disableSearch = function() {
     $scope.searchEnabled = false;
-  }
+  };
 
   $scope.someGroupFn = function (item){
 
@@ -36,10 +37,40 @@
 
   };
 
+
   $scope.counter = 0;
   $scope.someFunction = function (item, model){
     $scope.counter++;
     $scope.eventResult = {item: item, model: model};
   };
   $scope.oepterms = [];
+  $scope.needs = [];
+  $scope.oepterms.selected = [];
+
+  /*
+  * Whenever OEPterms are changed, we must update the search.
+  *
+  * When there is only 1 OEP term to search, we search by category match, otherwise,
+  * we search the entire service by all of the keywords.
+  * */
+  $scope.$watch('oepterms.selected', function () {
+    keyword = [];
+    keywordsDelimited = "";
+    if ($scope.oepterms.length > 0) {
+      if ($scope.oepterms.selected) {
+        $scope.oepterms.selected.forEach(function (oepterm) {
+          keyword.push(oepterm.name);
+        });
+        if ($scope.oepterms.selected.length == 1) {
+          search.search({category: keyword[0], keyword: ""});
+        } else {
+          keywordsDelimited = keyword.join(',');
+          search.search({keyword: keywordsDelimited, category: ""});
+        }
+      } else {
+        search.search({keyword: "", category: ""});
+      }
+    }
+
+  })
 };
