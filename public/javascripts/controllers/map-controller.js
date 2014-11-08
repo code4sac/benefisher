@@ -173,7 +173,7 @@ var MapController = function ($scope, search, notification, constants, leafletDa
       lng: service.lng,
       message: service.popup,
       focus: service.selected,
-      hashKey: service.hashKey
+      id: service.id
     };
   }
 

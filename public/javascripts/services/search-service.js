@@ -65,7 +65,6 @@ var SearchService = function ($http, notification, neuralnet) {
   this.selected = function (selectedItem) {
 	  var i = results.length;
 	  var selectedId = selectedItem ? selectedItem.id : "";
-
 	  // Changes the "selected" property of the selected item in results to true and all others
 	  //   to false.
 	  while (i--) {
