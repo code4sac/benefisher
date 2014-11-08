@@ -3,8 +3,9 @@
  */
 var SearchController = function($scope, search, notification, $http, $timeout) {
 
+  var dangerTags = ["Emergency", "Disaster"];  // List of words to look for that signify immediate danger.
   var bEmergency = false; // Used to decide if the emergency notification needs to be displayed.
-  var promise;
+  var promise;  // Holds the promise for the notification so that it can be canceled if need be.
 
   $http.get('oepterms/oep.json').success(function(data) {
     $scope.oepterms = data;
@@ -73,10 +74,16 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
     if (terms.length > 0) {
       if (terms.selected) {
         terms.selected.forEach(function (oepterm) {
-          // If any of the tags contains "Emergency" anywhere in it, set our flag to true.
-          if ((oepterm.name.toLowerCase().indexOf("Emergency".toLowerCase()) > -1)) {
-            bEmergencyTag = true;
-          }
+
+          // If any of the search tags contains any words that signify immediate danger anywhere in it,
+          //  set our emergency flag to true.
+          dangerTags.forEach(function (dangerTag) {
+            if ((oepterm.name.toLowerCase().indexOf(dangerTag.toLowerCase()) > -1)) {
+              bEmergencyTag = true;
+            }
+          });
+
+          // Places the search tag into the list of keywords.
           keyword.push(oepterm.name);
         });
 
