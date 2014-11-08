@@ -23,7 +23,8 @@
     "angular-bootstrap": "~0.11.2",
     "angular-ui-select": "~0.8.3",
     "select2": "~3.5.1",
-    "Leaflet.MakiMarkers": "~1.0.1"
+    "Leaflet.MakiMarkers": "~1.0.1",
+    "angular-ui": "~0.4.0"
   },
   "resolutions": {
     "angular": "~1.2.25"
