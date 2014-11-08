@@ -6,11 +6,11 @@ div(ng-controller='SearchController')
         ui-select(multiple ng-model="situations.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" class="search-input need-input")
             ui-select-match(placeholder="What's My Situation?")
                 p {{$item.name}}
-            ui-select-choices(repeat="situation in situations | orderBy:orderByLength:orderByAlpha")
+            ui-select-choices(repeat="situation in situations | orderBy:orderByLength:orderByAlpha | unique:'name'")
                 p {{situation.name}}
     div(class="col-sm-6 col-xs-6 input-container" ng-cloak)
         ui-select(multiple ng-model="oepterms.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" class="search-input need-input")
             ui-select-match(placeholder="What do I need?")
                 p {{$item.name}}
-            ui-select-choices(repeat="oepterm in oepterms | filter:$select.search | orderBy:orderByLength:orderByAlpha")
+            ui-select-choices(repeat="oepterm in oepterms | filter:$select.search | orderBy:orderByLength:orderByAlpha | unique:'name'")
                 p {{oepterm.name}}
