@@ -4587,7 +4587,11 @@ ul.notifications {
 
 .notification {
   text-align: center;
-  padding: 10px 0; }
+  line-height: 250%;
+  font-size: 1.2em;
+  padding: 0 20px; }
+  .notification p {
+    margin: 0; }
 
 #header {
   padding: 20px 0; }
