@@ -22,6 +22,7 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
   self.warning = _warning;
   self.error = _error;
   self.new = _addNotification;
+  self.remove = _removeNotification;
 
   /**
    * Status constants
@@ -117,6 +118,35 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
       // Broadcast a 'notification removed' event.
       $rootScope.$broadcast('notification.removed', { notification: notification, index: key });
     }, notification.status.duration);
+  }
+
+  /**
+   * Force removes a notification that is not finished being displayed on screen.
+   * @param notification
+   * @param opts
+   * @returns {boolean}
+   * @private
+   */
+  function _removeNotification(notification, promise)
+  {
+    // Flag to indicate if notification was found.
+    var bFound = false;
+    var i = $rootScope.notifications.length;
+
+    // Continues to search until the entire array of notifications has been searched, or it has
+    //  been found and removed.
+    while(i-- && bFound == false)
+    {
+      if ($rootScope.notifications[i] == notification) {
+        $rootScope.notifications.splice(i);
+
+        // Stops the promise, if it was passed in.
+        if (promise)
+          $timeout.cancel(promise);
+        bFound = true;
+      }
+      return bFound;
+    }
   }
 
   /**
