@@ -1,7 +1,7 @@
 /**
  * Created by jamesdoan on 10/9/14.
  */
-var SearchController = function($scope, search, $http, $timeout) {
+var SearchController = function($scope, search, notification, $http, $timeout) {
 
   $http.get('oepterms/oep.json').success(function(data) {
     $scope.oepterms = data;
@@ -57,12 +57,16 @@ var SearchController = function($scope, search, $http, $timeout) {
    * we search the entire service by all of the keywords.
    * */
   $scope.$watch('oepterms.selected', function () {
+    var bEmergency = false;   // Indicates if a user put in a tag that contains "Emergency".
     keyword = [];
     keywordsDelimited = "";
     terms = $scope.oepterms;
     if (terms.length > 0) {
       if (terms.selected) {
         terms.selected.forEach(function (oepterm) {
+          // If any of the tags contains "Emergency" anywhere in it, display emergency notification.
+          if (oepterm.name.toLowerCase().indexOf("Emergency".toLowerCase()) > -1)
+            bEmergency = true;
           keyword.push(oepterm.name);
         });
         if (terms.selected.length == 1) {
@@ -76,5 +80,14 @@ var SearchController = function($scope, search, $http, $timeout) {
       }
     }
 
+    if (bEmergency) {
+      notification.new({
+        message: 'My message.',
+        status: {
+          class: 'warning',
+          duration: 30000
+        }
+      });
+    }
   })
 };
