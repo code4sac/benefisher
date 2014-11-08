@@ -195,7 +195,7 @@ function getDirectionsUrl()
 function getPhoneUrl()
 {
   var rawPhone = this.getDataValue('rawPhone');
-  return 'tel: ' + rawPhone;
+  return rawPhone ? 'tel: ' + rawPhone : null;
 }
 
 /**
@@ -236,6 +236,10 @@ function getOpenStatus(now)
   // Format 2: START DoW-END DoW, 8:00am-5:00pm; PHONE INFO
   if ( ! numMonths && numDays == 2 && numTimes == 2) {
     return getOpenStatus_format2(now, dayMatches, timeMatches);
+  }
+  // Format 3: START DoW-END DoW, START HOUR-END HOUR
+  if ( ! numMonths && numDays ==2 && ! numTimes) {
+    return getOpenStatus_format3(now, dayMatches, hours);
   }
   // If we don't have a format, return false
   return false;
@@ -401,7 +405,8 @@ function standardizeTime(now, timeString)
     mins = timeString.substring(colonIndex + 1, colonIndex + 3);
   }
   // Convert hours to military time (based on a/p)
-  hours = timeString.toLowerCase().match('p') ? parseInt(hours) + 12 : parseInt(hours);
+  var hoursInt = parseInt(hours);
+  hours = timeString.toLowerCase().match('p') && hoursInt != 12 ? hoursInt + 12 : hoursInt;
   date.setHours(hours);
   date.setMinutes(mins);
   return date;
@@ -432,11 +437,7 @@ function getOpenStatus_format1(now, months, days, times)
     || now > endTime ) {
     return OPEN_STATUSES.CLOSED;
   }
-  if (Math.floor(Math.abs(endTime - now) / 60000) < 60) {
-    return OPEN_STATUSES.CLOSING;
-  } else {
-    return OPEN_STATUSES.OPEN;
-  }
+  return openOrClosing(now, endTime);
 }
 
 /**
@@ -460,6 +461,62 @@ function getOpenStatus_format2(now, days, times)
     || now > endTime) {
     return OPEN_STATUSES.CLOSED;
   }
+  return openOrClosing(now, endTime);
+}
+
+/**
+ * Determine whether a location is open if it has the following hours string format:
+ * START DoW-END DoW, START HOUR-END HOUR
+ * @param now
+ * @param days
+ * @param hoursString
+ * @returns {*}
+ */
+function getOpenStatus_format3(now, days, hoursString)
+{
+  var nowDayOfWeek = now.getDay();
+  var startDayOfWeek = DAYS_OF_WEEK[days[0].toLowerCase().substr(0,3)];
+  var endDayOfWeek = DAYS_OF_WEEK[days[1].toLowerCase().substr(0,3)];
+  var timeMatches = hoursString.match(new RegExp(/\s(\d\d?)\s?(-|to)\s?(\d\d?)(\s|$)/));
+  if (timeMatches.length != 5) {
+    return false;
+  }
+  var startHours = timeMatches[1];
+  var endHours = timeMatches[3];
+  var startHoursStr;
+  var endHoursStr;
+  // Assume no service opens earlier than 5am, or later than 5pm so opening times before 5 are PM
+  if (startHours <= 4) {
+    startHoursStr = startHours + ':00p';
+    endHoursStr = endHours + '00p'
+  } else {
+    // Assume that services are open no more than 12 hours (not great)
+    startHoursStr = startHours + ':00a';
+    if (endHours > startHours) {
+      endHoursStr = endHours + ':00a';
+    } else {
+      endHoursStr = endHours + ':00p';
+    }
+  }
+  var startTime = standardizeTime(now, startHoursStr);
+  var endTime = standardizeTime(now, endHoursStr);
+  if (nowDayOfWeek < startDayOfWeek
+    || nowDayOfWeek > endDayOfWeek
+    || now < startTime
+    || now > endTime) {
+    return OPEN_STATUSES.CLOSED;
+  }
+  return openOrClosing(now, endTime);
+}
+
+/**
+ * Determine whether now is < 60 minutes before endTime.
+ * @param now
+ * @param endTime
+ * @returns {string}
+ */
+function openOrClosing(now, endTime)
+{
   if (Math.floor(Math.abs(endTime - now) / 60000) < 60) {
     return OPEN_STATUSES.CLOSING;
   } else {
