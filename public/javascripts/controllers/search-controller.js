@@ -53,6 +53,12 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
 
   $scope.situations = [];
   $scope.situations.selected = [];
+
+  // Orders the terms in order by name (place a '-' in front of name to reverse the order).
+  $scope.orderByAlpha = 'name';
+  // Orders the terms in order by length (place a '-' in front of name to reverse the order).
+  $scope.orderByLength = '-name.length';
+
   /*
    * Whenever OEPterms are changed, we must update the search.
    *
@@ -74,7 +80,7 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
           keyword.push(oepterm.name);
         });
 
-        // Will show emergency notification if it isn't displayed and update global flag.
+        // Will show emergency notification if it isn't already displayed. Will also update global flag.
         _emergencyNotification(bEmergencyTag);
         bEmergency = bEmergencyTag;
 
@@ -111,7 +117,8 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
       promise = notification.new(emergency);
     }
 
+    // Pulls the notification if "Emergency" is no longer contained in the search tags.
     if (bEmergencyTag == false)
-      console.log(notification.remove(emergency, promise));
+      notification.remove(emergency, promise);
   }
 };
