@@ -4,6 +4,7 @@
 var SearchController = function($scope, search, notification, $http, $timeout) {
 
   var bEmergency = false; // Used to decide if the emergency notification needs to be displayed.
+  var promise;
 
   $http.get('oepterms/oep.json').success(function(data) {
     $scope.oepterms = data;
@@ -66,7 +67,6 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
     if (terms.length > 0) {
       if (terms.selected) {
         terms.selected.forEach(function (oepterm) {
-          console.log(bEmergency);
           // If any of the tags contains "Emergency" anywhere in it, set our flag to true.
           if ((oepterm.name.toLowerCase().indexOf("Emergency".toLowerCase()) > -1)) {
             bEmergencyTag = true;
@@ -96,19 +96,22 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
    * @private
    */
   function _emergencyNotification(bEmergencyTag) {
+    var emergency = {
+      message: 'If you need immediate assistance or are in danger, call 911. Benefisher is not '
+      + 'an emergency site.',
+      status: {
+        class: 'warning',
+        duration: 25000
+      }
+    };
+
     // If a tag contains "Emergency," and it's the first tag in the search to contain it, then we will
     //  display the notification.
     if (bEmergencyTag == true && bEmergency == false) {
-
-      var emergency = {
-        message: 'My message.',
-        status: {
-          class: 'warning',
-          duration: 25000
-        }
-      };
-
-      notification.new(emergency);
+      promise = notification.new(emergency);
     }
+
+    if (bEmergencyTag == false)
+      console.log(notification.remove(emergency, promise));
   }
 };
