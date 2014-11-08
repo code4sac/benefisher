@@ -482,7 +482,7 @@ function getOpenStatus_format3(now, days, hoursString)
   var startDayOfWeek = DAYS_OF_WEEK[days[0].toLowerCase().substr(0,3)];
   var endDayOfWeek = DAYS_OF_WEEK[days[1].toLowerCase().substr(0,3)];
   var timeMatches = hoursString.match(new RegExp(/\s(\d\d?)\s?(-|to)\s?(\d\d?)(\s|$)/));
-  if ( ! timeMatches || gitimeMatches.length != 5) {
+  if ( ! timeMatches || timeMatches.length != 5) {
     return false;
   }
   var startHours = timeMatches[1];
