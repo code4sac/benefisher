@@ -75,8 +75,7 @@ module.exports = function(sequelize, DataTypes) {
   var getterMethods = {
     directionsUrl: function() { return getDirectionsUrl.apply(this) },  // String
     phoneUrl: function() { return getPhoneUrl.apply(this) },            // String
-    emailUrl: function() { return getEmailUrl.apply(this) },            // String
-    hashKey: function() { return getHashKey.apply(this) }               // String
+    emailUrl: function() { return getEmailUrl.apply(this) }            // String
   };
   var methods = {
     instanceMethods: instanceMethods,
@@ -99,7 +98,6 @@ function toJson()
   json.directionsUrl = getDirectionsUrl.apply(this);
   json.phoneUrl = getPhoneUrl.apply(this);
   json.emailUrl = getEmailUrl.apply(this);
-  json.hashKey = getHashKey.apply(this);
   json.popup = getPopupHtml.apply(this);
   json.openStatus = getOpenStatus.apply(this, [new Date()]);
   return json;
@@ -208,21 +206,6 @@ function getEmailUrl()
 {
   var email = this.getDataValue('email');
   return email ? 'mailto:' + email : null;
-}
-
-/**
- * Generates a unique key for each result so that it is easier to find.
- * @returns {string}
- */
-function getHashKey() {
-  var lat = this.getDataValue('lat');
-  var lng = this.getDataValue('lng');
-  var name = this.getDataValue('name');
-  lat = lat ? lat.toString() : "null";
-  lng = lng ? lng.toString() : "null";
-  name = name ? name.toString() : "null";
-  // Takes the last 4 characters from lat, lng, and name, and the first 4 of name, then combines them to create a unique key.
-  return lat.slice(-4) + lng.slice(-4) + name.slice(-4) + name.substring(0, 4);
 }
 
 /**

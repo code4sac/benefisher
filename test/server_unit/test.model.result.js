@@ -90,16 +90,6 @@ describe('Result', function() {
     expect(result.emailUrl).to.contain('mailto:');
   });
 
-  it('should generate a unique key', function () {
-    var result = Result.build().setLocation(location);
-    expect(result.hashKey).to.equal('94961978tionAdmi')
-  });
-
-  it('should generate a unique key even if name, lat, and lng are null', function () {
-    var result = Result.build().setLocation(location4);
-    expect(result.hashKey).to.equal('nullnullnullnull');
-  });
-
   it('should return not false open status if the location hours string is a known format', function() {
     // Date format 2
     var result = Result.build().setLocation(location);
