@@ -64,6 +64,8 @@ var location6 = JSON.parse(JSON.stringify(location));
 location6.hours = "January - December Thursday 9:00 AM to 1:00 PM, Saturday 9:00 AM to 1:00 PM"
 var location7 = JSON.parse(JSON.stringify(location));
 location7.hours = "Monday-Friday, 9-3";
+var location8 = JSON.parse(JSON.stringify(location));
+location8.hours = "24 hours daily";
 
 describe('Result', function() {
 
@@ -102,6 +104,9 @@ describe('Result', function() {
     // Date format 3
     result = Result.build().setLocation(location7);
     expect(result.openStatus(new Date())).to.not.equal(false);
+    // Date format 4
+    result = Result.build().setLocation(location8);
+    expect(result.openStatus(new Date())).to.not.equal(false);
   });
 
   it('should have the correct open status if the location is open', function() {
@@ -115,6 +120,9 @@ describe('Result', function() {
     expect(result.openStatus(now)).to.equal('open');
     // Date format 3
     result = Result.build().setLocation(location7);
+    expect(result.openStatus(now)).to.equal('open');
+    // Date format 4
+    result = Result.build().setLocation(location8);
     expect(result.openStatus(now)).to.equal('open');
   });
 

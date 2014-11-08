@@ -241,6 +241,10 @@ function getOpenStatus(now)
   if ( ! numMonths && numDays ==2 && ! numTimes) {
     return getOpenStatus_format3(now, dayMatches, hours);
   }
+  // Format 4: 24 hours daily
+  if (hours.match(new RegExp(/24 hours daily/gi))) {
+    return OPEN_STATUSES.OPEN;
+  }
   // If we don't have a format, return false
   return false;
 }
