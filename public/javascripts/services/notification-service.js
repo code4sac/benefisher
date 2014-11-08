@@ -137,7 +137,7 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
     //  been found and removed.
     while(i-- && bFound == false)
     {
-      if ($rootScope.notifications[i] == notification) {
+      if ($rootScope.notifications[i].message == notification.message) {
         $rootScope.notifications.splice(i);
 
         // Stops the promise, if it was passed in.
