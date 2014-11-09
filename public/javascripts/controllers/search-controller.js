@@ -57,22 +57,20 @@ var SearchController = function($scope, search, $http, $timeout) {
    * we search the entire service by all of the keywords.
    * */
   $scope.$watch('oepterms.selected', function () {
-    keyword = [];
-    keywordsDelimited = "";
+    category = [];
+    categoriesDelimited = "";
     terms = $scope.oepterms;
     if (terms.length > 0) {
       if (terms.selected) {
         terms.selected.forEach(function (oepterm) {
-          keyword.push(oepterm.name);
+          category.push(oepterm.name);
         });
-        if (terms.selected.length == 1) {
-          search.search({category: keyword[0], keyword: ""});
+        if (terms.selected.length > 0) {
+          categoriesDelimited = category.join(',');
+          search.search({category: categoriesDelimited});
         } else {
-          keywordsDelimited = keyword.join(',');
-          search.search({keyword: keywordsDelimited, category: ""});
+          search.search({category: ""});
         }
-      } else {
-        search.search({keyword: "", category: ""});
       }
     }
 

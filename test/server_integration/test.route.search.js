@@ -43,5 +43,4 @@ describe('GET /search', function() {
       .set('Accept', 'application/json')
       .expect(500, done); // note that we're passing the done as parameter to the expect
   });
-
 });
