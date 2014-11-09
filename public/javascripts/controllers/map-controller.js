@@ -20,9 +20,9 @@ var MapController = function ($scope, search, notification, constants, leafletDa
   // The map tiles URL.
   var TILE_URL = "https://{s}.tiles.mapbox.com/v3/" + MAP_ID + "/{z}/{x}/{y}.png?access_token=" + MAP_TOKEN;
   // The default, maximum and minimum zoom levels for the map
-  var ZOOM_DEFAULT = 13;
+  var ZOOM_DEFAULT = 15;
   var ZOOM_MAX = 18;
-  var ZOOM_MIN = 10;
+  var ZOOM_MIN = 13;
   // The position for map controls: topright | topleft | bottomright | bottomleft
   var CONTROLS_POSITION = 'topleft';
 
