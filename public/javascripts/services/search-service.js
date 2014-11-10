@@ -28,19 +28,19 @@ var SearchService = function ($http, notification, neuralnet) {
    * @param newParams
    */
   this.search = function (newParams) {
-	updateParams(newParams);
-	// TODO: error handler.
-	$http.get('/search', { params: params })
-		.success(function(data) {
-			// Saves the list of data and removes the items that are ignored. Then pushes them
-			//   to subscribers.
-			results = data;
-			removeIgnored();
+    updateParams(newParams);
+    // TODO: error handler.
+    $http.get('/search', { params: params })
+      .success(function(data) {
+        // Saves the list of data and removes the items that are ignored. Then pushes them
+        //   to subscribers.
+        results = data;
+        removeIgnored();
 
-			//TODO: Needs to combine ranking, then order.
-			updateSubscribers();
-		})
-		.error(httpError);
+        //TODO: Needs to combine ranking, then order.
+        updateSubscribers();
+      })
+      .error(httpError);
   };
 
   /**
@@ -84,30 +84,29 @@ var SearchService = function ($http, notification, neuralnet) {
   * @returns data
   */
   function removeIgnored() {
-	var i = results.length;
+    var i = results.length;
 
-	// Goes through each data item starting from the top.
-	while (i--) {
-	  var id = results[i].id;
+    // Goes through each data item starting from the top.
+    while (i--) {
+      var id = results[i].id;
 
-	  // If the object exists in the ignore list, set its property to be ignored..
-	  if (ignoreList[id] != undefined) {
-		results[i].ignored = true;
-	  }
-	}
+      // If the object exists in the ignore list, set its property to be ignored..
+      if (ignoreList[id] != undefined) {
+        results[i].ignored = true;
+      }
+    }
   }
 
   /**
    * Update subscribers with search results. Ignores results that are on the ignore list.
    */
   function updateSubscribers(data, status, headers, config) {
-	var numSubscribers = subscribers.length;
-
-	for (var i = 0; i < numSubscribers; i++) {
-	  if (typeof subscribers[i] === 'function') {
-		subscribers[i](results);
-	  }
-	}
+    var numSubscribers = subscribers.length;
+    for (var i = 0; i < numSubscribers; i++) {
+      if (typeof subscribers[i] === 'function') {
+        subscribers[i](results);
+      }
+    }
   }
 
   /**
@@ -119,7 +118,7 @@ var SearchService = function ($http, notification, neuralnet) {
    */
   function httpError(data, status, headers, config)
   {
-	notification.error("Uh-oh, there was an error loading data.");
+	  notification.error("Uh-oh, there was an error loading data.", { singleton: true });
   }
 
   /**
