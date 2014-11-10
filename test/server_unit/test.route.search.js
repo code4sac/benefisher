@@ -3,6 +3,11 @@ var sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 var expect = chai.expect;
 var sinon = require('sinon');
+var sinonPromise = require('sinon-promise');
+var chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+
+sinonPromise(sinon);
 
 // Mock data
 var mockData = require('../data/locations');
@@ -55,7 +60,7 @@ var insertNoResults = function() {
     success: function(callback){
       callback([]);
       return {
-        error: function() {}
+        error: function() { }
       }
     }
   }
@@ -111,18 +116,30 @@ var Query = {
 };
 
 var request;
-
+var q = sinonPromise.Q;
 var controller = require('../../controllers/search');
 
 describe('SearchController', function(done) {
 
+
   beforeEach(function() {
     // Mock HTTP service
     request = sinon.spy();
+    //Allows for q.all promise to become synchronous for testing. Described below. 
+    sinon.stub(process, 'nextTick').yields();
+  });
+
+  /*
+   * Q uses process.nextTick instead of timeout to ensure async behavior in node.
+   * This afterEach calls nextTick (), which, as defined above, immediately yields... turning our q.all
+   * promise synchronous.
+   */
+  afterEach(function () {
+    process.nextTick.restore();
   });
 
   it('should make an http request (all results found in DB path)', function(done) {
-    new controller(req, res, Result, Query, request).render();
+    new controller(req, res, Result, Query, request, q).render();
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
@@ -131,7 +148,7 @@ describe('SearchController', function(done) {
   });
 
   it('should make an http request (no results found in DB path)', function(done) {
-    new controller(req, res, Result, Query, request).render();
+    new controller(req, res, Result, Query, request, q).render();
     // Use 'all found in DB' path.
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
@@ -147,7 +164,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
-    new controller(req, res, Result, Query, request).render();
+    new controller(req, res, Result, Query, request, q).render();
     expect(res.viewData.length).to.equal(30);
     done();
   });
@@ -159,7 +176,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
-    new controller(req, res, Result, Query, request).render();
+    new controller(req, res, Result, Query, request, q).render();
     expect(res.viewData.length).to.equal(30);
     done();
   });
@@ -171,7 +188,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
-    new controller(req, res, Result, Query, request).render();
+    new controller(req, res, Result, Query, request, q).render();
     expect(query.results.length).to.equal(30);
     done();
   });
@@ -183,7 +200,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
-    new controller(req, res, Result, Query, request).render();
+    new controller(req, res, Result, Query, request, q).render();
     expect(query.results.length).to.equal(30);
     done();
   });
@@ -197,7 +214,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
-    new controller(req, res, Result, Query, request).render();
+    new controller(req, res, Result, Query, request, q).render();
     expect(res.viewData.length).to.equal(8);
     done();
   });
@@ -206,8 +223,8 @@ describe('SearchController', function(done) {
     request = function(options, callback) {
       callback({ error: "error" }, { statusCode: 500 }, JSON.stringify(mockData));
     };
-    new controller(req, res, Result, Query, request).render();
+    new controller(req, res, Result, Query, request, q).render();
     expect(res.statusCode).to.equal(500);
     done();
   });
-});
+})

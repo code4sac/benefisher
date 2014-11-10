@@ -68,13 +68,13 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
    * */
   $scope.$watch('oepterms.selected', function () {
     var bEmergencyTag = false;  // Indicates that one of the tags contains "Emergency."
-    keyword = [];
-    keywordsDelimited = "";
+    categories = [];
+    categoriesDelimited = "";
     terms = $scope.oepterms;
     if (terms.length > 0) {
       if (terms.selected) {
         terms.selected.forEach(function (oepterm) {
-
+          categories.push(oepterm.name);
           // If any of the search tags contains any words that signify immediate danger anywhere in it,
           //  set our emergency flag to true.
           dangerTags.forEach(function (dangerTag) {
@@ -82,23 +82,18 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
               bEmergencyTag = true;
             }
           });
-
-          // Places the search tag into the list of keywords.
-          keyword.push(oepterm.name);
+          // Will show emergency notification if it isn't already displayed. Will also update global flag.
+          _emergencyNotification(bEmergencyTag);
+          bEmergency = bEmergencyTag;
         });
 
-        // Will show emergency notification if it isn't already displayed. Will also update global flag.
-        _emergencyNotification(bEmergencyTag);
-        bEmergency = bEmergencyTag;
+        if (terms.selected.length > 0) {
+          categoriesDelimited = keyword.join(',');
+          search.search({category: categoriesDelimited});
 
-        if (terms.selected.length == 1) {
-          search.search({category: keyword[0], keyword: ""});
         } else {
-          keywordsDelimited = keyword.join(',');
-          search.search({keyword: keywordsDelimited, category: ""});
+          search.search({category: ""});
         }
-      } else {
-        search.search({keyword: "", category: ""});
       }
     }
   });
