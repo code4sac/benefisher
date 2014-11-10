@@ -21,7 +21,7 @@ var SearchController = function(req, res, Result, Query, request, q) {
   // Get max results per query
   req.query.per_page = 100;
   req.query.radius = 50;
-  var queries = [];
+  //List of promises for q to wait for.
   var promises = [];
   var apiUrl = 'http://ohanapi.herokuapp.com/api/search';
 
@@ -37,13 +37,20 @@ var SearchController = function(req, res, Result, Query, request, q) {
    * Filter all the results based on query parameters, and render the results.
    */
   this.render = function () {
-    createQueries(req.query);
+    //create an array containing all of the API requests we are going to make.
+    var queries = createQueries(req.query);
     // Load JSON from API.
     queries.forEach(function (query) {
+      //Request the specified query. getURL returns a promise, which will be handled by Q.
       var promise = getURL(query, requestOptions);
       promises.push(promise);
     });
 
+    /*
+     * Uses the q library to wait for all of the promises array (containing all the promises from the GET requests
+     * Once all of the promises have been fulfilled (meaning that all of the GET requests have been completed), we
+     * can flatten the data received and send it to a function to make sure it is saved to the database appropriately.
+    */
     q.all(promises).then(function (allResults) {
       var combinedResults = [];
       combinedResults = combinedResults.concat.apply(combinedResults, allResults);
@@ -52,9 +59,7 @@ var SearchController = function(req, res, Result, Query, request, q) {
 
     /**
      * Handle the HTTP response
-     * @param error
-     * @param response
-     * @param body
+     * @param data
      */
     function handleHttpResponse(data) {
       // Only search by bounds if the bounds parameter exists
@@ -178,6 +183,7 @@ var SearchController = function(req, res, Result, Query, request, q) {
      * @param query
      */
     function createQueries(query) {
+      var queries = [];
       if (query.category) {
         //create a new string for each category
         var categories = query.category.split(',');
@@ -190,8 +196,17 @@ var SearchController = function(req, res, Result, Query, request, q) {
         //create 1 string
         queries.push(query);
       }
+      return queries;
     }
 
+   /**
+   *  A promise-based solution to making HTTP GET requests. Uses Q's defer() method to create
+   *  a promise, and then uses that defer element to either fulfill or reject the promise.
+   * this function also handles any bad server response codes.
+   * @param qs
+   * @param options
+   * @returns {*}
+   */
     function getURL(qs, options) {
       var deferred = q.defer();
       options.qs = qs;
@@ -208,6 +223,12 @@ var SearchController = function(req, res, Result, Query, request, q) {
       return deferred.promise;
     }
 
+    /**
+     *  Function used to create a clone of the query sent in. This is used to create clones of a query that is
+     *  being passed-by-reference.
+     * @param query
+     * @returns {{}}
+     */
     function cloneQuery(query) {
       var clone ={};
       for( var key in query ){

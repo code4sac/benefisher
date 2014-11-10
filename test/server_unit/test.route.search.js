@@ -121,12 +121,19 @@ var controller = require('../../controllers/search');
 
 describe('SearchController', function(done) {
 
+
   beforeEach(function() {
     // Mock HTTP service
     request = sinon.spy();
+    //Allows for q.all promise to become synchronous for testing. Described below. 
     sinon.stub(process, 'nextTick').yields();
   });
 
+  /*
+   * Q uses process.nextTick instead of timeout to ensure async behavior in node.
+   * This afterEach calls nextTick (), which, as defined above, immediately yields... turning our q.all
+   * promise synchronous.
+   */
   afterEach(function () {
     process.nextTick.restore();
   });
