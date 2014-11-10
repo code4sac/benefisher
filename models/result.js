@@ -75,8 +75,7 @@ module.exports = function(sequelize, DataTypes) {
   var getterMethods = {
     directionsUrl: function() { return getDirectionsUrl.apply(this) },  // String
     phoneUrl: function() { return getPhoneUrl.apply(this) },            // String
-    emailUrl: function() { return getEmailUrl.apply(this) },            // String
-    hashKey: function() { return getHashKey.apply(this) }               // String
+    emailUrl: function() { return getEmailUrl.apply(this) }            // String
   };
   var methods = {
     instanceMethods: instanceMethods,
@@ -99,7 +98,6 @@ function toJson()
   json.directionsUrl = getDirectionsUrl.apply(this);
   json.phoneUrl = getPhoneUrl.apply(this);
   json.emailUrl = getEmailUrl.apply(this);
-  json.hashKey = getHashKey.apply(this);
   json.popup = getPopupHtml.apply(this);
   json.openStatus = getOpenStatus.apply(this, [new Date()]);
   return json;
@@ -197,7 +195,7 @@ function getDirectionsUrl()
 function getPhoneUrl()
 {
   var rawPhone = this.getDataValue('rawPhone');
-  return 'tel: ' + rawPhone;
+  return rawPhone ? 'tel: ' + rawPhone : null;
 }
 
 /**
@@ -208,21 +206,6 @@ function getEmailUrl()
 {
   var email = this.getDataValue('email');
   return email ? 'mailto:' + email : null;
-}
-
-/**
- * Generates a unique key for each result so that it is easier to find.
- * @returns {string}
- */
-function getHashKey() {
-  var lat = this.getDataValue('lat');
-  var lng = this.getDataValue('lng');
-  var name = this.getDataValue('name');
-  lat = lat ? lat.toString() : "null";
-  lng = lng ? lng.toString() : "null";
-  name = name ? name.toString() : "null";
-  // Takes the last 4 characters from lat, lng, and name, and the first 4 of name, then combines them to create a unique key.
-  return lat.slice(-4) + lng.slice(-4) + name.slice(-4) + name.substring(0, 4);
 }
 
 /**
@@ -253,6 +236,14 @@ function getOpenStatus(now)
   // Format 2: START DoW-END DoW, 8:00am-5:00pm; PHONE INFO
   if ( ! numMonths && numDays == 2 && numTimes == 2) {
     return getOpenStatus_format2(now, dayMatches, timeMatches);
+  }
+  // Format 3: START DoW-END DoW, START HOUR-END HOUR
+  if ( ! numMonths && numDays ==2 && ! numTimes) {
+    return getOpenStatus_format3(now, dayMatches, hours);
+  }
+  // Format 4: 24 hours daily
+  if (hours.match(new RegExp(/24 hours daily/gi))) {
+    return OPEN_STATUSES.OPEN;
   }
   // If we don't have a format, return false
   return false;
@@ -418,7 +409,8 @@ function standardizeTime(now, timeString)
     mins = timeString.substring(colonIndex + 1, colonIndex + 3);
   }
   // Convert hours to military time (based on a/p)
-  hours = timeString.toLowerCase().match('p') ? parseInt(hours) + 12 : parseInt(hours);
+  var hoursInt = parseInt(hours);
+  hours = timeString.toLowerCase().match('p') && hoursInt != 12 ? hoursInt + 12 : hoursInt;
   date.setHours(hours);
   date.setMinutes(mins);
   return date;
@@ -449,11 +441,7 @@ function getOpenStatus_format1(now, months, days, times)
     || now > endTime ) {
     return OPEN_STATUSES.CLOSED;
   }
-  if (Math.floor(Math.abs(endTime - now) / 60000) < 60) {
-    return OPEN_STATUSES.CLOSING;
-  } else {
-    return OPEN_STATUSES.OPEN;
-  }
+  return openOrClosing(now, endTime);
 }
 
 /**
@@ -477,6 +465,62 @@ function getOpenStatus_format2(now, days, times)
     || now > endTime) {
     return OPEN_STATUSES.CLOSED;
   }
+  return openOrClosing(now, endTime);
+}
+
+/**
+ * Determine whether a location is open if it has the following hours string format:
+ * START DoW-END DoW, START HOUR-END HOUR
+ * @param now
+ * @param days
+ * @param hoursString
+ * @returns {*}
+ */
+function getOpenStatus_format3(now, days, hoursString)
+{
+  var nowDayOfWeek = now.getDay();
+  var startDayOfWeek = DAYS_OF_WEEK[days[0].toLowerCase().substr(0,3)];
+  var endDayOfWeek = DAYS_OF_WEEK[days[1].toLowerCase().substr(0,3)];
+  var timeMatches = hoursString.match(new RegExp(/\s(\d\d?)\s?(-|to)\s?(\d\d?)(\s|$)/));
+  if ( ! timeMatches || timeMatches.length != 5) {
+    return false;
+  }
+  var startHours = timeMatches[1];
+  var endHours = timeMatches[3];
+  var startHoursStr;
+  var endHoursStr;
+  // Assume no service opens earlier than 5am, or later than 5pm so opening times before 5 are PM
+  if (startHours <= 4) {
+    startHoursStr = startHours + ':00p';
+    endHoursStr = endHours + '00p'
+  } else {
+    // Assume that services are open no more than 12 hours (not great)
+    startHoursStr = startHours + ':00a';
+    if (endHours > startHours) {
+      endHoursStr = endHours + ':00a';
+    } else {
+      endHoursStr = endHours + ':00p';
+    }
+  }
+  var startTime = standardizeTime(now, startHoursStr);
+  var endTime = standardizeTime(now, endHoursStr);
+  if (nowDayOfWeek < startDayOfWeek
+    || nowDayOfWeek > endDayOfWeek
+    || now < startTime
+    || now > endTime) {
+    return OPEN_STATUSES.CLOSED;
+  }
+  return openOrClosing(now, endTime);
+}
+
+/**
+ * Determine whether now is < 60 minutes before endTime.
+ * @param now
+ * @param endTime
+ * @returns {string}
+ */
+function openOrClosing(now, endTime)
+{
   if (Math.floor(Math.abs(endTime - now) / 60000) < 60) {
     return OPEN_STATUSES.CLOSING;
   } else {

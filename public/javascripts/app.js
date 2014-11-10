@@ -1,4 +1,4 @@
-var benefisher = angular.module('benefisher', ['leaflet-directive', 'benefisher.services', 'benefisher.constants', 'benefisher.directives', 'ngSanitize', 'ui.select', 'ui.bootstrap']);
+var benefisher = angular.module('benefisher', ['leaflet-directive', 'benefisher.services', 'benefisher.constants', 'benefisher.directives', 'ngSanitize', 'ui', 'ui.select', 'ui.bootstrap']);
 // Add the Map Controller to the benefisher object.
 /**
  * AngularJS default filter with the following expression:
@@ -45,5 +45,5 @@ benefisher.filter('propsFilter', function() {
 benefisher.controller('MapController', ['$scope', 'search', 'notification', 'constants', 'leafletData', MapController]);
 benefisher.controller('ResultsController', ['$scope', '$location', 'search', 'notification', 'interaction', ResultsController]);
 benefisher.controller('OepController', ['$scope', 'search',  '$http', '$timeout', OepController]);
-benefisher.controller('SearchController', ['$scope', 'search', '$http', '$timeout', SearchController]);
+benefisher.controller('SearchController', ['$scope', 'search', 'notification', '$http', '$timeout', SearchController]);
 

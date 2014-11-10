@@ -92,8 +92,8 @@ function convertTestData(locations)
 {
   var results = [];
   locations.forEach(function(location, index) {
-    // Use a dummy hashKey value.
-    result = { hashKey: location._id };
+    // Use a dummy id value.
+    result = { id: location._id };
     results.push(result);
   });
   return results;

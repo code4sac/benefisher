@@ -62,6 +62,10 @@ var location5 = JSON.parse(JSON.stringify(location));
 location5.hours = "May - October Wednesday 10:00 AM to 2:00 PM";
 var location6 = JSON.parse(JSON.stringify(location));
 location6.hours = "January - December Thursday 9:00 AM to 1:00 PM, Saturday 9:00 AM to 1:00 PM"
+var location7 = JSON.parse(JSON.stringify(location));
+location7.hours = "Monday-Friday, 9-3";
+var location8 = JSON.parse(JSON.stringify(location));
+location8.hours = "24 hours daily";
 
 describe('Result', function() {
 
@@ -90,22 +94,18 @@ describe('Result', function() {
     expect(result.emailUrl).to.contain('mailto:');
   });
 
-  it('should generate a unique key', function () {
-    var result = Result.build().setLocation(location);
-    expect(result.hashKey).to.equal('94961978tionAdmi')
-  });
-
-  it('should generate a unique key even if name, lat, and lng are null', function () {
-    var result = Result.build().setLocation(location4);
-    expect(result.hashKey).to.equal('nullnullnullnull');
-  });
-
   it('should return not false open status if the location hours string is a known format', function() {
-    // Date format 2
-    var result = Result.build().setLocation(location);
-    expect(result.openStatus(new Date())).to.not.equal(false);
     // Date format 1
-    result = Result.build().setLocation(location5);
+    var result = Result.build().setLocation(location5);
+    expect(result.openStatus(new Date())).to.not.equal(false);
+    // Date format 2
+    result = Result.build().setLocation(location);
+    expect(result.openStatus(new Date())).to.not.equal(false);
+    // Date format 3
+    result = Result.build().setLocation(location7);
+    expect(result.openStatus(new Date())).to.not.equal(false);
+    // Date format 4
+    result = Result.build().setLocation(location8);
     expect(result.openStatus(new Date())).to.not.equal(false);
   });
 
@@ -118,6 +118,12 @@ describe('Result', function() {
     // Date format 2
     result = Result.build().setLocation(location);
     expect(result.openStatus(now)).to.equal('open');
+    // Date format 3
+    result = Result.build().setLocation(location7);
+    expect(result.openStatus(now)).to.equal('open');
+    // Date format 4
+    result = Result.build().setLocation(location8);
+    expect(result.openStatus(now)).to.equal('open');
   });
 
   it('should have the correct open status if the location is closing soon', function() {
@@ -128,18 +134,59 @@ describe('Result', function() {
     expect(result.openStatus(now)).to.equal('closing');
     // Date format 2
     // Use Wednesday, 9/3/14 4:01pm
-    now = new Date(2014, 8, 3, 16, 01);
+    now = new Date(2014, 8, 3, 16, 1);
+    result = Result.build().setLocation(location);
+    expect(result.openStatus(now)).to.equal('closing');
+    // Use Wednesday, 9/3/14 4:01pm
+    now = new Date(2014, 8, 3, 16, 1);
     result = Result.build().setLocation(location);
     expect(result.openStatus(now)).to.equal('closing');
   });
 
-  it('should have the correct open status if the location is closed', function() {
+  it('should have the correct open status if the location is closed (format 1, hours)', function() {
     // Use Wednesday, 9/3/14 11:00pm
     var now = new Date(2014, 8, 3, 23, 0);
     // Date format 1
     var result = Result.build().setLocation(location5);
     expect(result.openStatus(now)).to.equal('closed');
+  });
+
+  it('should have the correct open status if the location is closed (format2, hours)', function() {
+    // Use Wednesday, 9/3/14 11:00pm
+    var now = new Date(2014, 8, 3, 23, 0);
     // Date format 2
+    result = Result.build().setLocation(location);
+    expect(result.openStatus(now)).to.equal('closed');
+  })
+
+  it('should have the correct open status if the location is closed (format3, hours)', function() {
+    // Use Wednesday, 9/3/14 11:00pm
+    var now = new Date(2014, 8, 3, 23, 0);
+    // Date format 3
+    result = Result.build().setLocation(location);
+    expect(result.openStatus(now)).to.equal('closed');
+  });
+
+  it('should have the correct open status if the location is closed (format 1, day of week)', function() {
+    // Use Saturday, 9/6/14 11:00am
+    var now = new Date(2014, 8, 6, 11, 0);
+    // Date format 1
+    var result = Result.build().setLocation(location5);
+    expect(result.openStatus(now)).to.equal('closed');
+  });
+
+  it('should have the correct open status if the location is closed (format2, day of week)', function() {
+    // Use Wednesday, 9/3/14 11:00am
+    var now = new Date(2014, 8, 6, 11, 0);
+    // Date format 2
+    result = Result.build().setLocation(location);
+    expect(result.openStatus(now)).to.equal('closed');
+  });
+
+  it('should have the correct open status if the location is closed (format3, day of week)', function() {
+    // Use Wednesday, 9/6/14 11:00pm
+    var now = new Date(2014, 8, 6, 11, 0);
+    // Date format 3
     result = Result.build().setLocation(location);
     expect(result.openStatus(now)).to.equal('closed');
   });

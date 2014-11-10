@@ -48,10 +48,10 @@ var SearchService = function ($http, notification, neuralnet) {
   * @param removeItem
   */
   this.remove = function (removeItem) {
-	  var hashKey = removeItem.hashKey;
+	  var id = removeItem.id;
 
 	  // Uses key-value pairs to keep track of all items in the ignore list.
-	  ignoreList[hashKey] = removeItem;
+	  ignoreList[id] = removeItem;
 
 	  // Removes the ignored items from the results and then pushes them to the subscribers.
 	  removeIgnored();
@@ -64,12 +64,11 @@ var SearchService = function ($http, notification, neuralnet) {
   */
   this.selected = function (selectedItem) {
 	  var i = results.length;
-	  var selectedKey = selectedItem ? selectedItem.hashKey : "";
-
+	  var selectedId = selectedItem ? selectedItem.id : "";
 	  // Changes the "selected" property of the selected item in results to true and all others
 	  //   to false.
 	  while (i--) {
-		  if (results[i].hashKey == selectedKey)
+		  if (results[i].id == selectedId)
 			results[i].selected = true;
 		  else
 			results[i].selected = false;
@@ -89,10 +88,10 @@ var SearchService = function ($http, notification, neuralnet) {
 
 	// Goes through each data item starting from the top.
 	while (i--) {
-	  var hashKey = results[i].hashKey;
+	  var id = results[i].id;
 
 	  // If the object exists in the ignore list, set its property to be ignored..
-	  if (ignoreList[hashKey] != undefined) {
+	  if (ignoreList[id] != undefined) {
 		results[i].ignored = true;
 	  }
 	}
