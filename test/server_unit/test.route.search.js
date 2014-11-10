@@ -4,6 +4,8 @@ chai.use(sinonChai);
 var expect = chai.expect;
 var sinon = require('sinon');
 var sinonPromise = require('sinon-promise');
+var chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
 
 sinonPromise(sinon);
 
@@ -35,7 +37,7 @@ var findAllResults = function(results) {
     success: function(callback) {
       callback(results);
       return {
-        error: function() { console.log('woops!') }
+        error: function() {}
       }
     }
   };
@@ -122,6 +124,11 @@ describe('SearchController', function(done) {
   beforeEach(function() {
     // Mock HTTP service
     request = sinon.spy();
+    sinon.stub(process, 'nextTick').yields();
+  });
+
+  afterEach(function () {
+    process.nextTick.restore();
   });
 
   it('should make an http request (all results found in DB path)', function(done) {
@@ -190,7 +197,6 @@ describe('SearchController', function(done) {
     expect(query.results.length).to.equal(30);
     done();
   });
-
 
   // Bounds search shouldn't depend on all/no results found in DB paths, which are tested above.
   it('should limit search results by lat/long bounds', function(done) {

@@ -23,7 +23,6 @@ var SearchController = function(req, res, Result, Query, request, q) {
   req.query.radius = 50;
   var queries = [];
   var promises = [];
-  var results = [];
   var apiUrl = 'http://ohanapi.herokuapp.com/api/search';
 
   // TODO: move API token to .env
@@ -38,7 +37,6 @@ var SearchController = function(req, res, Result, Query, request, q) {
    * Filter all the results based on query parameters, and render the results.
    */
   this.render = function () {
-    var output = [];
     createQueries(req.query);
     // Load JSON from API.
     queries.forEach(function (query) {
@@ -46,8 +44,10 @@ var SearchController = function(req, res, Result, Query, request, q) {
       promises.push(promise);
     });
 
-    q.all(promises).then(function () {
-      handleHttpResponse(results);
+    q.all(promises).then(function (allResults) {
+      var combinedResults = [];
+      combinedResults = combinedResults.concat.apply(combinedResults, allResults);
+      handleHttpResponse(combinedResults);
     });
 
     /**
@@ -85,7 +85,6 @@ var SearchController = function(req, res, Result, Query, request, q) {
             res.json(unsavedResults);
           });
         } else {
-          saveQuery(foundResults);
           res.json(foundResults);
         }
       }).error(function(error) {
@@ -173,6 +172,11 @@ var SearchController = function(req, res, Result, Query, request, q) {
       });
     }
 
+    /**
+     * Used to create multiple query strings for our search to use.
+     * This function is used for a multiple category search.
+     * @param query
+     */
     function createQueries(query) {
       if (query.category) {
         //create a new string for each category
@@ -198,10 +202,6 @@ var SearchController = function(req, res, Result, Query, request, q) {
           deferred.reject();
         } else {
           var data = JSON.parse(body);
-          // Initialize individual Results
-          data.forEach(function (location) {
-            results.push(location);
-          });
           deferred.resolve(data);
         }
       });
