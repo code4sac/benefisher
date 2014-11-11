@@ -123,7 +123,7 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
   /**
    * Force removes a notification that is not finished being displayed on screen.
    * @param notification
-   * @param opts
+   * @param promise
    * @returns {boolean}
    * @private
    */
@@ -138,14 +138,13 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
     while(i-- && bFound == false)
     {
       if ($rootScope.notifications[i].message == notification.message) {
-        $rootScope.notifications.splice(i);
+        $rootScope.notifications.splice(i, 1);
 
         // Stops the promise, if it was passed in.
         if (promise)
           $timeout.cancel(promise);
         bFound = true;
       }
-      return bFound;
     }
   }
 
@@ -162,7 +161,9 @@ var NotificationService = function ($rootScope, $timeout, $sce) {
     var numNotifications = $rootScope.notifications.length;
     for ( var i = 0; i < numNotifications; i++) {
       var curNotification = $rootScope.notifications[i];
-      if (curNotification.message === notification.message && curNotification.status === notification.status) {
+      if (curNotification.message === notification.message
+        && curNotification.status.class === notification.status.class
+        && curNotification.status.duration === notification.status.duration) {
         return true;
       }
     }

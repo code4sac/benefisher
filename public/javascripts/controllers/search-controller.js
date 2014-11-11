@@ -73,6 +73,13 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
     terms = $scope.oepterms;
     if (terms.length > 0) {
       if (terms.selected) {
+        if (terms.selected.length > 0) {
+          categoriesDelimited = terms.selected.join(',');
+          search.search({category: categoriesDelimited});
+
+        } else {
+          search.search({category: ""});
+        }
         terms.selected.forEach(function (oepterm) {
           categories.push(oepterm.name);
           // If any of the search tags contains any words that signify immediate danger anywhere in it,
@@ -82,20 +89,11 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
               bEmergencyTag = true;
             }
           });
-          // Will show emergency notification if it isn't already displayed. Will also update global flag.
-          _emergencyNotification(bEmergencyTag);
-          bEmergency = bEmergencyTag;
         });
-
-        if (terms.selected.length > 0) {
-          categoriesDelimited = keyword.join(',');
-          search.search({category: categoriesDelimited});
-
-        } else {
-          search.search({category: ""});
-        }
       }
     }
+    // Handle notification re: emergency terms
+    _emergencyNotification(bEmergencyTag);
   });
 
   /**
@@ -115,8 +113,8 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
 
     // If a tag contains "Emergency," and it's the first tag in the search to contain it, then we will
     //  display the notification.
-    if (bEmergencyTag == true && bEmergency == false) {
-      promise = notification.new(emergency);
+    if (bEmergencyTag == true) {
+      promise = notification.new(emergency, { singleton: true });
     }
 
     // Pulls the notification if "Emergency" is no longer contained in the search tags.
