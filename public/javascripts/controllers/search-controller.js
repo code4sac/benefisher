@@ -55,6 +55,16 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
   $scope.situations = [];
   $scope.situations.selected = [];
 
+  $scope.removeOepterm=function(item){
+    var index=$scope.oepterms.selected.indexOf(item);
+    $scope.oepterms.selected.splice(index,1);
+  };
+
+  $scope.removeSituation=function(item){
+    var index=$scope.situations.selected.indexOf(item);
+    $scope.situations.selected.splice(index,1);
+  };
+
   // Orders the terms in order by name (place a '-' in front of name to reverse the order).
   $scope.orderByAlpha = 'name';
   // Orders the terms in order by length (place a '-' in front of name to reverse the order).
