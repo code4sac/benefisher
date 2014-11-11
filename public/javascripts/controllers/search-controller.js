@@ -68,9 +68,9 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
    * */
   $scope.$watch('oepterms.selected', function () {
     var bEmergencyTag = false;  // Indicates that one of the tags contains "Emergency."
-    categories = [];
-    categoriesDelimited = "";
-    terms = $scope.oepterms;
+    var categories = [];
+    var categoriesDelimited = "";
+    var terms = $scope.oepterms;
     if (terms.length > 0) {
       if (terms.selected) {
         terms.selected.forEach(function (oepterm) {
@@ -88,7 +88,7 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
         });
 
         if (terms.selected.length > 0) {
-          categoriesDelimited = keyword.join(',');
+          categoriesDelimited = categories.join(',');
           search.search({category: categoriesDelimited});
 
         } else {
