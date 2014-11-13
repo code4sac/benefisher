@@ -128,7 +128,7 @@ function setLocation(location)
 {
   var email = location.emails ? location.emails[0] : null;
   this.setDataValue('name', location.name);
-  this.setDataValue('externalId', location._id);
+  this.setDataValue('externalId', location.id);
   this.setDataValue('lat', truncateFloat(location.coordinates ? location.coordinates[1] : null));
   this.setDataValue('lng', truncateFloat(location.coordinates ? location.coordinates[0] : null));
   this.setDataValue('description', location.description);
@@ -349,7 +349,7 @@ function getPhones(location)
 function getUrl(location)
 {
   if (location.urls) {
-    return location.urls[0] ? location.urls[0] : location.urls;
+    return location.urls[0] ? location.urls[0] : (typeof location.urls === 'string' ? location.urls : null);
   } else {
     return null;
   }

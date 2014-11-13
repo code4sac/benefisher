@@ -1,6 +1,9 @@
 /**
  * Created by jesserosato on 9/29/14.
  */
+// Load environment variables
+var dotenv = require('dotenv');
+dotenv.load();
 
 /**
  * Controller for search.
@@ -9,6 +12,7 @@
  * @param Result The Result model.
  * @param Query The Query model.
  * @param request
+ * @param q
  * @constructor
  */
 var SearchController = function(req, res, Result, Query, request, q) {
@@ -23,13 +27,13 @@ var SearchController = function(req, res, Result, Query, request, q) {
   req.query.radius = 50;
   //List of promises for q to wait for.
   var promises = [];
-  var apiUrl = 'http://ohanapi.herokuapp.com/api/search';
+  var apiUrl = process.env.API_URL + '/api/search';
 
   // TODO: move API token to .env
   var requestOptions = {
     uri: apiUrl,
     headers: {
-      "X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
+      // "X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
     }
   };
 
@@ -86,15 +90,14 @@ var SearchController = function(req, res, Result, Query, request, q) {
             saveQuery(allResults);
             res.json(allResults);
           }).error(function(error) {
-            // TODO: Handle error (log it, at least).
-            res.json(unsavedResults);
+            serverError('Uh-oh, there was a problem with the database!', 500);
           });
         } else {
+          saveQuery(foundResults);
           res.json(foundResults);
         }
       }).error(function(error) {
-        // TODO: Handler error (log it, at least).
-        res.json(unsavedResults);
+        serverError('Uh-oh, there was a problem with the database!', 500);
       });
     }
   };

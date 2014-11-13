@@ -1,13 +1,16 @@
 var request = require('supertest');
+var dotenv = require('dotenv');
+dotenv.load();
 // Use nock to mock HTTP requests from controller.
 var nock = require('nock');
+
 
 // Here we get hold of the express application
 var app = require("../../app.js");
 
 var models = require('../../models');
 
-var baseUrl = 'http://ohanapi.herokuapp.com';
+var baseUrl = process.env.API_URL;
 var path = '/api/search?per_page=100&radius=50';
 
 describe('GET /search', function() {
