@@ -15,15 +15,15 @@ div(ng-controller='SearchController')
                     //p {{$item.name}}
                ui-select-choices(repeat="oepterm in oepterms | filter:$select.search | orderBy:orderByLength:orderByAlpha | unique:'name'")
                     p {{oepterm.name}}
-    div(class="col-md-12 col-xs-12")
-        div(class="col-sm-6 col-xs-6 tag-container")
+                    p(ng-show="(oepterms | filter:$select.search).length==1") Results
+    div(class="col-md-12 col-xs-12 tag-container")
+        div(class="col-sm-6 col-xs-6")
             span()
                 ul(class="list-inline")
                     li(ng-repeat="situation in situations.selected")
                         p(class="tags" ng-click="removeSituation(situation)") {{situation.name}}
-        div(class="col-sm-6 col-xs-6 tag-container")
+        div(class="col-sm-6 col-xs-6")
             span()
                 ul(class="list-inline")
                     li(ng-repeat="oepterm in oepterms.selected")
                         p(class="tags" ng-click="removeOepterm(oepterm)") {{oepterm.name}}
-

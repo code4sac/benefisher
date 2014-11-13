@@ -60,6 +60,12 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
     $scope.oepterms.selected.splice(index,1);
   };
 
+  $scope.addOepterm=function(item){
+    //var index=$scope.oepterms.selected.indexOf(item);
+    $scope.oepterms.selected.push(item);
+  };
+
+
   $scope.removeSituation=function(item){
     var index=$scope.situations.selected.indexOf(item);
     $scope.situations.selected.splice(index,1);
