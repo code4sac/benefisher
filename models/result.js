@@ -310,7 +310,7 @@ function formatPhone(location)
   if ( ! phones) {
     return null;
   }
-  var rawPhone = phones.number;
+  var rawPhone = phones.number.replace(/[^0-9]/g, '');
   var extension = phones.extension;
   // For simplicity, only attempt to format phone numbers that are just 10 plain digits.
   if (rawPhone.match(/^[0-9]{10}$/)) {
