@@ -288,10 +288,14 @@ function generateFindResultsCriteria(results)
  */
 function formatAddress(location)
 {
-  var city = location.address.city;
-  var state = location.address.state;
-  var street = location.address.street;
-  var zip = location.address.zip;
+  var address = location.address;
+  if ( ! address) {
+    return null;
+  }
+  var city = address.city;
+  var state = address.state;
+  var street = address.street_1 + (address.street_2 ? ' ' + address.street_2 : '');
+  var zip = address.postal_code;
   return street + ', ' + city + ', ' + state + ' ' + zip;
 }
 
