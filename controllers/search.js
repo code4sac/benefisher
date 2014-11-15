@@ -29,7 +29,7 @@ var SearchController = function(req, res, Result, Query, request, q) {
   var promises = [];
   var apiUrl = process.env.API_URL + '/api/search';
 
-  // TODO: move API token to .env
+  // TODO: move API token to .env and UPDATE TOKEN
   var requestOptions = {
     uri: apiUrl,
     headers: {
@@ -126,7 +126,6 @@ var SearchController = function(req, res, Result, Query, request, q) {
             right: parseFloat(boundsArray[3])
           };
         }
-
       }
       return bounds;
     }

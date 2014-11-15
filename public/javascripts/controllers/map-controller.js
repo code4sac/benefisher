@@ -24,6 +24,7 @@ var MapController = function ($scope, search, notification, constants, leafletDa
   var ZOOM_MAX = 18;
   var ZOOM_MIN = 13;
   // Default lat/lng
+  // Sacramento
   var LAT_DEFAULT = 38.5556;
   var LNG_DEFAULT = -121.4689;
   // The position for map controls: topright | topleft | bottomright | bottomleft
