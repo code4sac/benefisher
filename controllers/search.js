@@ -27,11 +27,13 @@ var SearchController = function(req, res, Result, Query, request, q) {
   req.query.radius = 50;
   //List of promises for q to wait for.
   var promises = [];
-  var apiUrl = process.env.API_URL + '/api/search';
+  var baseUrl = process.env.API_URL;
+  var searchUrl = baseUrl + '/api/search';
+  var locationsUrl = baseUrl + '/api/locations/';
 
   // TODO: move API token to .env and UPDATE TOKEN
   var requestOptions = {
-    uri: apiUrl,
+    uri: searchUrl,
     headers: {
       // "X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
     }
@@ -58,7 +60,17 @@ var SearchController = function(req, res, Result, Query, request, q) {
     q.all(promises).then(function (allResults) {
       var combinedResults = [];
       combinedResults = combinedResults.concat.apply(combinedResults, allResults);
-      handleHttpResponse(combinedResults);
+      var locationsOptions = {};
+      var locationsPromises = [];
+      combinedResults.forEach(function(location) {
+        locationsOptions.uri = locationsUrl + location.id;
+        locationsPromises.push(getURL(null, locationsOptions));
+      });
+      q.all(locationsPromises).then(function(locationsResults) {
+        var combinedLocationResults = [];
+        combinedLocationResults = combinedLocationResults.concat.apply(combinedLocationResults, locationsResults);
+        handleHttpResponse(combinedLocationResults);
+      });
     });
 
     /**

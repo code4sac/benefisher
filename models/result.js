@@ -126,7 +126,6 @@ function equals(result)
  */
 function setLocation(location)
 {
-  var email = location.emails ? location.emails[0] : null;
   this.setDataValue('name', location.name);
   this.setDataValue('externalId', location.id);
   this.setDataValue('lat', truncateFloat(location.coordinates ? location.coordinates[1] : null));
@@ -136,7 +135,7 @@ function setLocation(location)
   this.setDataValue('hours', location.hours);
   this.setDataValue('phone', formatPhone(location));
   this.setDataValue('rawPhone', formatRawPhone(location));
-  this.setDataValue('email', email);
+  this.setDataValue('email', (location.email ? location.email : null));
   this.setDataValue('url', getUrl(location));
   return this;
 }
