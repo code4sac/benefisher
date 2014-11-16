@@ -18,7 +18,7 @@ var location = {
   "latitude" : 38.569496,
   "longitude": -121.471978,
   "description" : "This is a description",
-  "emails" : [ "eml@example.org" ],
+  "email" : "eml@example.org",
   "faxes_attributes" : [
     {
       "number" : "911",
@@ -82,11 +82,6 @@ describe('Result', function() {
   it('should format the phone link for phone numbers without extensions', function() {
     var result = Result.build().setLocation(location2);
     expect(result.phone).to.equal('(703) 555-1212');
-  });
-
-  it('should not try to format malformed phone numbers', function() {
-    var result = Result.build().setLocation(location3);
-    expect(result.phone).to.equal('703-555-1212 x1223');
   });
 
   it('should format the email link', function() {

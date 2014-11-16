@@ -158,9 +158,7 @@ describe('SearchController', function(done) {
 
 
   it('should render results on http success (all results found in DB path)', function(done) {
-    request = function(options, callback) {
-      callback(null, { statusCode: 200 }, JSON.stringify(mockData));
-    };
+    request = mockRequest;
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
@@ -170,9 +168,7 @@ describe('SearchController', function(done) {
   });
 
   it('should render results on http success (no results found in DB path)', function(done) {
-    request = function(options, callback) {
-      callback(null, { statusCode: 200 }, JSON.stringify(mockData));
-    };
+    request = mockRequest;
     // Use 'all found in DB' path.
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
@@ -182,9 +178,7 @@ describe('SearchController', function(done) {
   });
 
   it('should attempt to save query with results (all results found in DB path)', function(done) {
-    request = function(options, callback) {
-      callback(null, { statusCode: 200 }, JSON.stringify(mockData));
-    };
+    request = mockRequest;
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
@@ -194,9 +188,7 @@ describe('SearchController', function(done) {
   });
 
   it('should attempt to save query with results (no results found in DB path)', function(done) {
-    request = function(options, callback) {
-      callback(null, { statusCode: 200 }, JSON.stringify(mockData));
-    };
+    request = mockRequest;
     // Use 'all found in DB' path.
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
@@ -208,9 +200,7 @@ describe('SearchController', function(done) {
   // Bounds search shouldn't depend on all/no results found in DB paths, which are tested above.
   it('should limit search results by lat/long bounds', function(done) {
     req.query = { bounds: '39.0000,-123.00000,37.40000,-122.4000' };
-    request = function(options, callback) {
-      callback(null, { statusCode: 200 }, JSON.stringify(mockData));
-    };
+    request = mockRequest;
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
@@ -227,4 +217,18 @@ describe('SearchController', function(done) {
     expect(res.statusCode).to.equal(500);
     done();
   });
-})
+});
+
+function mockRequest(options, callback) {
+  if (options.uri.match(/search/g)) {
+    callback(null, { statusCode: 200 }, JSON.stringify(mockData));
+  }
+  if (options.uri.match(/location/g)) {
+    var idMatches = options.uri.match(/locations\/(.*)$/);
+    mockData.forEach(function(item) {
+      if (item._id == idMatches[1]) {
+        callback(null, { statusCode: 200 }, JSON.stringify(item));
+      }
+    });
+  }
+}
