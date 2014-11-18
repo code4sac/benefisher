@@ -57,11 +57,13 @@ var MapController = function ($scope, search, notification, constants, leafletDa
 
   // Updates the map after user stops scrolling.
   $scope.$on('leafletDirectiveMap.dragend', function (event) {
-    updateCoords(map);
-    search.search({
-      bounds: getBoundsString(),
-      center: getCenterString()
-    }, 1000);
+    leafletData.getMap().then(function(map) {
+      updateCoords(map);
+      search.search({
+        bounds: getBoundsString(),
+        center: getCenterString()
+      }, 1000);
+    });
   });
 
   // Updates the map after user stop zooming.

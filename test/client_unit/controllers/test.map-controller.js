@@ -108,7 +108,7 @@ describe('MapController', function (done) {
   // Mock controller dependencies.
   beforeEach(createDependencyMocks);
   // Set up the scope and controller objects
-  beforeEach(inject(function ($rootScope, $controller) {
+  beforeEach(inject(function ($rootScope, $timeout, $controller) {
     // Create a fresh scope object and stub events-related functions.
     scope = $rootScope.$new();
     angular.extend(scope, {
@@ -192,7 +192,7 @@ describe('MapController', function (done) {
 
   it('should call search on map drag end event with correct parameters', function () {
     scope.fireEvent('leafletDirectiveMap.dragend', {});
-    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING, center: TEST_CENTER_STRING });
+    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING, center: TEST_CENTER_STRING }, 1000);
   });
 
   it('should call search on map zoom end event with correct parameters', function () {
