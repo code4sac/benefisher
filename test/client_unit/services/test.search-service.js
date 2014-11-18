@@ -5,7 +5,7 @@ var results;
 
 describe('Search Service', function() {
 
-  var mockCtrl, $httpMock, notification;
+  var mockCtrl, $httpMock, $timeoutMock, notification;
 
   // Search url with test parameters (see mockCtrl).
   var url = '/search?testParam=testValue';
@@ -23,10 +23,11 @@ describe('Search Service', function() {
   });
 
   // Inject the $httpBackend service for mocking http requests
-  beforeEach(inject(function ($httpBackend) {
+  beforeEach(inject(function ($httpBackend, $timeout) {
     // Convert test data
     results = convertTestData(locations);
     $httpMock = $httpBackend;
+    $timeoutMock = $timeout;
     $httpMock.when('GET', url).respond(results);
   }));
 
@@ -52,6 +53,7 @@ describe('Search Service', function() {
     $httpMock.expectGET(url);
     search.subscribe(mockCtrl.update);
     search.search(mockCtrl.params);
+    $timeoutMock.flush();
     $httpMock.flush();
   }));
 
@@ -59,6 +61,7 @@ describe('Search Service', function() {
     $httpMock.expectGET(url);
     search.subscribe(mockCtrl.update);
     search.search(mockCtrl.params);
+    $timeoutMock.flush();
     $httpMock.flush();
     expect(mockCtrl.update).to.have.been.calledWith(results);
   }));
@@ -67,6 +70,7 @@ describe('Search Service', function() {
     $httpMock.expectGET(url).respond(400);
     search.subscribe(mockCtrl.update);
     search.search(mockCtrl.params);
+    $timeoutMock.flush();
     $httpMock.flush();
     expect(notification.error).to.have.been.called;
   }));
@@ -76,6 +80,7 @@ describe('Search Service', function() {
     search.subscribe(mockCtrl.update);
     search.remove(results[0]);
     search.search(mockCtrl.params);
+    $timeoutMock.flush();
     $httpMock.flush();
     results[0].ignored = true;
     expect(mockCtrl.update).to.have.been.calledWith(results);

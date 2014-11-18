@@ -7,14 +7,17 @@ var services = angular.module('benefisher.services');
  * SearchService - a simple pubsub class.
  * Updates subscribers when search() is called.
  * @param $http
+ * @param $timeout
  * @param notification
  * @constructor
  */
-var SearchService = function ($http, notification, neuralnet) {
+var SearchService = function ($http, $timeout, notification) {
   var results = [];
   var subscribers = [];
   var ignoreList = {};
   var params = {};
+  var timerPromise;
+  var searchPending = false;
   /**
    * Allows subscribers to subscribe with their update function.
    * @param updateFunction
@@ -29,19 +32,16 @@ var SearchService = function ($http, notification, neuralnet) {
    */
   this.search = function (newParams) {
     updateParams(newParams);
-    // TODO: error handler.
-    $http.get('/search', { params: params })
-      .success(function(data) {
-        // Saves the list of data and removes the items that are ignored. Then pushes them
-        //   to subscribers.
-        results = data;
-        removeIgnored();
-
-        //TODO: Needs to combine ranking, then order.
-        updateSubscribers();
-      })
-      .error(httpError);
+    // Only search once every 1/3 second.
+    if ( ! searchPending) {
+      searchPending = true;
+      timerPromise = $timeout(_search, 300);
+      timerPromise.then(function() {
+        searchPending = false;
+      });
+    }
   };
+
 
   /**
   * Puts an item in an ignore list so that the item is no longer pushed to the subscribers.
@@ -76,6 +76,22 @@ var SearchService = function ($http, notification, neuralnet) {
 
 	  // Will then pass this data to the subscribers.
 	  updateSubscribers();
+  }
+
+  function _search()
+  {
+    // TODO: error handler.
+    $http.get('/search', { params: params })
+      .success(function(data) {
+        // Saves the list of data and removes the items that are ignored. Then pushes them
+        //   to subscribers.
+        results = data;
+        removeIgnored();
+
+        //TODO: Needs to combine ranking, then order.
+        updateSubscribers();
+      })
+      .error(httpError);
   }
 
   /**
@@ -133,4 +149,4 @@ var SearchService = function ($http, notification, neuralnet) {
 
 };
 
-services.service('search', ['$http', 'notification', 'neuralnet', SearchService]);
+services.service('search', ['$http', '$timeout', 'notification', 'neuralnet', SearchService]);
