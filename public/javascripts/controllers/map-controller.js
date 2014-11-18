@@ -47,9 +47,21 @@ var MapController = function ($scope, search, notification, constants, leafletDa
     leafletData.getMap().then(updateMap);
   });
 
+  // Search to restart search timer.
+  $scope.$on('leafletDirectiveMap.dragstart', function (event) {
+    search.search({
+      bounds: getBoundsString(),
+      center: getCenterString()
+    }, 1500);
+  });
+
   // Updates the map after user stops scrolling.
   $scope.$on('leafletDirectiveMap.dragend', function (event) {
-    leafletData.getMap().then(updateMap);
+    updateCoords(map);
+    search.search({
+      bounds: getBoundsString(),
+      center: getCenterString()
+    }, 1000);
   });
 
   // Updates the map after user stop zooming.

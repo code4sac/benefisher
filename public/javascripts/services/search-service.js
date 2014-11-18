@@ -13,6 +13,9 @@ var services = angular.module('benefisher.services');
  * @constructor
  */
 var SearchService = function ($rootScope, $http, $timeout, notification) {
+
+  var SEARCH_DELAY = 250;
+
   var results = [];
   var subscribers = [];
   var ignoreList = {};
@@ -32,16 +35,16 @@ var SearchService = function ($rootScope, $http, $timeout, notification) {
    * Gather search params from subscribers, query the server, then publish updated results to subscribers.
    * @param newParams
    */
-  this.search = function (newParams) {
+  this.search = function (newParams, delay) {
     updateParams(newParams);
-    // Only search once every 1/3 second.
+    // Only search once per search delay period.
     // If the search is interrupted, restart the timer.
     if ( ! searchPending) {
       searchPending = true;
     } else {
       $timeout.cancel(timerPromise);
     }
-    timerPromise = $timeout(_search, 500);
+    timerPromise = $timeout(_search, delay ? delay : SEARCH_DELAY);
     timerPromise.then(function() {
       searchPending = false;
     });
