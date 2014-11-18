@@ -51,6 +51,14 @@ var SearchService = function ($rootScope, $http, $timeout, notification) {
 
   };
 
+  /**
+   * Cancel a pending search
+   */
+  this.cancelSearch = function()
+  {
+    $timeout.cancel(timerPromise);
+  }
+
 
   /**
   * Puts an item in an ignore list so that the item is no longer pushed to the subscribers.

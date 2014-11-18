@@ -49,10 +49,7 @@ var MapController = function ($scope, search, notification, constants, leafletDa
 
   // Search to restart search timer.
   $scope.$on('leafletDirectiveMap.dragstart', function (event) {
-    search.search({
-      bounds: getBoundsString(),
-      center: getCenterString()
-    }, 1500);
+    search.cancelSearch();
   });
 
   // Updates the map after user stops scrolling.
@@ -62,7 +59,7 @@ var MapController = function ($scope, search, notification, constants, leafletDa
       search.search({
         bounds: getBoundsString(),
         center: getCenterString()
-      }, 1000);
+      }, 500);
     });
   });
 

@@ -192,7 +192,7 @@ describe('MapController', function (done) {
 
   it('should call search on map drag end event with correct parameters', function () {
     scope.fireEvent('leafletDirectiveMap.dragend', {});
-    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING, center: TEST_CENTER_STRING }, 1000);
+    expect(search.search).to.have.been.calledWith({ bounds: TEST_BOUNDS_STRING, center: TEST_CENTER_STRING }, 500);
   });
 
   it('should call search on map zoom end event with correct parameters', function () {
