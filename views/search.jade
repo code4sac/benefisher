@@ -15,7 +15,7 @@ div(ng-controller='SearchController')
                     //p {{$item.name}}
                ui-select-choices(repeat="oepterm in oepterms | filter:$select.search | orderBy:orderByLength:orderByAlpha | unique:'name'")
                     p {{oepterm.name}}
-                    p(ng-show="(oepterms | filter:$select.search).length==1") Results
+                    p(ng-show="(oepterms | filter:$select.search).length==1")
     div(class="col-md-12 col-xs-12 tag-container")
         div(class="col-sm-6 col-xs-6")
             span()
