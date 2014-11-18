@@ -21,9 +21,9 @@ div(ng-controller='SearchController')
             span()
                 ul(class="list-inline")
                     li(ng-repeat="situation in situations.selected")
-                        p(class="tags" ng-click="removeSituation(situation)") {{situation.name}}
+                        button(type="text" class="tags" ng-click="removeSituation(situation)") {{situation.name}}
         div(class="col-sm-6 col-xs-6")
             span()
                 ul(class="list-inline")
                     li(ng-repeat="oepterm in oepterms.selected")
-                        p(class="tags" ng-click="removeOepterm(oepterm)") {{oepterm.name}}
+                        button(type="text" class="tags" ng-click="removeOepterm(oepterm)") {{oepterm.name}}
