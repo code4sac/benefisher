@@ -45,11 +45,19 @@
   .map {
     min-height: 378px;
   }
+
+  #map-overlay {
+    min-height: 378px;
+  }
 }
 
 @media screen and (max-width: $screen-sm) and (orientation: landscape) {
   .map {
     min-height: 240px;
+    height: 240px;
+  }
+
+  #map-overlay {
     height: 240px;
   }
 }

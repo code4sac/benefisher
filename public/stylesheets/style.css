@@ -4863,11 +4863,15 @@ ul.notifications {
 
 @media screen and (max-width: 768px) and (orientation: portrait) {
   .map {
+    min-height: 378px; }
+  #map-overlay {
     min-height: 378px; } }
 
 @media screen and (max-width: 768px) and (orientation: landscape) {
   .map {
     min-height: 240px;
+    height: 240px; }
+  #map-overlay {
     height: 240px; } }
 
 #footer {
@@ -4920,13 +4924,17 @@ h5 {
   border-bottom: 2px solid #2F82BD;
   border-top: 2px solid #2F82BD; }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   body {
-    font-size: 10px; }
+    font-size: 12px; }
   .map-results-container {
     height: auto;
     border-bottom: none;
     position: relative; } }
+
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 10px; } }
 
 @media screen and (max-width: 768px) and (orientation: landscape) {
   body {

@@ -49,15 +49,22 @@ h5 {
   border-top: 2px solid $secondary;
 }
 
-@media screen and (max-width: $screen-xs) {
+@media screen and (max-width: $screen-sm) {
 
   // Set smaller default text size on mobile
-  body{font-size: 10px;}
+  body{font-size: 12px;}
 
   .map-results-container {
     height: auto;
     border-bottom: none;
     position: relative;
+  }
+}
+
+@media screen and (max-width: $screen-xs) {
+  // Set smaller default text size on mobile
+  body {
+    font-size: 10px;
   }
 }
 
