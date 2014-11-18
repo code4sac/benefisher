@@ -35,13 +35,17 @@ var SearchService = function ($rootScope, $http, $timeout, notification) {
   this.search = function (newParams) {
     updateParams(newParams);
     // Only search once every 1/3 second.
+    // If the search is interrupted, restart the timer.
     if ( ! searchPending) {
       searchPending = true;
-      timerPromise = $timeout(_search, 300);
-      timerPromise.then(function() {
-        searchPending = false;
-      });
+    } else {
+      $timeout.cancel(timerPromise);
     }
+    timerPromise = $timeout(_search, 500);
+    timerPromise.then(function() {
+      searchPending = false;
+    });
+
   };
 
 

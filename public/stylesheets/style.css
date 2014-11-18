@@ -4832,20 +4832,29 @@ ul.notifications {
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  -webkit-animation: pulsate 1s ease-out;
+  background: #FFFFFF;
+  -webkit-animation: pulsate 1.25s ease-out;
   -webkit-animation-iteration-count: infinite;
-  opacity: 0.8; }
+  opacity: 0.25; }
 
 @-webkit-keyframes pulsate {
   0% {
+    opacity: 0.25; }
+
+  20% {
+    opacity: 0.5; }
+
+  40% {
     opacity: 0.8; }
 
-  50% {
-    opacity: 0.2; }
+  60% {
+    opacity: 0.8; }
+
+  80% {
+    opacity: 0.5; }
 
   100% {
-    opacity: 0.8; } }
+    opacity: 0.25; } }
 
 @media screen and (max-width: 768px) {
   .map-container {
