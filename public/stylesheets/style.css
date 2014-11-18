@@ -4670,7 +4670,8 @@ ul.notifications {
   color: #fff;
   border-radius: 5px;
   font-size: 16px;
-  background-color: #2F82BD; }
+  background-color: #2F82BD;
+  border: none; }
 
 .results {
   width: 30%;
@@ -4822,6 +4823,29 @@ ul.notifications {
   width: 100%;
   height: 100%;
   min-height: 536px; }
+
+#map-overlay {
+  width: 100%;
+  height: 100%;
+  min-height: 536px;
+  z-index: 999999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-animation: pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  opacity: 0.8; }
+
+@-webkit-keyframes pulsate {
+  0% {
+    opacity: 0.8; }
+
+  50% {
+    opacity: 0.2; }
+
+  100% {
+    opacity: 0.8; } }
 
 @media screen and (max-width: 768px) {
   .map-container {

@@ -6,18 +6,20 @@ var services = angular.module('benefisher.services');
 /**
  * SearchService - a simple pubsub class.
  * Updates subscribers when search() is called.
+ * @param $rootScope
  * @param $http
  * @param $timeout
  * @param notification
  * @constructor
  */
-var SearchService = function ($http, $timeout, notification) {
+var SearchService = function ($rootScope, $http, $timeout, notification) {
   var results = [];
   var subscribers = [];
   var ignoreList = {};
   var params = {};
   var timerPromise;
   var searchPending = false;
+
   /**
    * Allows subscribers to subscribe with their update function.
    * @param updateFunction
@@ -76,22 +78,21 @@ var SearchService = function ($http, $timeout, notification) {
 
 	  // Will then pass this data to the subscribers.
 	  updateSubscribers();
-  }
+  };
 
   function _search()
   {
+    $rootScope.searching = true;
     // TODO: error handler.
-    $http.get('/search', { params: params })
-      .success(function(data) {
+    $http.get('/search', { params: params }).then(function(data) {
         // Saves the list of data and removes the items that are ignored. Then pushes them
-        //   to subscribers.
-        results = data;
+        // to subscribers.
+        results = data.data;
         removeIgnored();
-
         //TODO: Needs to combine ranking, then order.
         updateSubscribers();
-      })
-      .error(httpError);
+        $rootScope.searching = false;
+      }, httpError);
   }
 
   /**
@@ -116,7 +117,7 @@ var SearchService = function ($http, $timeout, notification) {
   /**
    * Update subscribers with search results. Ignores results that are on the ignore list.
    */
-  function updateSubscribers(data, status, headers, config) {
+  function updateSubscribers() {
     var numSubscribers = subscribers.length;
     for (var i = 0; i < numSubscribers; i++) {
       if (typeof subscribers[i] === 'function') {
@@ -134,6 +135,7 @@ var SearchService = function ($http, $timeout, notification) {
    */
   function httpError(data, status, headers, config)
   {
+    $rootScope.searching = false;
 	  notification.error("Uh-oh, there was an error loading data.", { singleton: true });
   }
 
@@ -149,4 +151,4 @@ var SearchService = function ($http, $timeout, notification) {
 
 };
 
-services.service('search', ['$http', '$timeout', 'notification', 'neuralnet', SearchService]);
+services.service('search', ['$rootScope', '$http', '$timeout', 'notification', SearchService]);
