@@ -4724,7 +4724,7 @@ ul.notifications {
       color: #FFA632; }
       .result .open_status.closing:before {
         content: "Closing soon"; }
-  .result .hours, .result .address, .result .thumbs {
+  .result .hours, .result .address, .result .thumbs, .result .description {
     display: none; }
   .result .number {
     color: #FFFFFF;
@@ -4759,7 +4759,7 @@ ul.notifications {
       background-color: #73B6E6; }
   .result.expanded .expand:before {
     content: "\2d"; }
-  .result.expanded .hours, .result.expanded .address, .result.expanded .thumbs {
+  .result.expanded .hours, .result.expanded .address, .result.expanded .thumbs, .result.expanded .description {
     display: block; }
   .result .thumbs {
     padding: 10px 0 10px 0; }
@@ -4789,7 +4789,7 @@ ul.notifications {
   .result {
     display: none;
     border-bottom: none; }
-    .result .hours, .result .address, .result .thumbs {
+    .result .hours, .result .address, .result .thumbs, .result .description {
       display: none; }
     .result .number {
       line-height: 24px;
@@ -4800,7 +4800,7 @@ ul.notifications {
       width: 24px;
       line-height: 24px;
       display: block; }
-    .result .hours, .result .address, .result .thumbs {
+    .result .hours, .result .address, .result .thumbs, .result .description {
       display: none; }
   .result.selected {
     width: 100%;
@@ -4810,7 +4810,7 @@ ul.notifications {
       font-size: 1.5em; }
   .result.expanded {
     background-color: rgba(255, 255, 255, 0.9); }
-    .result.expanded .hours, .result.expanded .address, .result.expanded .thumbs {
+    .result.expanded .hours, .result.expanded .address, .result.expanded .thumbs, .result.expanded .description {
       display: block; } }
 
 .map-container {

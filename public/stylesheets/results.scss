@@ -67,7 +67,7 @@
     }
   }
 
-  .hours, .address, .thumbs {
+  .hours, .address, .thumbs, .description {
     display: none;
   }
 
@@ -117,7 +117,7 @@
   }
 
   &.expanded {
-    .hours, .address, .thumbs {
+    .hours, .address, .thumbs, .description {
       display: block;
     }
   }
@@ -159,7 +159,7 @@
   .result {
     display: none;
     border-bottom: none;
-    .hours, .address, .thumbs {
+    .hours, .address, .thumbs, .description {
       display: none;
     }
     .number {
@@ -173,7 +173,7 @@
       line-height: 24px;
       display: block;
     }
-    .hours, .address, .thumbs {
+    .hours, .address, .thumbs, .description {
       display: none;
     }
   }
@@ -189,7 +189,7 @@
 
   .result.expanded {
     background-color: rgba($lightest, .9);
-    .hours, .address, .thumbs {
+    .hours, .address, .thumbs, .description {
       display: block;
     }
   }

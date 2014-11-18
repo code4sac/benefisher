@@ -17,6 +17,7 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
             a(href="#", title="Remove this result.", ng-click="hideResult($index)")
                 span(class="glyphicon glyphicon-thumbs-down remove")
         p(class="address") {{result.address}}
+        p(class="description") {{result.description}}
         p(class="hours", ng-class="result.openStatus") {{result.hours}}
         div(class='buttons')
             a(ng-click='interaction(result.id, TARGET.LINK, result.url)', ng-show="result.url", target='_blank', title='Website: {{result.url}}')
