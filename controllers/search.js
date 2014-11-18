@@ -60,17 +60,7 @@ var SearchController = function(req, res, Result, Query, request, q) {
     q.all(promises).then(function (allResults) {
       var combinedResults = [];
       combinedResults = combinedResults.concat.apply(combinedResults, allResults);
-      var locationsOptions = {};
-      var locationsPromises = [];
-      combinedResults.forEach(function(location) {
-        locationsOptions.uri = locationsUrl + location.id;
-        locationsPromises.push(getURL(null, locationsOptions));
-      });
-      q.all(locationsPromises).then(function(locationsResults) {
-        var combinedLocationResults = [];
-        combinedLocationResults = combinedLocationResults.concat.apply(combinedLocationResults, locationsResults);
-        handleHttpResponse(combinedLocationResults);
-      });
+      handleHttpResponse(combinedResults);
     });
 
     /**
@@ -93,16 +83,31 @@ var SearchController = function(req, res, Result, Query, request, q) {
       // for saving Queries.
       // Search DB for existing results.
       Result.multiFind(unsavedResults).success(function(foundResults) {
-        // Filter out the existing results
+        // Filter out the existing results (foundResults gets passed to filterExistingResults as 'this')
         var newResults = unsavedResults.filter(filterExistingResult, foundResults);
         if (newResults.length) {
-          // Save DB results
-          Result.multiInsert(newResults).success(function(results) {
-            var allResults = foundResults.concat(results);
-            saveQuery(allResults);
-            res.json(allResults);
-          }).error(function(error) {
-            serverError('Uh-oh, there was a problem with the database!', 500);
+          // Go get detailed data about results not in DB from API
+          var locationsPromises = [];
+          var locationsOptions = {};
+          newResults.forEach(function(location) {
+            locationsOptions.uri = locationsUrl + location.externalId;
+            locationsPromises.push(getURL(null, locationsOptions));
+          });
+          q.all(locationsPromises).then(function(newLocationsData) {
+            var newLocations = [];
+            newLocations = newLocations.concat.apply(newLocations, newLocationsData);
+            var newResults = [];
+            newLocations.forEach(function (location) {
+              newResults.push(Result.build().setLocation(location));
+            });
+            // Save DB results
+            Result.multiInsert(newResults).success(function(results) {
+              var allResults = foundResults.concat(results);
+              saveQuery(allResults);
+              res.json(allResults);
+            }).error(function(error) {
+              serverError('Uh-oh, there was a problem with the database!', 500);
+            });
           });
         } else {
           saveQuery(foundResults);
