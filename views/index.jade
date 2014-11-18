@@ -1,6 +1,7 @@
 extends layout
 
 block content
+    include scripts
     div(class="container-fluid")
         div(id="header", class="row")
             div(class="col-md-12 col-xs-12 search-container")
@@ -11,4 +12,3 @@ block content
             include map
             include results
         include footer
-    include scripts
