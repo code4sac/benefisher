@@ -76,15 +76,22 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
   $scope.orderByLength = '-name.length';
 
   /*
-   * Whenever OEPterms are changed, we must update the search.
+   * Whenever OEPterms or Situations are changed, we must update the search.
    *
    * When there is only 1 OEP term to search, we search by category match, otherwise,
    * we search the entire service by all of the keywords.
    * */
-  $scope.$watch('oepterms.selected', function () {
+  $scope.$watch('oepterms.selected', function() {
+    onTermSelected($scope.oepterms);
+  });
+  $scope.$watch('situations.selected', function() {
+    onTermSelected($scope.situations);
+  });
+
+  function onTermSelected(terms)
+  {
     var bEmergencyTag = false;  // Indicates that one of the tags contains "Emergency."
     var categories = [];
-    var terms = $scope.oepterms;
     if (terms && terms.selected) {
       if (terms.selected.length > 0) {
         terms.selected.forEach(function (oepterm) {
@@ -104,7 +111,7 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
     }
     // Handle notification re: emergency terms
     _emergencyNotification(bEmergencyTag);
-  });
+  }
 
   /**
    * Will display a notification to let user know to call 911 if any search tag contains "Emergency."
