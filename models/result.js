@@ -147,6 +147,7 @@ function setLocation(location)
  */
 function associate(models) {
   this.hasMany(models.Query, { as: 'Queries', through: 'Queries_Results' });
+  this.hasMany(models.Hidden_Node, { as: 'Hidden_Node', through: models.Hidden_To_Result });
   this.hasMany(models.Interaction, { as: 'Interactions' });
 }
 

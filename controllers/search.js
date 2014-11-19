@@ -11,7 +11,7 @@
  * @param request
  * @constructor
  */
-var SearchController = function(req, res, Result, Query, request, q) {
+var SearchController = function(req, res, Result, Query, request, q, neuralNet) {
 
   var DELIMITER = ',';
   // Bounds query string should look like: 'top,left,bottom,right'.
@@ -23,13 +23,13 @@ var SearchController = function(req, res, Result, Query, request, q) {
   req.query.radius = 50;
   //List of promises for q to wait for.
   var promises = [];
-  var apiUrl = 'http://ohanapi.herokuapp.com/api/search';
+  var apiUrl = 'http://wakati-ohana-api.herokuapp.com/api/search';
 
   // TODO: move API token to .env
   var requestOptions = {
     uri: apiUrl,
     headers: {
-      "X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
+      //"X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
     }
   };
 
@@ -39,6 +39,7 @@ var SearchController = function(req, res, Result, Query, request, q) {
   this.render = function () {
     //create an array containing all of the API requests we are going to make.
     var queries = createQueries(req.query);
+    console.log(JSON.stringify(req.query))
     // Load JSON from API.
     queries.forEach(function (query) {
       //Request the specified query. getURL returns a promise, which will be handled by Q.
@@ -84,16 +85,30 @@ var SearchController = function(req, res, Result, Query, request, q) {
           Result.multiInsert(newResults).success(function(results) {
             var allResults = foundResults.concat(results);
             saveQuery(allResults);
+            //TODO: filter through NN
+            console.log("Case 1 save");
             res.json(allResults);
           }).error(function(error) {
             // TODO: Handle error (log it, at least).
+
+            console.log("Case 2 save");
             res.json(unsavedResults);
           });
         } else {
+          console.log("Case 3 save");
+          console.log(JSON.stringify(neuralNet));
+          /*
+          neuralNet.rankResult(req.query, foundResults).then(function(){
+            console.log('welp');
+          }).error(function(){
+            console.log('not able to finish NN');
+          });
+          */
           res.json(foundResults);
         }
       }).error(function(error) {
         // TODO: Handler error (log it, at least).
+        console.log("Case 4 save");
         res.json(unsavedResults);
       });
     }
