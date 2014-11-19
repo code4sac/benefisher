@@ -4618,6 +4618,12 @@ ul.notifications {
   border: 0;
   border-bottom: 1px dashed orange; }
 
+.oep-header {
+  font-weight: bold;
+  border-bottom: 1px dashed #313233;
+  margin-bottom: 0;
+  padding-bottom: 10px; }
+
 .select2-container-multi {
   margin: 0;
   padding-bottom: 0; }
@@ -4661,8 +4667,8 @@ ul.notifications {
     margin-bottom: 0; }
 
 .tag-container {
-  margin-top: 6px;
-  height: auto; }
+  height: auto;
+  text-align: left; }
 
 .tags {
   text-decoration: none;
@@ -4671,7 +4677,8 @@ ul.notifications {
   border-radius: 5px;
   font-size: 16px;
   background-color: #2F82BD;
-  border: none; }
+  border: none;
+  margin: 10px 2px 0 0; }
 
 .results {
   width: 30%;

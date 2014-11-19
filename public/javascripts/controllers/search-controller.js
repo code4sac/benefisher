@@ -72,6 +72,7 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
 
   // Orders the terms in order by name (place a '-' in front of name to reverse the order).
   $scope.orderByAlpha = 'name';
+  $scope.orderById = 'oe_id';
   // Orders the terms in order by length (place a '-' in front of name to reverse the order).
   $scope.orderByLength = '-name.length';
 

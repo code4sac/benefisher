@@ -6,13 +6,13 @@ div(ng-controller='SearchController')
             // input(type="text", name="situation", placeholder="What's my situation?", class="search-input situation-input")
             ui-select(multiple ng-model="situations.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" class="search-input need-input")
                 ui-select-match(placeholder="What's My Situation?")
-                ui-select-choices(repeat="situation in situations | filter:$select.search | orderBy:orderByAlpha")
-                    p {{situation.name}}
+                ui-select-choices(repeat="situation in situations | filter:$select.search | orderBy:orderById")
+                    p(ng-class="{'oep-header': situation.oe_id.length == 3}") {{situation.name}}
         div(class="col-sm-6 col-xs-6 input-container" ng-cloak)
             ui-select(multiple ng-model="oepterms.selected" theme="select2" ng-disabled="disabled" style="width: 100%;" class="search-input need-input")
                ui-select-match(placeholder="What do I need?")
-               ui-select-choices(repeat="oepterm in oepterms | filter:$select.search | orderBy:orderByAlpha")
-                    p {{oepterm.name}}
+               ui-select-choices(repeat="oepterm in oepterms | filter:$select.search | orderBy:orderById")
+                    p(ng-class="{'oep-header': oepterm.oe_id.length == 3}") {{oepterm.name}}
     div(class="col-md-12 col-xs-12 tag-container")
         div(class="col-sm-6 col-xs-6")
             span()
