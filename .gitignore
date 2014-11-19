@@ -2,6 +2,10 @@
 logs/*
 !logs/README.md
 
+#DS_STORE
+
+*.DS_STORE
+
 # Runtime data
 pids
 *.pid
