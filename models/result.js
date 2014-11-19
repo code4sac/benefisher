@@ -351,7 +351,7 @@ function getPhones(location)
  */
 function getUrl(location)
 {
-  return location.url ? location.url : null;
+  return location.website ? location.website : null;
 }
 
 /**
