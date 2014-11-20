@@ -4733,6 +4733,20 @@ ul.notifications {
         content: "Closing soon"; }
   .result .hours, .result .address, .result .thumbs, .result .description {
     display: none; }
+  .result .hours {
+    margin: 20px auto 10px auto; }
+    .result .hours th {
+      text-align: center;
+      background-color: #2F82BD;
+      color: #fff; }
+    .result .hours tr.open-row {
+      border-bottom: 1px solid #2F82BD; }
+    .result .hours th.empty {
+      background-color: transparent; }
+    .result .hours td {
+      font-size: 0.8em; }
+    .result .hours th, .result .hours td {
+      padding: 5px; }
   .result .number {
     color: #FFFFFF;
     font-weight: bold;
@@ -4766,8 +4780,10 @@ ul.notifications {
       background-color: #73B6E6; }
   .result.expanded .expand:before {
     content: "\2d"; }
-  .result.expanded .hours, .result.expanded .address, .result.expanded .thumbs, .result.expanded .description {
+  .result.expanded .address, .result.expanded .thumbs, .result.expanded .description {
     display: block; }
+  .result.expanded .hours {
+    display: table; }
   .result .thumbs {
     padding: 10px 0 10px 0; }
   .result .thumbs a {
@@ -4816,9 +4832,17 @@ ul.notifications {
     .result.selected .buttons a, .result.selected .thumbs a {
       font-size: 1.5em; }
   .result.expanded {
-    background-color: rgba(255, 255, 255, 0.9); }
-    .result.expanded .hours, .result.expanded .address, .result.expanded .thumbs, .result.expanded .description {
-      display: block; } }
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow: auto; }
+    .result.expanded .address, .result.expanded .thumbs, .result.expanded .description {
+      display: block; }
+    .result.expanded .hours {
+      display: table; } }
 
 .map-container {
   height: 100%;

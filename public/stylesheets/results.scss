@@ -71,6 +71,27 @@
     display: none;
   }
 
+  .hours {
+    margin: 20px auto 10px auto;
+    th {
+      text-align: center;
+      background-color: $secondary;
+      color: #fff;
+    }
+    tr.open-row {
+      border-bottom: 1px solid $secondary;
+    }
+    th.empty {
+      background-color: transparent;
+    }
+    td {
+      font-size: .8em;
+    }
+    th,td {
+      padding: 5px;
+    }
+  }
+
   .number {
     color: $lightest;
     font-weight: bold;
@@ -117,8 +138,11 @@
   }
 
   &.expanded {
-    .hours, .address, .thumbs, .description {
+    .address, .thumbs, .description {
       display: block;
+    }
+    .hours {
+      display: table;
     }
   }
 
@@ -188,9 +212,18 @@
   }
 
   .result.expanded {
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    position: fixed;
     background-color: rgba($lightest, .9);
-    .hours, .address, .thumbs, .description {
+    overflow: auto;
+    .address, .thumbs, .description {
       display: block;
+    }
+    .hours {
+      display: table;
     }
   }
 }

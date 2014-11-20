@@ -18,7 +18,6 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
                 span(class="glyphicon glyphicon-thumbs-down remove")
         p(class="address") {{result.address}}
         p(class="description") {{result.description}}
-        p(class="hours", ng-class="result.openStatus") {{result.hours}}
         div(class='buttons')
             a(ng-click='interaction(result.id, TARGET.LINK, result.url)', ng-show="result.url", target='_blank', title='Website: {{result.url}}')
                 span(class='glyphicon glyphicon-link')
@@ -29,4 +28,11 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
             a(ng-click='interaction(result.id, TARGET.EMAIL, result.emailUrl)', ng-show="result.emailUrl", target='_blank', title='Email: {{result.email}}')
                 span(class='glyphicon glyphicon-envelope')
         div(class="open_status", ng-show="result.openStatus", ng-class="result.openStatus", title="We can't guarantee this, always call to make sure.")
+        table(class="hours")
+            tr
+                th(ng-repeat='hours in result.regularHours') {{hours.dayOfWeek.substring(0,2)}}
+            tr(class="open-row")
+                td(ng-repeat='hours in result.regularHours') {{hours.opensAt}}
+            tr
+                td(ng-repeat='hours in result.regularHours') {{hours.closesAt}}
 

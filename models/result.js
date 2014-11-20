@@ -6,6 +6,15 @@ var OPEN_STATUSES = {
   'CLOSING': 'closing'
 }
 
+var DAYS_OF_WEEK = [];
+DAYS_OF_WEEK[1] = 'Mon';
+DAYS_OF_WEEK[2] = 'Tue';
+DAYS_OF_WEEK[3] = 'Wed';
+DAYS_OF_WEEK[4] = 'Thu';
+DAYS_OF_WEEK[5] = 'Fri';
+DAYS_OF_WEEK[6] = 'Sat';
+DAYS_OF_WEEK[7] = 'Sun';
+
 
 /**
  * Result model
@@ -324,13 +333,43 @@ function getUrl(location)
 
 function setHours(location)
 {
-  try {
-    this.setDataValue('regularHours', JSON.stringify(location.regular_schedules));
-    this.setDataValue('holidayHours', JSON.stringify(location.holiday_schedules));
-  } catch(e) {
-    this.setDataValue('regularHours', JSON.stringify([]));
-    this.setDataValue('holidayHours', JSON.stringify([]));
+  var regHours = location.regular_schedules ? location.regular_schedules : [];
+  if (regHours) {
+    // Save formatted times in camel case properties.
+    regHours = regHours.map(function(hours) {
+      hours.opensAt = formatTime(hours.opens_at);
+      hours.closesAt = formatTime(hours.closes_at);
+      hours.dayOfWeek = DAYS_OF_WEEK[hours.weekday];
+      return hours;
+    });
   }
+  this.setDataValue('regularHours', JSON.stringify(regHours));
+  this.setDataValue('holidayHours', JSON.stringify(location.holiday_schedules));
+}
+
+/**
+ * Format time from a string like the one returned by Date.toString()
+ * @param time
+ */
+function formatTime(time)
+{
+  var timeRegExp = new RegExp(/(\d?\d):(\d\d)/);
+  var timeStr = time.substring(10,16).replace('T',' ');
+  var matches = timeStr.match(timeRegExp);
+  var hours = matches[1];
+  var minutes = matches[2];
+  var ampm;
+  if (hours > 12) {
+    hours -= 12;
+    ampm = 'PM';
+  } else {
+    if (hours == 0) {
+      hours = 12;
+    }
+    ampm = 'AM';
+  }
+  // Use parseInt for quick strip of leading zeroes from hours
+  return parseInt(hours) + ':' + minutes + ' ' + ampm;
 }
 
 /**

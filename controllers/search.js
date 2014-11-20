@@ -190,7 +190,7 @@ var SearchController = function(req, res, Result, Query, request, q) {
       Query.create({
         bounds: req.query.bounds,
         terms: req.query.terms
-      }).then(function() {
+      }).then(function(query) {
         query.setResults(results);
       });
     }
