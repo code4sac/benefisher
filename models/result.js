@@ -209,16 +209,12 @@ function getOpenStatus(now)
   var regularHours = getRegularHours.apply(this);
   var holidayHours = getHolidayHours.apply(this);
 
-  if ( ! regularHours && ! holidayHours) {
-    return false;
-  }
-
   var holidayOpenStatus;
-  if (holidayHours && (holidayOpenStatus = getHolidayOpenStatus(holidayHours, now))) {
+  if (holidayHours && holidayHours.length && (holidayOpenStatus = getHolidayOpenStatus(holidayHours, now))) {
     return holidayOpenStatus;
   }
 
-  if (regularHours) {
+  if (regularHours && regularHours.length) {
     return getRegularOpenStatus(regularHours, now);
   }
   // If we haven't been able to parse hours yet, we're not going to. Return false.
@@ -488,6 +484,10 @@ function getRegularOpenStatus(regularHours, now)
     var hours = regularHours[i];
     i++;
     if (hours.weekday == nowDoW) {
+      // If the start and end times are the same, assume the location is open 24 hours.
+      if (hours.opens_at == hours.closes_at) {
+        return OPEN_STATUSES.OPEN;
+      }
       var startMatches = hours.opens_at.match(timeRegExp);
       var endMatches = hours.closes_at.match(timeRegExp);
       // Clone start and end dates from NOW, and then set times

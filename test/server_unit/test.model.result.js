@@ -109,10 +109,10 @@ describe('Result', function() {
     expect(result.emailUrl).to.contain('mailto:');
   });
 
-  it('should return not false open status if no location hours are specified', function() {
+  it('should return false open status if no location hours are specified', function() {
     // Date format 1
     var result = Result.build().setLocation(location5);
-    expect(result.openStatus(new Date())).to.not.equal(false);
+    expect(result.openStatus(new Date())).to.equal(false);
   });
 
   it('should have the correct open status if the location is open', function() {
