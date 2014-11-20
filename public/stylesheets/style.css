@@ -4713,7 +4713,10 @@ ul.notifications {
   .result:last-of-type {
     border-bottom: none; }
   .result.selected {
-    background-color: rgba(115, 182, 230, 0.4); }
+    z-index: 99999;
+    position: relative;
+    top: -12px;
+    box-shadow: 0 8px 24px 8px rgba(49, 50, 51, 0.5); }
   .result h4 {
     padding: 0 40px;
     margin-top: 0; }
@@ -4827,6 +4830,7 @@ ul.notifications {
       display: none; }
   .result.selected {
     width: 100%;
+    top: 0;
     display: block;
     background-color: rgba(255, 255, 255, 0.8); }
     .result.selected .buttons a, .result.selected .thumbs a {

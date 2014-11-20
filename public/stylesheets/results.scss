@@ -37,7 +37,11 @@
   }
 
   &.selected {
-    background-color: rgba($primary, .4);
+    z-index: 99999;
+    position: relative;
+    top: -12px;
+    box-shadow: 0 8px 24px 8px rgba($darkest, .5);
+    // background-color: rgba($primary, .4);
   }
 
   h4 {
@@ -204,6 +208,7 @@
 
   .result.selected {
     width: 100%;
+    top: 0;
     display: block;
     background-color: rgba($lightest, .8);
     .buttons a, .thumbs a {
