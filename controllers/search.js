@@ -113,7 +113,7 @@ var SearchController = function(req, res, Result, Query, request, q) {
           saveQuery(foundResults);
           res.json(foundResults);
         }
-      }).error(function(error) {
+      }, function(error) {
         serverError('Uh-oh, there was a problem with the database!', 500);
       });
     }
@@ -187,11 +187,10 @@ var SearchController = function(req, res, Result, Query, request, q) {
      * @param results
      */
     function saveQuery(results) {
-      var query = Query.build({
+      Query.create({
         bounds: req.query.bounds,
         terms: req.query.terms
-      });
-      query.save().success(function () {
+      }).then(function() {
         query.setResults(results);
       });
     }

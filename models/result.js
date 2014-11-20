@@ -1,29 +1,5 @@
 "use strict";
 
-var DAYS_OF_WEEK = {
-  'sun': 0,
-  'mon': 1,
-  'tue': 2,
-  'wed': 3,
-  'thu': 4,
-  'fri': 5,
-  'sat': 6
-};
-var MONTHS_OF_YEAR = {
-  'jan': 1,
-  'feb': 2,
-  'mar': 3,
-  'apr': 4,
-  'may': 5,
-  'jun': 6,
-  'jul': 7,
-  'aug': 8,
-  'sep': 9,
-  'oct': 10,
-  'nov': 11,
-  'dec': 12
-};
-
 var OPEN_STATUSES = {
   'OPEN': 'open',
   'CLOSED': 'closed',
@@ -55,7 +31,9 @@ module.exports = function(sequelize, DataTypes) {
     phone: DataTypes.STRING,
     rawPhone: DataTypes.STRING,
     email: DataTypes.STRING,
-    url: DataTypes.STRING
+    url: DataTypes.STRING,
+    regularHours: DataTypes.TEXT,
+    holidayHours: DataTypes.TEXT
   };
   // Model 'instance' methods
   var instanceMethods = {
@@ -75,8 +53,9 @@ module.exports = function(sequelize, DataTypes) {
   var getterMethods = {
     directionsUrl: function() { return getDirectionsUrl.apply(this) },  // String
     phoneUrl: function() { return getPhoneUrl.apply(this) },            // String
-    emailUrl: function() { return getEmailUrl.apply(this) }            // String
+    emailUrl: function() { return getEmailUrl.apply(this) }             // String
   };
+
   var methods = {
     instanceMethods: instanceMethods,
     classMethods: classMethods,
@@ -95,6 +74,8 @@ module.exports = function(sequelize, DataTypes) {
 function toJson()
 {
   var json = this.values;
+  json.regularHours = getRegularHours.apply(this);
+  json.holidayHours = getHolidayHours.apply(this);
   json.directionsUrl = getDirectionsUrl.apply(this);
   json.phoneUrl = getPhoneUrl.apply(this);
   json.emailUrl = getEmailUrl.apply(this);
@@ -137,6 +118,8 @@ function setLocation(location)
   this.setDataValue('rawPhone', formatRawPhone(location));
   this.setDataValue('email', (location.email ? location.email : null));
   this.setDataValue('url', getUrl(location));
+  setHours.apply(this, [location]);
+
   return this;
 }
 
@@ -214,43 +197,28 @@ function getEmailUrl()
  */
 function getOpenStatus(now)
 {
-  var hours = this.getDataValue('hours');
-  if ( ! hours) {
+  var regularHours = getRegularHours.apply(this);
+  var holidayHours = getHolidayHours.apply(this);
+
+  if ( ! regularHours && ! holidayHours) {
     return false;
   }
-  var monthRegExp = new RegExp(/((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[\w]*)/gi);
-  var dayRegExp = new RegExp(/((Mon|Tue|Wed|Thu|Fri|Sat|Sun)[\w]*)/gi);
-  var timeRegExp = new RegExp(/\d\d?((([:]\d\d)?\s?(a|p)[m]?)|(\s?(a|p)[m]?))/gi);
-  var monthMatches = hours.match(monthRegExp);
-  var dayMatches = hours.match(dayRegExp);
-  var timeMatches = hours.match(timeRegExp);
-  var numMonths = monthMatches ? monthMatches.length : 0;
-  var numDays = dayMatches ? dayMatches.length : 0;
-  var numTimes = timeMatches ? timeMatches.length : 0;
-  // TODO: Add support for more formats.
-  // Format 1: START MONTH - END MONTH DoW 8:00 AM to 12:00 PM
-  if (numMonths == 2 && numDays == 1 && numTimes == 2) {
-    return getOpenStatus_format1(now, monthMatches, dayMatches, timeMatches);
+
+  var holidayOpenStatus;
+  if (holidayHours && (holidayOpenStatus = getHolidayOpenStatus(holidayHours, now))) {
+    return holidayOpenStatus;
   }
-  // Format 2: START DoW-END DoW, 8:00am-5:00pm; PHONE INFO
-  if ( ! numMonths && numDays == 2 && numTimes == 2) {
-    return getOpenStatus_format2(now, dayMatches, timeMatches);
+
+  if (regularHours) {
+    return getRegularOpenStatus(regularHours, now);
   }
-  // Format 3: START DoW-END DoW, START HOUR-END HOUR
-  if ( ! numMonths && numDays ==2 && ! numTimes) {
-    return getOpenStatus_format3(now, dayMatches, hours);
-  }
-  // Format 4: 24 hours daily
-  if (hours.match(new RegExp(/24 hours daily/gi))) {
-    return OPEN_STATUSES.OPEN;
-  }
-  // If we don't have a format, return false
+  // If we haven't been able to parse hours yet, we're not going to. Return false.
   return false;
 }
 
 /**
  * Generate 'where' clause for find Results query
- * @param locations
+ * @param results
  * @returns {{where: {name: {in: *}, externalId: {in: *}, lat: {in: *}, lng: {in: *}}}}
  */
 function generateFindResultsCriteria(results)
@@ -354,6 +322,44 @@ function getUrl(location)
   return location.website ? location.website : null;
 }
 
+function setHours(location)
+{
+  try {
+    this.setDataValue('regularHours', JSON.stringify(location.regular_schedules));
+    this.setDataValue('holidayHours', JSON.stringify(location.holiday_schedules));
+  } catch(e) {
+    this.setDataValue('regularHours', JSON.stringify([]));
+    this.setDataValue('holidayHours', JSON.stringify([]));
+  }
+}
+
+/**
+ * Get regular hours
+ * @returns {*}
+ */
+function getRegularHours()
+{
+  try {
+    return JSON.parse(this.getDataValue('regularHours'));
+  } catch(e) {
+    return false;
+  }
+
+}
+
+/**
+ * Get holiday hours
+ * @returns {*}
+ */
+function getHolidayHours()
+{
+  try {
+    return JSON.parse(this.getDataValue('holidayHours'));
+  } catch(e) {
+    return false;
+  }
+}
+
 /**
  * Generate the HTML for a popup for a result.
  * TODO: Use a jade template for this.
@@ -387,129 +393,84 @@ function truncateFloat (floatCoordinate) {
 }
 
 /**
- * Create a Date object for today's date with the time set to the given time string.
+ *
+ * @param holidayHours
  * @param now
- * @param timeString
- * @returns {Date}
  */
-function standardizeTime(now, timeString)
+function getHolidayOpenStatus(holidayHours, now)
 {
-  // Dirty clone of Date param
-  var date = new Date(now.getTime());
-  var colonIndex = timeString.indexOf(':');
-  var mins;
-  var hoursMatches = timeString.match(new RegExp(/^\d\d?/));
-  var hours = hoursMatches[0];
-  if (colonIndex < 0) {
-    // eg 4 pm
-    mins = 0;
-  }else {
-    // eg 12:00 pm
-    mins = timeString.substring(colonIndex + 1, colonIndex + 3);
-  }
-  // Convert hours to military time (based on a/p)
-  var hoursInt = parseInt(hours);
-  hours = timeString.toLowerCase().match('p') && hoursInt != 12 ? hoursInt + 12 : hoursInt;
-  date.setHours(hours);
-  date.setMinutes(mins);
-  return date;
-}
-
-/**
- * Determine whether a location is open if it has the following hours string format:
- * START MONTH - END MONTH DoW 8:00 AM to 12:00 PM
- * @param now
- * @param months
- * @param days
- * @param times
- * @returns {string}
- */
-function getOpenStatus_format1(now, months, days, times)
-{
-  var nowDayOfWeek = now.getDay();
+  var timeRegExp = /T(\d\d):(\d\d)/;
+  var nowDay = now.getDate();
+  var nowYear = now.getYear();
   var nowMonth = now.getMonth();
-  var startTime = standardizeTime(now, times[0]);
-  var endTime = standardizeTime(now, times[1]);
-  var dayOfWeek = DAYS_OF_WEEK[days[0].toLowerCase().substr(0,3)];
-  var startMonth = MONTHS_OF_YEAR[months[0].toLowerCase().substr(0,3)];
-  var endMonth = MONTHS_OF_YEAR[months[1].toLowerCase().substr(0,3)];
-  if (nowMonth < startMonth
-    || nowMonth > endMonth
-    || nowDayOfWeek != dayOfWeek
-    || now < startTime
-    || now > endTime ) {
-    return OPEN_STATUSES.CLOSED;
-  }
-  return openOrClosing(now, endTime);
-}
-
-/**
- * Determine whether a location is open if it has the following hours string format:
- * START DoW-END DoW, 8:00am-5:00pm; PHONE INFO
- * @param now
- * @param days
- * @param times
- * @returns {string}
- */
-function getOpenStatus_format2(now, days, times)
-{
-  var nowDayOfWeek = now.getDay();
-  var startDayOfWeek = DAYS_OF_WEEK[days[0].toLowerCase().substr(0,3)];
-  var endDayOfWeek = DAYS_OF_WEEK[days[1].toLowerCase().substr(0,3)];
-  var startTime = standardizeTime(now, times[0]);
-  var endTime = standardizeTime(now, times[1]);
-  if (nowDayOfWeek < startDayOfWeek
-    || nowDayOfWeek > endDayOfWeek
-    || now < startTime
-    || now > endTime) {
-    return OPEN_STATUSES.CLOSED;
-  }
-  return openOrClosing(now, endTime);
-}
-
-/**
- * Determine whether a location is open if it has the following hours string format:
- * START DoW-END DoW, START HOUR-END HOUR
- * @param now
- * @param days
- * @param hoursString
- * @returns {*}
- */
-function getOpenStatus_format3(now, days, hoursString)
-{
-  var nowDayOfWeek = now.getDay();
-  var startDayOfWeek = DAYS_OF_WEEK[days[0].toLowerCase().substr(0,3)];
-  var endDayOfWeek = DAYS_OF_WEEK[days[1].toLowerCase().substr(0,3)];
-  var timeMatches = hoursString.match(new RegExp(/\s(\d\d?)\s?(-|to)\s?(\d\d?)(\s|$)/));
-  if ( ! timeMatches || timeMatches.length != 5) {
-    return false;
-  }
-  var startHours = timeMatches[1];
-  var endHours = timeMatches[3];
-  var startHoursStr;
-  var endHoursStr;
-  // Assume no service opens earlier than 5am, or later than 5pm so opening times before 5 are PM
-  if (startHours <= 4) {
-    startHoursStr = startHours + ':00p';
-    endHoursStr = endHours + '00p'
-  } else {
-    // Assume that services are open no more than 12 hours (not great)
-    startHoursStr = startHours + ':00a';
-    if (endHours > startHours) {
-      endHoursStr = endHours + ':00a';
+  var status = false;
+  holidayHours.forEach(function(hours) {
+    var start = new Date(hours.start_date);
+    var end = new Date(hours.end_date);
+    if (hours.closed) {
+      start.setHours(0);
+      start.setMinutes(0);
+      end.setHours(23);
+      end.setMinutes(59);
+      if (now >= start && now <= end) {
+        status = OPEN_STATUSES.CLOSED;
+      }
     } else {
-      endHoursStr = endHours + ':00p';
+      // If the holiday has open hours, validate that today is this holiday
+      if ((nowDay == start.getDate() && nowMonth == start.getMonth() && nowYear == start.getYear())
+        || (nowDay == end.getDate() && nowMonth == end.getMonth() && nowYear == end.getYear())) {
+        var startMatches = hours.opens_at.match(timeRegExp);
+        var endMatches = hours.closes_at.match(timeRegExp);
+        start.setHours(startMatches[1]);
+        start.setMinutes(startMatches[2]);
+        end.setHours(endMatches[1]);
+        end.setMinutes(startMatches[2]);
+        status = openOrClosedOrClosing(now, start, end);
+      }
+    }
+  });
+  return status;
+}
+
+/**
+ *
+ * @param regularHours
+ * @param now
+ */
+function getRegularOpenStatus(regularHours, now)
+{
+  // API day of week is 1-indexed, and JavaScript Date DoW is 0-indexed;
+  var nowDoW = now.getDay() == 0 ? 7 : now.getDay();
+  var timeRegExp = /T(\d\d):(\d\d)/;
+  var status = false;
+  var numHours = regularHours.length;
+  var i = 0;
+  while (i < numHours && ! status) {
+    var hours = regularHours[i];
+    i++;
+    if (hours.weekday == nowDoW) {
+      var startMatches = hours.opens_at.match(timeRegExp);
+      var endMatches = hours.closes_at.match(timeRegExp);
+      // Clone start and end dates from NOW, and then set times
+      var start = new Date(now.getTime());
+      start.setHours(startMatches[1]);
+      start.setMinutes(startMatches[2]);
+      var end = new Date(now.getTime());
+      end.setHours(endMatches[1]);
+      end.setMinutes(startMatches[2]);
+      status = openOrClosedOrClosing(now, start, end);
     }
   }
-  var startTime = standardizeTime(now, startHoursStr);
-  var endTime = standardizeTime(now, endHoursStr);
-  if (nowDayOfWeek < startDayOfWeek
-    || nowDayOfWeek > endDayOfWeek
-    || now < startTime
-    || now > endTime) {
+  return status ? status : OPEN_STATUSES.CLOSED;
+}
+
+function openOrClosedOrClosing(now, start, end)
+{
+  if (now >= start && now <= end) {
+    return openOrClosing(now, end);
+  } else {
     return OPEN_STATUSES.CLOSED;
   }
-  return openOrClosing(now, endTime);
 }
 
 /**
