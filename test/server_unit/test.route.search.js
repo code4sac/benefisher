@@ -34,45 +34,32 @@ var res = {
 // TODO: Alter mocks to test case where some results are found in DB and some are not.
 var findAllResults = function(results) {
   return {
-    success: function(callback) {
-      callback(results);
-      return {
-        error: function() {}
-      }
+    then: function(successCallback) {
+      successCallback(results);
     }
   };
 };
 
 var findNoResults = function(results) {
   return {
-    success: function (callback) {
-      callback([]);
-      return {
-        error: function () {
-        }
-      }
+    then: function (successCallback) {
+      successCallback([]);
     }
   };
 };
 
 var insertNoResults = function() {
   return {
-    success: function(callback){
-      callback([]);
-      return {
-        error: function() { }
-      }
+    then: function(successCallback){
+      successCallback([]);
     }
   }
 };
 
 var insertAllResults = function(results) {
   return {
-    success: function(callback){
-      callback(results);
-      return {
-        error: function() {}
-      }
+    then: function(successCallback){
+      successCallback(results);
     }
   }
 };
@@ -94,24 +81,20 @@ var Result = {
 // Mock a query instance
 var query = {
   results: [],
-  save: function() {
-    return {
-      success: function(callback) {
-        callback();
-      }
-    }
-  },
   setResults: function(results){
     this.results = results;
     return this;
   }
-}
+};
 
 // Mock the query model.
 var Query = {
-  results: [],
-  build: function() {
-    return query;
+  create: function() {
+    return {
+      then: function(callback) {
+        callback(query);
+      }
+    }
   }
 };
 
