@@ -6394,12 +6394,15 @@ ul.notifications {
   .result .icon {
     display: inline-block;
     float: right;
-    margin-top: -8px; }
+    margin-top: -8px;
+    padding: 2px; }
   .result .icon:before {
     font-family: 'FontAwesome';
+    color: #FFFFFF;
+    font-size: 1em;
     width: 1.6em;
     height: 1.6em;
-    border-radius: 50%; }
+    border-radius: 75%; }
   .result .care:before {
     content: "\f004";
     background-color: #d47689; }
