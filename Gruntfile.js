@@ -32,7 +32,7 @@ module.exports = function(grunt) {
     mochaTest: {
       test: {
         options: {
-          reporter: 'nyan',
+          reporter: 'spec',
           clearRequireCache: true
         },
         src: ['test/server_*/*.js']

@@ -31,10 +31,11 @@ module.exports = function(config){
     plugins : [
             'karma-phantomjs-launcher',
             'karma-nyan-reporter',
+            'karma-spec-reporter',
             'karma-mocha'
             ],
 
-    reporters: ['nyan'],
+    reporters: ['spec'],
 
     junitReporter : {
       outputFile: 'test/test_out/unit.xml',
