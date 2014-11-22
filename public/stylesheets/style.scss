@@ -1,5 +1,7 @@
 $icon-font-path: "../components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$fa-font-path: "../lib/font-awesome/fonts";
 @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import '../lib/font-awesome/scss/font-awesome';
 @import 'mixins';
 @import 'colors';
 @import 'notification';
@@ -21,7 +23,6 @@ h4 {
 h5 {
   font-size: 1em;
 }
-
 
 .info {
   background-color: $primary;

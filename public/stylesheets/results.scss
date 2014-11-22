@@ -79,7 +79,7 @@
     width: 30px;
     padding: 0;
     margin: 0;
-    line-height: 27px;
+    line-height: 24px;
     border-radius: 50%;
     border: 3px solid $primary;
     background: $secondary;
@@ -94,7 +94,7 @@
     width: 30px;
     padding: 0;
     margin: 0;
-    line-height: 27px;
+    line-height: 22px;
     border-radius: 50%;
     border: 3px solid $primary;
     background: $secondary;
@@ -138,7 +138,66 @@
     padding: 10px;
     cursor: pointer;
   }
+
+  .icon {
+    display: inline-block;
+    float: right;
+    margin-top: -8px;
+  }
+
+  .icon:before {
+    font-family: 'FontAwesome';
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+  }
+
+  .care:before {
+    content: $fa-var-heart;
+    background-color: #d47689;
+  }
+  .food:before {
+    content: $fa-var-cutlery;
+    background: #dbc817;
+  }
+  .money:before {
+    content: $fa-var-money;
+    background: #41db56;
+  }
+  .health:before {
+    content: $fa-var-medkit;
+    background: #222222;
+  }
+  .emergency:before {
+    content: $fa-var-ambulance;
+    background: #db0800;
+  }
+  .transit:before {
+    content: $fa-var-bus;
+    background: #3439db;
+  }
+  .education:before {
+    content: $fa-var-book;
+    background: #3cdbd8;
+  }
+  .work:before {
+    content: $fa-var-suitcase;
+    background: #8b8b8b;
+  }
+  .legal:before {
+    content: $fa-var-gavel;
+    background: #db00ba;
+  }
+  .goods:before {
+    content: $fa-var-shopping-cart;
+    background: #2bdb00;
+  }
+  .housing:before {
+    content: $fa-var-key;
+    background-color: #dbdb80;
+  }
 }
+
 
 @media screen and (max-width: $screen-sm) {
   .results {
