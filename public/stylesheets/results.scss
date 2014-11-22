@@ -167,65 +167,151 @@
     cursor: pointer;
   }
 
+  .icons {
+    margin-top: 20px;
+    width: 100%;
+    text-align: right;
+  }
+
   .icon {
     display: inline-block;
-    float: right;
-    margin-top: -8px;
+    position: relative;
+    color: $lightest;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    background-color: $lightest;
+    font-weight: 100;
+  }
+
+  .icon:hover:after {
+    content: attr(title);
+    border-radius: 0;
+    background-color: $secondary;
+    border: 2px solid $lightest;
     padding: 2px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .4);
+    position: absolute;
+    top: -2.8em;
+    left: -200px;
+    width: 200px;
+  }
+
+  .icon:first-of-type {
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%;
+  }
+
+  .icon:last-of-type {
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
   }
 
   .icon:before {
     font-family: 'FontAwesome';
-    color: $lightest;
-    font-size: 1.0em;
-    width: 1.6em;
-    height: 1.6em;
-    border-radius: 75%;
+    font-size: 1em;
+    font-weight: 100;
   }
 
-  .care:before {
-    content: $fa-var-heart;
+  .care {
     background-color: #d47689;
+    &:before {
+      content: $fa-var-heart;
+    }
+    &:after {
+      background-color: #d47689;
+    }
   }
-  .food:before {
-    content: $fa-var-cutlery;
-    background: #dbc817;
+  .food {
+    background-color: #dbc817;
+    &:before {
+      content: $fa-var-cutlery;
+    }
+    &:hover:after {
+      background-color: #dbc817;
+    }
   }
-  .money:before {
-    content: $fa-var-money;
-    background: #41db56;
+  .money {
+    background-color: #41db56;
+    &:before {
+      content: $fa-var-money;
+    }
+    &:hover:after {
+      background-color: #41db56;
+    }
   }
-  .health:before {
-    content: $fa-var-medkit;
-    background: #222222;
+  .health {
+    background-color: #222222;
+    &:before {
+      content: $fa-var-medkit;
+    }
+    &:hover:after {
+      background-color: #222222;
+    }
   }
-  .emergency:before {
-    content: $fa-var-ambulance;
-    background: #db0800;
+  .emergency {
+    background-color: #db0800;
+    &:before {
+      content: $fa-var-ambulance;
+    }
+    &:hover:after {
+      background-color: #db0800;
+    }
   }
-  .transit:before {
-    content: $fa-var-bus;
-    background: #3439db;
+  .transit {
+    background-color: #3439db;
+    &:before {
+      content: $fa-var-bus;
+    }
+    &:hover:after {
+      background-color: #3439db;
+    }
   }
-  .education:before {
-    content: $fa-var-book;
-    background: #3cdbd8;
+  .education {
+    background-color: #3cdbd8;
+    &:before {
+      content: $fa-var-book;
+    }
+    &:hover:after {
+      background-color: #3cdbd8;
+    }
   }
-  .work:before {
-    content: $fa-var-suitcase;
-    background: #8b8b8b;
+  .work {
+    background-color: #8b8b8b;
+    &:before {
+      content: $fa-var-suitcase;
+    }
+    &:hover:after {
+      background-color: #8b8b8b;
+    }
   }
-  .legal:before {
-    content: $fa-var-gavel;
-    background: #db00ba;
+  .legal {
+    background-color: #db00ba;
+    &:before {
+      content: $fa-var-gavel;
+    }
+    &:hover:after {
+      background-color: #db00ba;
+    }
   }
-  .goods:before {
-    content: $fa-var-shopping-cart;
-    background: #2bdb00;
+  .goods {
+    background-color: #2bdb00;
+    &:before {
+      content: $fa-var-shopping-cart;
+    }
+    &:hover:after {
+      background-color: #2bdb00;
+    }
   }
-  .housing:before {
-    content: $fa-var-key;
+  .housing {
     background-color: #dbdb80;
+    &:before {
+      content: $fa-var-key;
+    }
+    &:hover:after {
+      background-color: #dbdb80;
+    }
   }
 }
 

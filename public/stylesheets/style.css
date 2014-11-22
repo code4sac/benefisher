@@ -6391,51 +6391,107 @@ ul.notifications {
   .result .buttons a {
     padding: 10px;
     cursor: pointer; }
+  .result .icons {
+    margin-top: 20px;
+    width: 100%;
+    text-align: right; }
   .result .icon {
     display: inline-block;
-    float: right;
-    margin-top: -8px;
-    padding: 2px; }
+    position: relative;
+    color: #FFFFFF;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    background-color: #FFFFFF;
+    font-weight: 100; }
+  .result .icon:hover:after {
+    content: attr(title);
+    border-radius: 0;
+    background-color: #2F82BD;
+    border: 2px solid #FFFFFF;
+    padding: 2px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: -2.8em;
+    left: -200px;
+    width: 200px; }
+  .result .icon:first-of-type {
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%; }
+  .result .icon:last-of-type {
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%; }
   .result .icon:before {
     font-family: 'FontAwesome';
-    color: #FFFFFF;
     font-size: 1em;
-    width: 1.6em;
-    height: 1.6em;
-    border-radius: 75%; }
-  .result .care:before {
-    content: "\f004";
+    font-weight: 100; }
+  .result .care {
     background-color: #d47689; }
-  .result .food:before {
-    content: "\f0f5";
-    background: #dbc817; }
-  .result .money:before {
-    content: "\f0d6";
-    background: #41db56; }
-  .result .health:before {
-    content: "\f0fa";
-    background: #222222; }
-  .result .emergency:before {
-    content: "\f0f9";
-    background: #db0800; }
-  .result .transit:before {
-    content: "\f207";
-    background: #3439db; }
-  .result .education:before {
-    content: "\f02d";
-    background: #3cdbd8; }
-  .result .work:before {
-    content: "\f0f2";
-    background: #8b8b8b; }
-  .result .legal:before {
-    content: "\f0e3";
-    background: #db00ba; }
-  .result .goods:before {
-    content: "\f07a";
-    background: #2bdb00; }
-  .result .housing:before {
-    content: "\f084";
+    .result .care:before {
+      content: "\f004"; }
+    .result .care:after {
+      background-color: #d47689; }
+  .result .food {
+    background-color: #dbc817; }
+    .result .food:before {
+      content: "\f0f5"; }
+    .result .food:hover:after {
+      background-color: #dbc817; }
+  .result .money {
+    background-color: #41db56; }
+    .result .money:before {
+      content: "\f0d6"; }
+    .result .money:hover:after {
+      background-color: #41db56; }
+  .result .health {
+    background-color: #222222; }
+    .result .health:before {
+      content: "\f0fa"; }
+    .result .health:hover:after {
+      background-color: #222222; }
+  .result .emergency {
+    background-color: #db0800; }
+    .result .emergency:before {
+      content: "\f0f9"; }
+    .result .emergency:hover:after {
+      background-color: #db0800; }
+  .result .transit {
+    background-color: #3439db; }
+    .result .transit:before {
+      content: "\f207"; }
+    .result .transit:hover:after {
+      background-color: #3439db; }
+  .result .education {
+    background-color: #3cdbd8; }
+    .result .education:before {
+      content: "\f02d"; }
+    .result .education:hover:after {
+      background-color: #3cdbd8; }
+  .result .work {
+    background-color: #8b8b8b; }
+    .result .work:before {
+      content: "\f0f2"; }
+    .result .work:hover:after {
+      background-color: #8b8b8b; }
+  .result .legal {
+    background-color: #db00ba; }
+    .result .legal:before {
+      content: "\f0e3"; }
+    .result .legal:hover:after {
+      background-color: #db00ba; }
+  .result .goods {
+    background-color: #2bdb00; }
+    .result .goods:before {
+      content: "\f07a"; }
+    .result .goods:hover:after {
+      background-color: #2bdb00; }
+  .result .housing {
     background-color: #dbdb80; }
+    .result .housing:before {
+      content: "\f084"; }
+    .result .housing:hover:after {
+      background-color: #dbdb80; }
 
 @media screen and (max-width: 768px) {
   .results {
