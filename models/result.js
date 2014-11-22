@@ -42,7 +42,8 @@ module.exports = function(sequelize, DataTypes) {
     email: DataTypes.STRING,
     url: DataTypes.STRING,
     regularHours: DataTypes.TEXT,
-    holidayHours: DataTypes.TEXT
+    holidayHours: DataTypes.TEXT,
+    categories: DataTypes.TEXT
   };
   // Model 'instance' methods
   var instanceMethods = {
@@ -62,7 +63,8 @@ module.exports = function(sequelize, DataTypes) {
   var getterMethods = {
     directionsUrl: function() { return getDirectionsUrl.apply(this) },  // String
     phoneUrl: function() { return getPhoneUrl.apply(this) },            // String
-    emailUrl: function() { return getEmailUrl.apply(this) }             // String
+    emailUrl: function() { return getEmailUrl.apply(this) },            // String
+    categories: function() { return getCategories.apply(this) }
   };
 
   var methods = {
@@ -90,6 +92,7 @@ function toJson()
   json.emailUrl = getEmailUrl.apply(this);
   json.popup = getPopupHtml.apply(this);
   json.openStatus = getOpenStatus.apply(this, [new Date()]);
+  json.categories = getCategories.apply(this);
   return json;
 }
 
@@ -128,6 +131,7 @@ function setLocation(location)
   this.setDataValue('email', (location.email ? location.email : null));
   this.setDataValue('url', getUrl(location));
   setHours.apply(this, [location]);
+  setCategories.apply(this, [location]);
 
   return this;
 }
@@ -343,6 +347,28 @@ function setHours(location)
   this.setDataValue('holidayHours', JSON.stringify(location.holiday_schedules));
 }
 
+function setCategories(location)
+{
+  var categories = [];
+  var topLevelIdRegExp = /^1\d\d$/;
+  if (location.services && location.services.length) {
+    location.services.forEach(function (service) {
+      if (service.categories && service.categories.length) {
+        service.categories.forEach(function (category) {
+          if (category.oe_id.match(topLevelIdRegExp)) {
+            var newCategory = {
+              name: category.name,
+              class: category.name.toLowerCase().replace(' ', '-')
+            };
+            categories.push(newCategory);
+          }
+        });
+      }
+    });
+  }
+  this.setDataValue('categories', JSON.stringify(categories));
+}
+
 /**
  * Format time from a string like the one returned by Date.toString()
  * @param time
@@ -377,7 +403,7 @@ function getRegularHours()
   try {
     return JSON.parse(this.getDataValue('regularHours'));
   } catch(e) {
-    return false;
+    return [];
   }
 
 }
@@ -391,7 +417,20 @@ function getHolidayHours()
   try {
     return JSON.parse(this.getDataValue('holidayHours'));
   } catch(e) {
-    return false;
+    return [];
+  }
+}
+
+/**
+ * Get categories
+ * @returns {*}
+ */
+function getCategories()
+{
+  try {
+    return JSON.parse(this.getDataValue('categories'));
+  } catch(e) {
+    return [];
   }
 }
 

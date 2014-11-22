@@ -65,11 +65,161 @@ var location = {
   "short_desc" : "This is a short description",
   "transportation" : "SAMTRANS stops within 1/2 mile.",
   "urls" : [ "http://codeforamerica.org" ],
-  "services_attributes":[
+  "services": [
     {
-      "name":"Service for Admin Test Location",
-      "description":"just a test service",
-      "service_areas":["Sacramento County"]
+      "id": 48,
+      "accepted_payments": [],
+      "alternate_name": null,
+      "audience": null,
+      "description": "Provides health services.",
+      "eligibility": null,
+      "email": null,
+      "fees": null,
+      "funding_sources": [],
+      "how_to_apply": "Call number or apply at business location.",
+      "keywords": [
+        "Health",
+        "Anyone",
+        "General",
+        "Pregnancy",
+        "Women",
+        "Men",
+        "Child",
+        "Adult"
+      ],
+      "languages": [],
+      "name": "Health",
+      "required_documents": [],
+      "service_areas": [],
+      "status": "active",
+      "website": null,
+      "wait": null,
+      "updated_at": "2014-11-18T16:14:13.482-08:00",
+      "categories": [
+        {
+          "id": 166,
+          "depth": 0,
+          "oe_id": "106",
+          "name": "Health",
+          "parent_id": null
+        },
+        {
+          "id": 167,
+          "depth": 1,
+          "oe_id": "106-01",
+          "name": "Addiction & Recovery",
+          "parent_id": 166
+        },
+        {
+          "id": 168,
+          "depth": 2,
+          "oe_id": "106-01-01",
+          "name": "12-Step",
+          "parent_id": 167
+        },
+        {
+          "id": 173,
+          "depth": 1,
+          "oe_id": "106-02",
+          "name": "Dental Care",
+          "parent_id": 166
+        },
+        {
+          "id": 174,
+          "depth": 1,
+          "oe_id": "106-03",
+          "name": "End-of-Life Care",
+          "parent_id": 166
+        },
+        {
+          "id": 175,
+          "depth": 2,
+          "oe_id": "106-03-01",
+          "name": "Bereavement",
+          "parent_id": 174
+        },
+        {
+          "id": 176,
+          "depth": 2,
+          "oe_id": "106-03-02",
+          "name": "Burial & Funeral Help",
+          "parent_id": 174
+        },
+        {
+          "id": 195,
+          "depth": 1,
+          "oe_id": "106-06",
+          "name": "Medical Care",
+          "parent_id": 166
+        },
+        {
+          "id": 198,
+          "depth": 2,
+          "oe_id": "106-06-03",
+          "name": "Birth Control",
+          "parent_id": 195
+        },
+        {
+          "id": 199,
+          "depth": 2,
+          "oe_id": "106-06-04",
+          "name": "Checkup & Test",
+          "parent_id": 195
+        },
+        {
+          "id": 204,
+          "depth": 3,
+          "oe_id": "106-06-04-05",
+          "name": "Pregnancy Tests",
+          "parent_id": 199
+        },
+        {
+          "id": 206,
+          "depth": 2,
+          "oe_id": "106-06-05",
+          "name": "Maternity Care",
+          "parent_id": 195
+        },
+        {
+          "id": 208,
+          "depth": 2,
+          "oe_id": "106-06-07",
+          "name": "Prevent & Treat",
+          "parent_id": 195
+        },
+        {
+          "id": 210,
+          "depth": 3,
+          "oe_id": "106-06-07-02",
+          "name": "HIV Treatment",
+          "parent_id": 208
+        },
+        {
+          "id": 221,
+          "depth": 2,
+          "oe_id": "106-06-09",
+          "name": "Primary Care",
+          "parent_id": 195
+        },
+        {
+          "id": 1,
+          "depth": 0,
+          "oe_id": "20000",
+          "name": "General",
+          "parent_id": null
+        },
+        {
+          "id": 2,
+          "depth": 1,
+          "oe_id": "20001",
+          "name": "Anyone in Need",
+          "parent_id": 1
+        }
+      ],
+      "contacts": [],
+      "phones": [],
+      "regular_schedules": [],
+      "holiday_schedules": []
     }
   ]
 };
@@ -143,5 +293,10 @@ describe('Result', function() {
     var result = Result.build().setLocation(location);
     expect(result.openStatus(now)).to.equal('closed');
   });
+
+  it('should return top-level categories', function() {
+    var result = Result.build().setLocation(location);
+    expect(result.categories.length).to.equal(1);
+  })
 
 });
