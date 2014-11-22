@@ -520,7 +520,8 @@ function openOrClosedOrClosing(now, start, end)
  */
 function openOrClosing(now, endTime)
 {
-  if (Math.floor(Math.abs(endTime - now) / 60000) < 60) {
+  var diff = Math.floor((endTime - now) / 60000);
+  if ( diff < 60 && diff > 0) {
     return OPEN_STATUSES.CLOSING;
   } else {
     return OPEN_STATUSES.OPEN;
