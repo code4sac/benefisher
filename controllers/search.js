@@ -101,7 +101,11 @@ var SearchController = function(req, res, Result, Query, request, q, neuralNet) 
         }, serverError);
       } else {
         saveQuery(foundResults);
-        res.json(foundResults);
+        neuralNet.rankResult(req.query, foundResults).then(function (rankedResults) {
+          res.json(rankedResults);
+        }, function () {
+          res.json(foundResults);
+        });
       }
     }, serverError);
   }

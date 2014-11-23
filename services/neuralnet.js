@@ -23,7 +23,7 @@ var NeuralNet = function (HiddenNode, HiddenToResult, Term, TermToHidden, Result
   this.rankResult  = function (userInfo, results) {
     var deferred = q.defer();
     var setProm = setupNetwork(userInfo, results);
-
+    weightedResults = [];
     /* Make sure that the network is setup. */
     setProm.then(function() {
       /* Make sure that we have both resultIds and termIds */
@@ -44,7 +44,7 @@ var NeuralNet = function (HiddenNode, HiddenToResult, Term, TermToHidden, Result
       // Resolve promise, which will return the results to the search controller.
       deferred.resolve(weightedResults);
     }, function () {
-      //ERROR. should probably be logged.
+      //ERROR. should probably be logged. Returns the same results it was given.
       deferred.resolve(results);
     });
     //Return the promise, so that the search controller can wait for rankResult to finish
@@ -575,12 +575,16 @@ var NeuralNet = function (HiddenNode, HiddenToResult, Term, TermToHidden, Result
    * @returns {boolean}
    */
   function checkForNullResults(results) {
-    for(var i = 0; i< results.length; i++) {
-      if(!results[i]) {
-        return false;
+    if (results.length) {
+      for (var i = 0; i < results.length; i++) {
+        if (!results[i]) {
+          return false;
+        }
       }
+      return true;
+    } else {
+      return false;
     }
-    return true;
   }
 
   /**
