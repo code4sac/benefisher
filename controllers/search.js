@@ -225,11 +225,11 @@ var SearchController = function(req, res, Result, Query, request, q) {
    * Save the search query to the DB
    * @param results
    */
-  function saveQuery(results) {
+  function saveQuery(results, query) {
     var deferred = q.defer();
     Query.create({
       bounds: req.query.bounds,
-      terms: req.query.terms
+      terms: req.query.category
     }).then(function(query) {
       // We now have an ID for the query, resolve the promise before we associate Results and hit the DB again.
       deferred.resolve(query);

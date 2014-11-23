@@ -3,7 +3,9 @@
  */
 var SearchController = function($scope, search, notification, $http, $timeout) {
 
+
   var dangerTags = ["Emergency", "Disaster"];  // List of words to look for that signify immediate danger.
+  var categories = [];
   var promise;  // Holds the promise for the notification so that it can be canceled if need be.
 
   $http.get('oepterms/oep.json').success(function(data) {
@@ -60,7 +62,6 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
   };
 
   $scope.addOepterm=function(item){
-    //var index=$scope.oepterms.selected.indexOf(item);
     $scope.oepterms.selected.push(item);
   };
 
@@ -68,6 +69,10 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
   $scope.removeSituation=function(item){
     var index=$scope.situations.selected.indexOf(item);
     $scope.situations.selected.splice(index,1);
+  };
+
+  $scope.addSituation=function(item){
+    $scope.situations.selected.push(item);
   };
 
   // Orders the terms in order by name (place a '-' in front of name to reverse the order).
@@ -82,36 +87,45 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
    * When there is only 1 OEP term to search, we search by category match, otherwise,
    * we search the entire service by all of the keywords.
    * */
-  $scope.$watch('oepterms.selected', function() {
-    onTermSelected($scope.oepterms);
-  });
-  $scope.$watch('situations.selected', function() {
-    onTermSelected($scope.situations);
-  });
+  $scope.$watch('oepterms.selected', _search);
+  $scope.$watch('situations.selected', _search);
 
-  function onTermSelected(terms)
+
+  /**
+   * Determine whether a given term is a 'danger' term, and display a notification if so.
+   * @param term
+   */
+  function checkEmergencyTerms(term)
   {
     var bEmergencyTag = false;  // Indicates that one of the tags contains "Emergency."
-    var categories = [];
-    if (terms && terms.selected) {
-      if (terms.selected.length > 0) {
-        terms.selected.forEach(function (oepterm) {
-          categories.push(oepterm.name);
-          // If any of the search tags contains any words that signify immediate danger anywhere in it,
-          //  set our emergency flag to true.
-          dangerTags.forEach(function (dangerTag) {
-            if ((oepterm.name.toLowerCase().indexOf(dangerTag.toLowerCase()) > -1)) {
-              bEmergencyTag = true;
-            }
-          });
-        });
-        search.search({ category: categories.join(',') });
-      } else {
-        search.search({category: ""});
+    // If any of the search term contains any words that signify immediate danger anywhere in it,
+    //  set our emergency flag to true.
+    dangerTags.forEach(function (dangerTag) {
+      if ((term.toLowerCase().indexOf(dangerTag.toLowerCase()) > -1)) {
+        bEmergencyTag = true;
       }
-    }
+    });
+
     // Handle notification re: emergency terms
     _emergencyNotification(bEmergencyTag);
+  }
+
+  /**
+   * Search based on need and situation.
+   * @private
+   */
+  function _search()
+  {
+    var allCategoryNames = [];
+    // Incorporate all terms into
+    var oepterms = $scope.oepterms.selected ? $scope.oepterms.selected : [];
+    var situations = $scope.situations.selected ? $scope.situations.selected : [];
+    var allCategories = oepterms.concat(situations);
+    allCategories.forEach(function(categoryObj) {
+      allCategoryNames.push(categoryObj.name);
+      checkEmergencyTerms(categoryObj.name);
+    });
+    search.search({ category: allCategoryNames.join(',') });
   }
 
   /**
