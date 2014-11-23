@@ -63,26 +63,47 @@ var SearchController = function(req, res, Result, Query, request, q) {
      * Once all of the promises have been fulfilled (meaning that all of the GET requests have been completed), we
      * can flatten the data received and send it to a function to make sure it is saved to the database appropriately.
     */
-    q.all(promises).then(function (allResults) {
-      var combinedResults = [];
-      combinedResults = combinedResults.concat.apply(combinedResults, allResults);
-      handleHttpResponse(combinedResults);
-    });
-
+    q.all(promises)
+      .then(handleHttpSearchResponses)
+      .then(function(resultsObj) {
+        var unsavedResults = resultsObj.unsavedResults;
+        var foundResults = resultsObj.foundResults;
+        // Filter out the existing results (foundResults gets passed to filterExistingResults as 'this')
+        var newResults = unsavedResults.filter(filterExistingResult, foundResults);
+        if ( ! newResults.length) {
+          saveQuery(foundResults).then(function(query) {
+            res.json({ query: query, results: foundResults });
+          }, function(error) { serverError("Unable to save search query to database.", 500) });
+        } else {
+          // Go get detailed data about results not in DB from API
+          var locationsPromises = locationQueries(newResults);
+          q.all(locationsPromises, function(error) { serverError("Unable to retrieve individual location.", 500) })
+            .then(handleHttpLocationResponses)
+            .then(function(results) {
+              var allResults = foundResults.concat(results);
+              saveQuery(allResults).then(function(query) {
+                res.json({ query: query, results: allResults });
+              }, function(error) { serverError("Unable to save search query to database.", 500) });
+            }, function(error) { serverError("Unable to save new locations to database.", 500) });
+        }
+      }, function(error) { serverError("Unable to search for locations.", 500) });
   };
 
   /**
    * Handle the HTTP response
    * @param data
    */
-  function handleHttpResponse(data) {
+  function handleHttpSearchResponses(data) {
+    var deferred = q.defer();
+    var combinedResults = [];
+    combinedResults = combinedResults.concat.apply(combinedResults, data);
     // Only search by bounds if the bounds parameter exists
     if (bounds) {
-      data = data.filter(isInQueryBounds);
+      combinedResults = combinedResults.filter(isInQueryBounds);
     }
     // Initialize individual Results
     var unsavedResults = [];
-    data.forEach(function (location) {
+    combinedResults.forEach(function (location) {
       unsavedResults.push(Result.build().setLocation(location));
     });
 
@@ -91,21 +112,18 @@ var SearchController = function(req, res, Result, Query, request, q) {
     // for saving Queries.
     // Search DB for existing results.
     Result.multiFind(unsavedResults).then(function(foundResults) {
-      // Filter out the existing results (foundResults gets passed to filterExistingResults as 'this')
-      var newResults = unsavedResults.filter(filterExistingResult, foundResults);
-      if (newResults.length) {
-        // Go get detailed data about results not in DB from API
-        var locationsPromises = locationQueries(newResults);
-        q.all(locationsPromises).then(function(data) {
-          handleLocationHttpResponses(data, foundResults);
-        }, serverError);
-      } else {
-        saveQuery(foundResults);
-        res.json(foundResults);
-      }
-    }, serverError);
+      deferred.resolve({ unsavedResults: unsavedResults, foundResults: foundResults });
+    }, function(error) {
+      deferred.reject(error);
+    });
+    return deferred.promise;
   }
 
+  /**
+   * Generate queries for individual locations
+   * @param locations
+   * @returns {Array}
+   */
   function locationQueries(locations)
   {
     var locationsPromises = [];
@@ -117,7 +135,13 @@ var SearchController = function(req, res, Result, Query, request, q) {
     return locationsPromises;
   }
 
-  function handleLocationHttpResponses(newLocationsData, foundResults) {
+  /**
+   * Handle HTTP responses on individual locations
+   * @param newLocationsData
+   * @returns {*}
+   */
+  function handleHttpLocationResponses(newLocationsData) {
+    var deferred = q.defer();
     var newLocations = [];
     newLocations = newLocations.concat.apply(newLocations, newLocationsData);
     var newResults = [];
@@ -126,10 +150,11 @@ var SearchController = function(req, res, Result, Query, request, q) {
     });
     // Save DB results
     Result.multiInsert(newResults).then(function(results) {
-      var allResults = foundResults.concat(results);
-      saveQuery(allResults);
-      res.json(allResults);
-    }, serverError);
+      deferred.resolve(results);
+    }, function(error) {
+      deferred.reject(error);
+    });
+    return deferred.promise;
   }
 
   /**
@@ -201,12 +226,18 @@ var SearchController = function(req, res, Result, Query, request, q) {
    * @param results
    */
   function saveQuery(results) {
+    var deferred = q.defer();
     Query.create({
       bounds: req.query.bounds,
       terms: req.query.terms
     }).then(function(query) {
+      // We now have an ID for the query, resolve the promise before we associate Results and hit the DB again.
+      deferred.resolve(query);
       query.setResults(results);
+    }, function(error) {
+      deffered.reject(error);
     });
+    return deferred.promise;
   }
 
   /**
