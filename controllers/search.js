@@ -15,7 +15,7 @@ dotenv.load();
  * @param q
  * @constructor
  */
-var SearchController = function(req, res, Result, Query, request, q) {
+var SearchController = function(req, res, Result, Query, request, q, neuralNet) {
 
   var DELIMITER = ',';
   // Bounds query string should look like: 'top,left,bottom,right'.
@@ -28,12 +28,13 @@ var SearchController = function(req, res, Result, Query, request, q) {
   var baseUrl = process.env.API_URL;
   var searchUrl = baseUrl + '/api/search';
   var locationsUrl = baseUrl + '/api/locations/';
+  //List of promises for q to wait for.
 
   // TODO: move API token to .env and UPDATE TOKEN
   var requestOptions = {
     uri: searchUrl,
     headers: {
-      // "X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
+      //"X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
     }
   };
 
@@ -68,7 +69,6 @@ var SearchController = function(req, res, Result, Query, request, q) {
       combinedResults = combinedResults.concat.apply(combinedResults, allResults);
       handleHttpResponse(combinedResults);
     });
-
   };
 
   /**
