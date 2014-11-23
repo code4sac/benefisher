@@ -85,8 +85,6 @@ var SearchController = function(req, res, Result, Query, request, q, neuralNet) 
           Result.multiInsert(newResults).success(function(results) {
             var allResults = foundResults.concat(results);
             saveQuery(allResults);
-            //TODO: filter through NN
-            console.log("Case 1 save");
             res.json(allResults);
           }).error(function(error) {
             // TODO: Handle error (log it, at least).
@@ -95,15 +93,6 @@ var SearchController = function(req, res, Result, Query, request, q, neuralNet) 
             res.json(unsavedResults);
           });
         } else {
-          console.log("Case 3 save");
-          console.log(JSON.stringify(neuralNet));
-          /*
-          neuralNet.rankResult(req.query, foundResults).then(function(){
-            console.log('welp');
-          }).error(function(){
-            console.log('not able to finish NN');
-          });
-          */
           res.json(foundResults);
         }
       }).error(function(error) {

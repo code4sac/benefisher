@@ -34,14 +34,14 @@ module.exports = function(grunt) {
         options: {
           reporter: 'nyan',
           clearRequireCache: true
-        }
-       // src: ['test/server_*/*.js']
+        },
+        src: ['test/server_*/*.js']
       }
     },
     karma: {
       unit: {
-        singleRun: true
-        //configFile: 'test/karma.conf.js'
+        singleRun: true,
+        configFile: 'test/karma.conf.js'
       }
     },
     watch: {
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
       },
       js: {
         files:  [ 'app.js', 'routes/**/*.js', 'controllers/**/*.js', 'models/**/*.js', 'public/javascripts/**/*.js', 'test/**/*.js', 'services/**/*.js' ],
-        tasks:  [ 'express:dev' ],//, 'test' ],
+        tasks:  [ 'express:dev', 'test' ],
         options: {
           spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. Without this option specified express won't be reloaded
         }
