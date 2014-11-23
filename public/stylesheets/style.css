@@ -6404,7 +6404,7 @@ ul.notifications {
     line-height: 2em;
     text-align: center;
     background-color: #FFFFFF;
-    font-weight: 100; }
+    font-weight: 400; }
   .result .icon:hover:after {
     content: attr(title);
     border-radius: 0;
@@ -6430,7 +6430,7 @@ ul.notifications {
     background-color: #d47689; }
     .result .care:before {
       content: "\f004"; }
-    .result .care:after {
+    .result .care:hover:after {
       background-color: #d47689; }
   .result .food {
     background-color: #dbc817; }

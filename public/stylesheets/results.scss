@@ -182,7 +182,7 @@
     line-height: 2em;
     text-align: center;
     background-color: $lightest;
-    font-weight: 100;
+    font-weight: 400;
   }
 
   .icon:hover:after {
@@ -219,7 +219,7 @@
     &:before {
       content: $fa-var-heart;
     }
-    &:after {
+    &:hover:after {
       background-color: #d47689;
     }
   }
