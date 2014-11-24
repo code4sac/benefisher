@@ -46,6 +46,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
   $scope.hideResult = _hideResult;
   $scope.expandResult = _expandResult;
   $scope.interaction = _interaction;
+  $scope.like = _like;
 
   /**
    * Subscribes to search.
@@ -145,6 +146,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
    */
   function _interaction(resultId, target, redirect)
   {
+
     var toSave = {
       ResultId: resultId,
       target: target
@@ -154,6 +156,17 @@ var ResultsController = function ($scope, $location, search, notification, inter
         window.location = redirect;
       }
     });
+  }
+
+  function _like(index)
+  {
+    var resultId = $scope.results[index].id;
+    // Don't save the interaction if the user is 'unliking' the result.
+    // TODO: Actually unlike results (save to DB)
+    if ( ! $scope.results[index].liked) {
+      _interaction(resultId, _TARGETS.LIKE);
+    }
+    $scope.results[index].liked = ! $scope.results[index].liked;
   }
 
   /**

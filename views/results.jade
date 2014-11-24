@@ -16,8 +16,8 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
         p(class="address") {{result.address}}
         p(class="description") {{result.description}}
         div(class='buttons')
-            a(href="#", title="This result is helpful.", ng-click="interaction(result.id, TARGET.LIKE)")
-                span(class="glyphicon glyphicon-thumbs-up like")
+            a(href="#", title="This result is helpful.", ng-click="like($index)")
+                span(class="glyphicon glyphicon-thumbs-up like", ng-class="{ liked: result.liked }")
             a(ng-click='interaction(result.id, TARGET.LINK, result.url)', ng-show="result.url", target='_blank', title='Website: {{result.url}}')
                 span(class='glyphicon glyphicon-link')
             a(ng-click='interaction(result.id, TARGET.PHONE, result.phoneUrl)', ng-show="result.phoneUrl", target='_blank', title='Call: {{result.phone}}')

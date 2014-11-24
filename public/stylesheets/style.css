@@ -6426,6 +6426,8 @@ ul.notifications {
   .result .buttons a {
     padding: 10px;
     cursor: pointer; }
+  .result .liked {
+    color: #73B6E6; }
   .result .icons {
     width: 100%;
     text-align: right; }
