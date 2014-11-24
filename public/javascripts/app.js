@@ -1,4 +1,4 @@
-var benefisher = angular.module('benefisher', ['leaflet-directive', 'benefisher.services', 'benefisher.constants', 'benefisher.directives', 'ngSanitize', 'ui', 'ui.select', 'ui.bootstrap']);
+var benefisher = angular.module('benefisher', ['leaflet-directive', 'benefisher.services', 'benefisher.filters', 'benefisher.constants', 'benefisher.directives', 'ngSanitize', 'ui', 'ui.select', 'ui.bootstrap']);
 // Add the Map Controller to the benefisher object.
 /**
  * AngularJS default filter with the following expression:
