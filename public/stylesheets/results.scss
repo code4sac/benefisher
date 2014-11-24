@@ -149,6 +149,39 @@
         content: "\2d"
       }
     }
+    .icon {
+      display: block;
+      width: 100%;
+      text-align: right;
+      border-radius: 15px;
+      padding-right: 35px;
+      margin-top: 2px;
+      box-sizing: border-box;
+      .icon-description {
+        display: block;
+        color: $lightest;
+      }
+    }
+
+    .icon:before {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      z-index: 20;
+    }
+
+    .icon:hover:after {
+      display: none;
+    }
+
+    .icon:first-of-type {
+      border-radius: 30px;
+      margin-top: 20px;
+    }
+
+    .icon:last-of-type {
+      border-radius: 30px;
+    }
   }
 
   &.expanded {
@@ -193,6 +226,9 @@
     text-align: center;
     background-color: $lightest;
     font-weight: 400;
+    .icon-description {
+      display: none;
+    }
   }
 
   .icon:hover:after {
