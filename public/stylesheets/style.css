@@ -6379,11 +6379,16 @@ ul.notifications {
     content: "\2b"; }
   .result.expanded .expand:before {
     content: "\2d"; }
+  .result.expanded .icons {
+    width: auto;
+    text-align: right; }
   .result.expanded .icon {
+    width: auto;
     display: block;
-    width: 100%;
     text-align: right;
     border-radius: 15px;
+    padding-right: 65px;
+    padding-left: 10px;
     padding-right: 35px;
     margin-top: 2px;
     box-sizing: border-box; }
