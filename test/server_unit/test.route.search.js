@@ -98,6 +98,16 @@ var Query = {
   }
 };
 
+//Mock the NN
+var neuralNet = {
+  rankResult : function (query, results) {
+    return {
+      then: function (callback) {
+        callback(results);
+      }
+    }
+  }
+}
 var request;
 var q = sinonPromise.Q;
 var controller = require('../../controllers/search');
@@ -122,7 +132,7 @@ describe('SearchController', function(done) {
   });
 
   it('should make an http request (all results found in DB path)', function(done) {
-    new controller(req, res, Result, Query, request, q).render();
+    new controller(req, res, Result, Query, request, q, neuralNet).render();
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
@@ -131,7 +141,7 @@ describe('SearchController', function(done) {
   });
 
   it('should make an http request (no results found in DB path)', function(done) {
-    new controller(req, res, Result, Query, request, q).render();
+    new controller(req, res, Result, Query, request, q, neuralNet).render();
     // Use 'all found in DB' path.
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
@@ -145,9 +155,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
-    console.log("should render results on http success (all results found in DB path)");
-    new controller(req, res, Result, Query, request, q).render();
-    console.log("end should render results on http success (all results found in DB path)");
+    new controller(req, res, Result, Query, request, q, neuralNet).render();
     expect(res.viewData.results.length).to.equal(30);
     done();
   });
@@ -157,7 +165,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
-    new controller(req, res, Result, Query, request, q).render();
+    new controller(req, res, Result, Query, request, q, neuralNet).render();
     expect(res.viewData.results.length).to.equal(30);
     done();
   });
@@ -167,7 +175,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
-    new controller(req, res, Result, Query, request, q).render();
+    new controller(req, res, Result, Query, request, q, neuralNet).render();
     expect(query.results.length).to.equal(30);
     done();
   });
@@ -177,7 +185,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
-    new controller(req, res, Result, Query, request, q).render();
+    new controller(req, res, Result, Query, request, q, neuralNet).render();
     expect(query.results.length).to.equal(30);
     done();
   });
@@ -189,7 +197,7 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
-    new controller(req, res, Result, Query, request, q).render();
+    new controller(req, res, Result, Query, request, q, neuralNet).render();
     expect(res.viewData.results.length).to.equal(8);
     done();
   });
@@ -198,7 +206,7 @@ describe('SearchController', function(done) {
     request = function(options, callback) {
       callback({ error: "error" }, { statusCode: 500 }, JSON.stringify(mockData));
     };
-    new controller(req, res, Result, Query, request, q).render();
+    new controller(req, res, Result, Query, request, q, neuralNet).render();
     expect(res.statusCode).to.equal(500);
     done();
   });

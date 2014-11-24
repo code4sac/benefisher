@@ -15,7 +15,7 @@ dotenv.load();
  * @param q
  * @constructor
  */
-var SearchController = function(req, res, Result, Query, request, q) {
+var SearchController = function(req, res, Result, Query, request, q, neuralNet) {
 
   var DELIMITER = ',';
   // Bounds query string should look like: 'top,left,bottom,right'.
@@ -28,12 +28,13 @@ var SearchController = function(req, res, Result, Query, request, q) {
   var baseUrl = process.env.API_URL;
   var searchUrl = baseUrl + '/api/search';
   var locationsUrl = baseUrl + '/api/locations/';
+  //List of promises for q to wait for.
 
   // TODO: move API token to .env and UPDATE TOKEN
   var requestOptions = {
     uri: searchUrl,
     headers: {
-      // "X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
+      //"X-Api-Token": 'fcfd0ff9d996520b5b1a70bde049a394'
     }
   };
 
@@ -72,7 +73,9 @@ var SearchController = function(req, res, Result, Query, request, q) {
         var newResults = unsavedResults.filter(filterExistingResult, foundResults);
         if ( ! newResults.length) {
           saveQuery(foundResults).then(function(query) {
-            res.json({ query: query, results: foundResults });
+            neuralNet.rankResult(req.query, foundResults).then(function (rankedResults) {
+              res.json({ query: query, results: rankedResults });
+            });
           }, function(error) { serverError("Unable to save search query to database.", 500) });
         } else {
           // Go get detailed data about results not in DB from API
@@ -82,7 +85,9 @@ var SearchController = function(req, res, Result, Query, request, q) {
             .then(function(results) {
               var allResults = foundResults.concat(results);
               saveQuery(allResults).then(function(query) {
-                res.json({ query: query, results: allResults });
+                neuralNet.rankResult(req.query, allResults).then(function (rankedResults) {
+                  res.json({ query: query, results: rankedResults});
+                });
               }, function(error) { serverError("Unable to save search query to database.", 500) });
             }, function(error) { serverError("Unable to save new locations to database.", 500) });
         }
