@@ -24,6 +24,14 @@ h5 {
   font-size: 1em;
 }
 
+a {
+  color: $secondary;
+}
+
+a:hover {
+  color: $primary;
+}
+
 .info {
   background-color: $primary;
 }

@@ -44,6 +44,7 @@
   h4 {
     padding: 0 40px;
     margin-top: 0;
+    line-height: 150%;
   }
 
   .open_status {
@@ -107,24 +108,39 @@
     background: $secondary;
   }
 
-  .expand {
+  .expand, .remove {
     float: right;
-    color: $secondary;
-    font-weight: bold;
     box-sizing: border-box;
-    font-size: 2em;
-    width: 30px;
+    font-size: 22px;
+    line-height: 22px;
+    height: 30px;
+    width: 20px;
     padding: 0;
     margin: 0;
-    line-height: 24px;
-    &:before {
-      content: "\2b";
-    }
     &:hover {
       text-decoration: none;
-      cursor: pointer;
-      color: $primary;
     }
+    &:before {
+      width: 20px;
+    }
+  }
+
+  .remove {
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+  }
+
+  .expand {
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%;
+  }
+
+  .remove:before {
+    content: "\00d7"
+  }
+
+  .expand:before {
+    content: "\2b";
   }
 
   &.expanded {
@@ -329,6 +345,10 @@
   .result {
     display: none;
     border-bottom: none;
+    h4 {
+      font-size: 150%;
+      line-height: 150%;
+    }
     .hours, .address, .thumbs, .description {
       display: none;
     }
@@ -336,15 +356,17 @@
       line-height: 24px;
       font-size: 14px;
     }
-    .expand:before {
-      font-size: 14px;
-      height: 24px;
-      width: 24px;
-      line-height: 24px;
-      display: block;
-    }
-    .hours, .address, .thumbs, .description {
+    .hours, .address, .description {
       display: none;
+    }
+
+    .remove, .expand {
+      font-size: 250%;
+    }
+
+    .expand {
+      margin-left: -30px;
+      padding-right: 30px;
     }
   }
 
@@ -353,9 +375,10 @@
     top: 0;
     display: block;
     background-color: rgba($lightest, .8);
-    .buttons a, .thumbs a {
+    .buttons a {
        font-size: 1.5em;
-     }
+    }
+
   }
 
   .result.expanded {
