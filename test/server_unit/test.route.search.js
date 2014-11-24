@@ -145,8 +145,10 @@ describe('SearchController', function(done) {
     // Use 'all found in DB' path.
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
+    console.log("should render results on http success (all results found in DB path)");
     new controller(req, res, Result, Query, request, q).render();
-    expect(res.viewData.length).to.equal(30);
+    console.log("end should render results on http success (all results found in DB path)");
+    expect(res.viewData.results.length).to.equal(30);
     done();
   });
 
@@ -156,7 +158,7 @@ describe('SearchController', function(done) {
     Result.multiFind = findNoResults;
     Result.multiInsert = insertAllResults;
     new controller(req, res, Result, Query, request, q).render();
-    expect(res.viewData.length).to.equal(30);
+    expect(res.viewData.results.length).to.equal(30);
     done();
   });
 
@@ -188,7 +190,7 @@ describe('SearchController', function(done) {
     Result.multiFind = findAllResults;
     Result.multiInsert = insertNoResults;
     new controller(req, res, Result, Query, request, q).render();
-    expect(res.viewData.length).to.equal(8);
+    expect(res.viewData.results.length).to.equal(8);
     done();
   });
 

@@ -35,4 +35,6 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
                 td(ng-repeat='hours in result.regularHours') {{hours.opensAt}}
             tr
                 td(ng-repeat='hours in result.regularHours') {{hours.closesAt}}
+        div(class="icons")
+            div(ng-repeat='category in result.categories', class='icon', ng-class='category.class', title='{{category.name}}-related services.')
 

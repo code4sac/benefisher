@@ -104,7 +104,7 @@
     width: 30px;
     padding: 0;
     margin: 0;
-    line-height: 27px;
+    line-height: 24px;
     border-radius: 50%;
     border: 3px solid $primary;
     background: $secondary;
@@ -119,7 +119,7 @@
     width: 30px;
     padding: 0;
     margin: 0;
-    line-height: 27px;
+    line-height: 22px;
     border-radius: 50%;
     border: 3px solid $primary;
     background: $secondary;
@@ -166,7 +166,155 @@
     padding: 10px;
     cursor: pointer;
   }
+
+  .icons {
+    margin-top: 20px;
+    width: 100%;
+    text-align: right;
+  }
+
+  .icon {
+    display: inline-block;
+    position: relative;
+    color: $lightest;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    background-color: $lightest;
+    font-weight: 400;
+  }
+
+  .icon:hover:after {
+    content: attr(title);
+    border-radius: 0;
+    background-color: $secondary;
+    border: 2px solid $lightest;
+    padding: 2px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .4);
+    position: absolute;
+    top: -2.8em;
+    left: -200px;
+    width: 200px;
+  }
+
+  .icon:first-of-type {
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%;
+  }
+
+  .icon:last-of-type {
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+  }
+
+  .icon:before {
+    font-family: 'FontAwesome';
+    font-size: 1em;
+    font-weight: 100;
+  }
+
+  .care {
+    background-color: #d47689;
+    &:before {
+      content: $fa-var-heart;
+    }
+    &:hover:after {
+      background-color: #d47689;
+    }
+  }
+  .food {
+    background-color: #dbc817;
+    &:before {
+      content: $fa-var-cutlery;
+    }
+    &:hover:after {
+      background-color: #dbc817;
+    }
+  }
+  .money {
+    background-color: #41db56;
+    &:before {
+      content: $fa-var-money;
+    }
+    &:hover:after {
+      background-color: #41db56;
+    }
+  }
+  .health {
+    background-color: #222222;
+    &:before {
+      content: $fa-var-medkit;
+    }
+    &:hover:after {
+      background-color: #222222;
+    }
+  }
+  .emergency {
+    background-color: #db0800;
+    &:before {
+      content: $fa-var-ambulance;
+    }
+    &:hover:after {
+      background-color: #db0800;
+    }
+  }
+  .transit {
+    background-color: #3439db;
+    &:before {
+      content: $fa-var-bus;
+    }
+    &:hover:after {
+      background-color: #3439db;
+    }
+  }
+  .education {
+    background-color: #3cdbd8;
+    &:before {
+      content: $fa-var-book;
+    }
+    &:hover:after {
+      background-color: #3cdbd8;
+    }
+  }
+  .work {
+    background-color: #8b8b8b;
+    &:before {
+      content: $fa-var-suitcase;
+    }
+    &:hover:after {
+      background-color: #8b8b8b;
+    }
+  }
+  .legal {
+    background-color: #db00ba;
+    &:before {
+      content: $fa-var-gavel;
+    }
+    &:hover:after {
+      background-color: #db00ba;
+    }
+  }
+  .goods {
+    background-color: #2bdb00;
+    &:before {
+      content: $fa-var-shopping-cart;
+    }
+    &:hover:after {
+      background-color: #2bdb00;
+    }
+  }
+  .housing {
+    background-color: #dbdb80;
+    &:before {
+      content: $fa-var-key;
+    }
+    &:hover:after {
+      background-color: #dbdb80;
+    }
+  }
 }
+
 
 @media screen and (max-width: $screen-sm) {
   .results {

@@ -28,7 +28,7 @@ describe('Search Service', function() {
     results = convertTestData(locations);
     $httpMock = $httpBackend;
     $timeoutMock = $timeout;
-    $httpMock.when('GET', url).respond(results);
+    $httpMock.when('GET', url).respond({ results: results });
   }));
 
   // Setup mock notification service
