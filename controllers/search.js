@@ -73,7 +73,9 @@ var SearchController = function(req, res, Result, Query, request, q, neuralNet) 
         var newResults = unsavedResults.filter(filterExistingResult, foundResults);
         if ( ! newResults.length) {
           saveQuery(foundResults).then(function(query) {
-            res.json({ query: query, results: foundResults });
+            neuralNet.rankResult(req.query, foundResults).then(function (rankedResults) {
+              res.json({ query: query, results: rankedResults });
+            });
           }, function(error) { serverError("Unable to save search query to database.", 500) });
         } else {
           // Go get detailed data about results not in DB from API
@@ -83,7 +85,9 @@ var SearchController = function(req, res, Result, Query, request, q, neuralNet) 
             .then(function(results) {
               var allResults = foundResults.concat(results);
               saveQuery(allResults).then(function(query) {
-                res.json({ query: query, results: allResults });
+                neuralNet.rankResult(req.query, allResults).then(function (rankedResults) {
+                  res.json({ query: query, results: rankedResults});
+                });
               }, function(error) { serverError("Unable to save search query to database.", 500) });
             }, function(error) { serverError("Unable to save new locations to database.", 500) });
         }
