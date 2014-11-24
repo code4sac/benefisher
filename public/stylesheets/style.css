@@ -6272,6 +6272,9 @@ ul.notifications {
   border: none;
   margin: 10px 2px 0 0; }
 
+#header .input-container {
+  min-width: 120px; }
+
 .results {
   width: 30%;
   height: 100%;
@@ -6544,7 +6547,9 @@ ul.notifications {
     border-bottom: none; }
     .result h4 {
       font-size: 150%;
-      line-height: 150%; }
+      line-height: 150%;
+      padding-right: 80px;
+      padding-left: 80px; }
     .result .hours, .result .address, .result .thumbs, .result .description {
       display: none; }
     .result .number {
@@ -6575,7 +6580,12 @@ ul.notifications {
     .result.expanded .address, .result.expanded .thumbs, .result.expanded .description {
       display: block; }
     .result.expanded .hours {
-      display: table; } }
+      display: table; }
+    .result.expanded .remove {
+      display: none; }
+    .result.expanded .expand {
+      padding: 0;
+      margin: 0; } }
 
 .map-container {
   height: 100%;

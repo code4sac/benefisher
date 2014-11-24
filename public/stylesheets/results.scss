@@ -392,6 +392,8 @@
     h4 {
       font-size: 150%;
       line-height: 150%;
+      padding-right: 80px;
+      padding-left: 80px;
     }
     .hours, .address, .thumbs, .description {
       display: none;
@@ -438,6 +440,13 @@
     }
     .hours {
       display: table;
+    }
+    .remove {
+      display: none;
+    }
+    .expand {
+      padding: 0;
+      margin: 0;
     }
   }
 }
