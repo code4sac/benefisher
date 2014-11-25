@@ -69,12 +69,16 @@
     }
   }
 
-  .hours, .address, .thumbs, .description {
+  .hours, .address, .description, .icon-title, .hours-title {
     display: none;
   }
 
+  .description {
+    text-align: left;
+  }
+
   .hours {
-    margin: 20px auto 10px auto;
+    margin: 0 0 10px 0;
     th {
       text-align: center;
       background-color: $secondary;
@@ -153,17 +157,23 @@
     .icons {
       width: auto;
       text-align: right;
+      .icon-title {
+        display: block;
+        text-align: left;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
     }
 
     .icon {
       width: auto;
       display: block;
       text-align: right;
-      border-radius: 15px;
-      padding-right: 65px;
-      padding-left: 10px;
+      border-radius: 0;
       padding-right: 35px;
-      margin-top: 2px;
+      padding-left: 10px;
+      margin-top: 0;
       box-sizing: border-box;
       .icon-description {
         display: block;
@@ -183,21 +193,27 @@
     }
 
     .icon:first-of-type {
-      border-radius: 30px;
-      margin-top: 20px;
+      border-radius: 0;
     }
 
     .icon:last-of-type {
-      border-radius: 30px;
+      border-radius: 0;
     }
-  }
 
-  &.expanded {
     .address, .thumbs, .description {
       display: block;
     }
+
+    .hours-title {
+      display: block;
+      font-weight: bold;
+      text-align: left;
+      margin: 10px 0;
+    }
+
     .hours {
       display: table;
+      width: 100%;
     }
   }
 
@@ -225,6 +241,9 @@
   .icons {
     width: 100%;
     text-align: right;
+    .icon-title {
+      display: none;
+    }
   }
 
   .icon {
@@ -399,15 +418,12 @@
       padding-right: 80px;
       padding-left: 80px;
     }
-    .hours, .address, .thumbs, .description {
+    .hours, .address, .description, .icon-title, .hours-title {
       display: none;
     }
     .number {
       line-height: 24px;
       font-size: 14px;
-    }
-    .hours, .address, .description {
-      display: none;
     }
 
     .remove, .expand {
@@ -439,11 +455,12 @@
     position: fixed;
     background-color: rgba($lightest, .9);
     overflow: auto;
-    .address, .thumbs, .description {
+    .address, .thumbs, .description, .icon-title, .hours-title {
       display: block;
     }
     .hours {
       display: table;
+      width: 100%;
     }
     .remove {
       display: none;
