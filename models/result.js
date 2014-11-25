@@ -382,8 +382,10 @@ function formatTime(time)
   var hours = matches[1];
   var minutes = matches[2];
   var ampm;
-  if (hours > 12) {
-    hours -= 12;
+  if (hours >= 12) {
+    if (hours != 12) {
+      hours -= 12;
+    }
     ampm = 'PM';
   } else {
     if (hours == 0) {
@@ -536,7 +538,7 @@ function getRegularOpenStatus(regularHours, now)
       start.setMinutes(startMatches[2]);
       var end = new Date(now.getTime());
       end.setHours(endMatches[1]);
-      end.setMinutes(startMatches[2]);
+      end.setMinutes(endMatches[2]);
       status = openOrClosedOrClosing(now, start, end);
     }
   }
@@ -560,6 +562,8 @@ function openOrClosedOrClosing(now, start, end)
  */
 function openOrClosing(now, endTime)
 {
+  var nowStr = now.toString();
+  var end = endTime.toString();
   var diff = Math.floor((endTime - now) / 60000);
   if ( diff < 60 && diff > 0) {
     return OPEN_STATUSES.CLOSING;
