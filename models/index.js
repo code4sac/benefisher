@@ -42,13 +42,20 @@ function log(toLog) {
   }
 }
 
+/**
+ * Load DB configuration from environment variables.
+ * Give precedence to AWS_RDS native vars.
+ * TODO: Use AWS config instead of doing this in code.
+ * @param config
+ * @returns {*}
+ */
 function configure(config) {
-  config.database = process.env.DB_NAME ? process.env.DB_NAME : config.database;
-  config.username = process.env.DB_USERNAME ? process.env.DB_USERNAME : config.username;
-  config.password = process.env.DB_PASSWORD ? process.env.DB_PASSWORD : config.password;
-  config.host = process.env.DB_HOST ? process.env.DB_HOST : config.host;
-  config.port = process.env.DB_PORT ? process.env.DB_PORT : config.port;
-  config.dialect = process.env.DB_DIALECT ? process.env.DB_DIALECT : config.dialect;
+  config.database = process.env.process.env.DB_NAME ? process.env.DB_NAME : config.database;
+  config.username = process.env.RDS_USERNAME || process.env.DB_USERNAME || config.username;
+  config.password = process.env.RDS_PASSWORD || process.env.DB_PASSWORD || config.password;
+  config.host = process.env.RDS_HOSTNAME || process.env.DB_HOST || config.host || 'localhost';
+  config.port = process.env.DB_PORT || config.port || 3306;
+  config.dialect = process.env.DB_DIALECT || config.dialect || 'mysql';
   config.logging = log;
   return config;
 }
