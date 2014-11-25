@@ -27,7 +27,7 @@
     "angular-ui": "~0.4.0"
   },
   "resolutions": {
-    "angular": "1.2.26",
+    "angular": "~1.2.25",
     "angular-mocks": "~1.2.25"
   }
 }
