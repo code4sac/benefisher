@@ -42,3 +42,4 @@ public/components/*
 # Sensitive config files
 .env
 .env.test
+.elasticbeanstalk/
