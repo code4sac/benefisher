@@ -5,10 +5,8 @@ env:
   - NODE_ENV=test DB_NAME=benefisher_test DB_USERNAME=root DB_HOST=127.0.0.1 API_URL=http://wakati-ohana-api.herokuapp.com
 before_install:
   - npm update -q
-  - npm install -g grunt-cli
 install: npm install
 before_script:
   - mysql -e 'create database benefisher_test;'
-  - grunt build
 notifications:
   slack: wakati:3iYgzXNQmlXRUmfl702XqQ5Q""

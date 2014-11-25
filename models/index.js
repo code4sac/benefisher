@@ -50,7 +50,7 @@ function log(toLog) {
  * @returns {*}
  */
 function configure(config) {
-  config.database = process.env.RDS_DB_NAME || process.env.DB_NAME ?|| config.database;
+  config.database = process.env.RDS_DB_NAME || process.env.DB_NAME || config.database;
   config.username = process.env.RDS_USERNAME || process.env.DB_USERNAME || config.username;
   config.password = process.env.RDS_PASSWORD || process.env.DB_PASSWORD || config.password;
   config.host = process.env.RDS_HOSTNAME || process.env.DB_HOST || config.host || 'localhost';
