@@ -28,6 +28,7 @@ Once Git, Node and NPM are installed, you can use [Git Bash](http://msysgit.gith
 
 ## Deploy to AWS Elastic Beanstalk
 The following assumes you've already cloned the Benefisher repository, and are issuing commands from the project directory.
+
 1. Download and install the [Elastic Beanstalk command line tool](http://aws.amazon.com/code/6752709412171743).
 
 2. Initialize your Elastic Beanstalk instance: `eb init`.
