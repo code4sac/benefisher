@@ -1,7 +1,7 @@
 # Installation
 
 ## OS X/Linux
-(Assumes you've already installed node, npm, and git)
+(Assumes you've already installed Node, NPM, and Git)
 
 1. Fork and clone the repository.
  
