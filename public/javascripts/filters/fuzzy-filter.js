@@ -1,15 +1,16 @@
 angular.module('benefisher.filters', []).filter('fuzzy', function() {
   return function(terms, enteredText) {
-    var matching = [];
+    var filtered = [];
     var reg = new RegExp(enteredText.split('').join('\\w*').replace(/\W/, ""), 'i');
-    terms.forEach(function(term) {
-      if (term.name.match(reg)) {
-        matching.push(term);
+    var i = terms.length;
+    while (i) {
+      if (terms[--i].name.match(reg)) {
+        filtered.push(terms[i]);
       }
-    });
-    if ( ! matching.length) {
-      matching.push({ name: "Sorry, nothing found matching " + enteredText + ".", disabled: true });
     }
-    return matching;
+    if ( ! filtered.length) {
+      filtered.push({ name: "Sorry, nothing found matching " + enteredText + ".", disabled: true });
+    }
+    return filtered;
   };
 });

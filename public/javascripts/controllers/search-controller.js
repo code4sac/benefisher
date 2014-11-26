@@ -5,8 +5,13 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
 
 
   var dangerTags = ["Emergency", "Disaster"];  // List of words to look for that signify immediate danger.
-  var categories = [];
   var promise;  // Holds the promise for the notification so that it can be canceled if need be.
+
+  $scope.oepterms = [];
+  $scope.selectedOepTerms = [];
+
+  $scope.situations = [];
+  $scope.selectedSituations = [];
 
   $http.get('oepterms/oep.json').success(function(data) {
     $scope.oepterms = data;
@@ -16,29 +21,23 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
     $scope.situations = data;
   });
 
-  $scope.oepterms = [];
-  $scope.oepterms.selected = [];
-
-  $scope.situations = [];
-  $scope.situations.selected = [];
-
   $scope.removeOepterm=function(item){
-    var index=$scope.oepterms.selected.indexOf(item);
-    $scope.oepterms.selected.splice(index,1);
+    var index=$scope.selectedOepTerms.indexOf(item);
+    $scope.selectedOepTerms.splice(index,1);
   };
 
   $scope.addOepterm=function(item){
-    $scope.oepterms.selected.push(item);
+    $scope.selectedOepTerms.push(item);
   };
 
 
   $scope.removeSituation=function(item){
-    var index=$scope.situations.selected.indexOf(item);
-    $scope.situations.selected.splice(index,1);
+    var index=$scope.selectedSituations.indexOf(item);
+    $scope.selectedSituations.splice(index,1);
   };
 
   $scope.addSituation=function(item){
-    $scope.situations.selected.push(item);
+    $scope.selectedSituations.push(item);
   };
 
   // Orders the terms in order by name (place a '-' in front of name to reverse the order).
@@ -53,8 +52,8 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
    * When there is only 1 OEP term to search, we search by category match, otherwise,
    * we search the entire service by all of the keywords.
    * */
-  $scope.$watch('oepterms.selected', _search);
-  $scope.$watch('situations.selected', _search);
+  $scope.$watch('selectedOepTerms', _search);
+  $scope.$watch('selectedSituations', _search);
 
 
   /**
@@ -84,8 +83,8 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
   {
     var allCategoryNames = [];
     // Incorporate all terms into
-    var oepterms = $scope.oepterms.selected ? $scope.oepterms.selected : [];
-    var situations = $scope.situations.selected ? $scope.situations.selected : [];
+    var oepterms = $scope.selectedOepTerms ? $scope.selectedOepTerms : [];
+    var situations = $scope.selectedSituations ? $scope.selectedSituations : [];
     var allCategories = oepterms.concat(situations);
     allCategories.forEach(function(categoryObj) {
       allCategoryNames.push(categoryObj.name);
