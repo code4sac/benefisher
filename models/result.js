@@ -351,17 +351,22 @@ function setHours(location)
 function setCategories(location)
 {
   var categories = [];
+  var classNames = {};
   var topLevelIdRegExp = /^1\d\d$/;
   if (location.services && location.services.length) {
     location.services.forEach(function (service) {
       if (service.categories && service.categories.length) {
         service.categories.forEach(function (category) {
           if (category.oe_id.match(topLevelIdRegExp)) {
-            var newCategory = {
-              name: category.name,
-              class: category.name.toLowerCase().replace(' ', '-')
-            };
-            categories.push(newCategory);
+            var className = category.name.toLowerCase().replace(' ', '-');
+            if ( ! classNames[className]) {
+              var newCategory = {
+                name: category.name,
+                class: className
+              };
+              categories.push(newCategory);
+              classNames[className] = true;
+            }
           }
         });
       }
