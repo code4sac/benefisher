@@ -16,6 +16,14 @@
   border-bottom: 1px dashed orange;
 }
 
+.no-terms-active {
+  display: block !important;
+}
+
+.no-terms {
+  display: none;
+}
+
 .oep-header {
   font-weight: bold;
   border-bottom: 1px dashed $darkest;
