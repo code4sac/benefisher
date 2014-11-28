@@ -24,20 +24,28 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
   $scope.removeOepterm=function(item){
     var index=$scope.selectedOepTerms.indexOf(item);
     $scope.selectedOepTerms.splice(index,1);
+    _search();
   };
 
-  $scope.addOepterm=function(item){
-    $scope.selectedOepTerms.push(item);
+  $scope.addOepTerm=function(item){
+    if ( ! item.disabled) {
+      $scope.selectedOepTerms.push(item);
+      _search();
+    }
   };
 
 
   $scope.removeSituation=function(item){
     var index=$scope.selectedSituations.indexOf(item);
     $scope.selectedSituations.splice(index,1);
+    _search();
   };
 
   $scope.addSituation=function(item){
-    $scope.selectedSituations.push(item);
+    if ( ! item.disabled) {
+      $scope.selectedSituations.push(item);
+      _search();
+    }
   };
 
   // Orders the terms in order by name (place a '-' in front of name to reverse the order).
@@ -45,16 +53,6 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
   $scope.orderById = 'oe_id';
   // Orders the terms in order by length (place a '-' in front of name to reverse the order).
   $scope.orderByLength = '-name.length';
-
-  /*
-   * Whenever OEPterms or Situations are changed, we must update the search.
-   *
-   * When there is only 1 OEP term to search, we search by category match, otherwise,
-   * we search the entire service by all of the keywords.
-   * */
-  $scope.$watch('selectedOepTerms', _search);
-  $scope.$watch('selectedSituations', _search);
-
 
   /**
    * Determine whether a given term is a 'danger' term, and display a notification if so.
