@@ -6589,6 +6589,8 @@ ul.notifications {
     background-color: rgba(255, 255, 255, 0.8); }
     .result.selected .buttons a {
       font-size: 1.5em; }
+    .result.selected .buttons a.mobile-only {
+      display: inline-block; }
   .result.expanded {
     height: 100%;
     top: 0;
@@ -6724,6 +6726,9 @@ a:hover {
   height: 540px;
   border-bottom: 2px solid #2F82BD;
   border-top: 2px solid #2F82BD; }
+
+.mobile-only {
+  display: none; }
 
 @media screen and (max-width: 768px) {
   body {

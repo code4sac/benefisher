@@ -444,6 +444,9 @@
     .buttons a {
        font-size: 1.5em;
     }
+    .buttons a.mobile-only {
+      display: inline-block
+    }
 
   }
 
