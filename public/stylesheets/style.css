@@ -6577,7 +6577,9 @@ ul.notifications {
       text-align: center; }
       .result .min-max-close-buttons a {
         display: inline-block;
-        width: 30px; }
+        width: 20px;
+        margin: 0;
+        padding: 0; }
   .result.selected {
     width: 100%;
     top: 0;

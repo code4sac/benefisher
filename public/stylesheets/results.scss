@@ -427,10 +427,13 @@
       text-align: center;
       a {
         display: inline-block;
-        width: 30px;
+        width: 20px;
+        margin: 0;
+        padding: 0;
       }
     }
   }
+
 
   .result.selected {
     width: 100%;
