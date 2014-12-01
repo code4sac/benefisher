@@ -6611,7 +6611,10 @@ ul.notifications {
     .result.expanded .expand {
       float: right; }
     .result.expanded .minimize {
-      display: none; } }
+      display: none; }
+    .result.expanded .icon {
+      height: 3em;
+      line-height: 3em; } }
 
 .map-container {
   height: 100%;
