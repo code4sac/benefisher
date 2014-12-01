@@ -9,9 +9,11 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
     p(class='results-count', ng-show='! noResults'). {{results.length}} results found
     div(ng-repeat='result in results', ng-mouseover='onMouseOver($index)', ng-mousemove='onMouse($event)', class="result", ng-class="{ selected: result.selected, expanded: result.expanded }", id="result-{{$index}}")
         p(class='number') {{ $index+1 }}
-        a(href="#", title="Remove this result.", ng-click="hideResult($index)")
-            span(class="remove")
-        a(href="#", class='expand', ng-click='expandResult($index)' title='Expand result')
+        div(class="min-max-close-buttons")
+            a(href="#", class='minimize', ng-click='minimizeResult($index)', title='Minimize')
+            a(href="#", class='expand', ng-click='expandResult($index)', ng-attr-title="{{ result.expanded ? 'Minimize' : 'More info' }}")
+            a(href="#", title="Remove", ng-click="hideResult($index)")
+                span(class="remove")
         h4 {{result.name}}
         p(class="address") {{result.address}}
         p(class="description") {{result.description}}

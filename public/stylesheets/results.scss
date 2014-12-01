@@ -112,31 +112,28 @@
     background: $secondary;
   }
 
-  .expand, .remove {
+  .min-max-close-buttons {
     float: right;
-    box-sizing: border-box;
-    font-size: 22px;
-    line-height: 22px;
-    height: 30px;
-    width: 20px;
-    padding: 0;
-    margin: 0;
-    &:hover {
-      text-decoration: none;
-    }
-    &:before {
+    .min-max-close-buttons a {
+      box-sizing: border-box;
+      font-size: 22px;
+      line-height: 22px;
+      height: 30px;
       width: 20px;
+      padding: 0;
+      margin: 0;
+      border-radius: 0;
+      &:hover {
+        text-decoration: none;
+      }
+      &:before {
+        width: 20px;
+      }
     }
   }
 
-  .remove {
-    border-bottom-right-radius: 50%;
-    border-top-right-radius: 50%;
-  }
-
-  .expand {
-    border-bottom-left-radius: 50%;
-    border-top-left-radius: 50%;
+  .minimize {
+    display: none;
   }
 
   .remove:before {
@@ -147,10 +144,18 @@
     content: "\2b";
   }
 
+  .minimize:before {
+    content: "\2013"
+  }
+
+  .min-max-close-buttons a {
+    text-decoration: none;
+  }
+
   &.expanded {
     .expand {
       &:before {
-        content: "\2d"
+        content: "\2014"
       }
     }
 
@@ -217,15 +222,6 @@
     }
   }
 
-  .thumbs {
-    padding: 10px 0 10px 0;
-  }
-  .thumbs a {
-    font-size: 1.2em;
-    padding: 0 10px;
-    line-height: 1.4em;
-    cursor: pointer;
-  }
   .buttons {
     padding: 10px 0;
   }
@@ -415,8 +411,8 @@
     h4 {
       font-size: 150%;
       line-height: 150%;
-      padding-right: 80px;
-      padding-left: 80px;
+      padding-right: 100px;
+      padding-left: 100px;
     }
     .hours, .address, .description, .icon-title, .hours-title {
       display: none;
@@ -426,13 +422,13 @@
       font-size: 14px;
     }
 
-    .remove, .expand {
+    .min-max-close-buttons {
       font-size: 250%;
-    }
-
-    .expand {
-      margin-left: -30px;
-      padding-right: 30px;
+      text-align: center;
+      a {
+        display: inline-block;
+        width: 30px;
+      }
     }
   }
 
@@ -440,7 +436,10 @@
     width: 100%;
     top: 0;
     display: block;
-    background-color: rgba($lightest, .8);
+    background-color: $lightest;
+    .minimize {
+      display: inline-block;
+    }
     .buttons a {
        font-size: 1.5em;
     }
@@ -451,12 +450,14 @@
   }
 
   .result.expanded {
-    height: 100%;
-    top: 0;
+    height: auto;
+    width: 100%;
     left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 99999;
     position: fixed;
-    background-color: rgba($lightest, .9);
+    background-color: $lightest;
     overflow: auto;
     .address, .thumbs, .description, .icon-title, .hours-title {
       display: block;
@@ -469,8 +470,10 @@
       display: none;
     }
     .expand {
-      padding: 0;
-      margin: 0;
+      float: right;
+    }
+    .minimize {
+      display: none;
     }
   }
 }
