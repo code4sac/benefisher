@@ -6367,19 +6367,19 @@ ul.notifications {
     background: #2F82BD; }
   .result .min-max-close-buttons {
     float: right; }
-    .result .min-max-close-buttons .min-max-close-buttons a {
+    .result .min-max-close-buttons a {
       box-sizing: border-box;
-      font-size: 22px;
-      line-height: 22px;
-      height: 30px;
-      width: 20px;
-      padding: 0;
-      margin: 0;
-      border-radius: 0; }
-      .result .min-max-close-buttons .min-max-close-buttons a:hover {
+      font-size: 30px;
+      line-height: 30px;
+      border-radius: 0;
+      margin: 0 0 0 10px;
+      padding: 0; }
+      .result .min-max-close-buttons a:first-of-type {
+        margin-left: 0; }
+      .result .min-max-close-buttons a:hover {
         text-decoration: none; }
-      .result .min-max-close-buttons .min-max-close-buttons a:before {
-        width: 20px; }
+      .result .min-max-close-buttons a:before {
+        width: 30px; }
   .result .minimize {
     display: none; }
   .result .remove:before {
@@ -6573,13 +6573,13 @@ ul.notifications {
       line-height: 24px;
       font-size: 14px; }
     .result .min-max-close-buttons {
-      font-size: 250%;
       text-align: center; }
       .result .min-max-close-buttons a {
         display: inline-block;
-        width: 20px;
-        margin: 0;
+        margin: 0 0 0 5px;
         padding: 0; }
+        .result .min-max-close-buttons a:first-of-type {
+          margin-left: 0; }
   .result.selected {
     width: 100%;
     top: 0;
@@ -6608,8 +6608,6 @@ ul.notifications {
       width: 100%; }
     .result.expanded .remove {
       display: none; }
-    .result.expanded .expand {
-      float: right; }
     .result.expanded .minimize {
       display: none; }
     .result.expanded .icon {
