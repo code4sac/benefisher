@@ -6387,11 +6387,11 @@ ul.notifications {
   .result .expand:before {
     content: "\2b"; }
   .result .minimize:before {
-    content: "\2013"; }
+    content: "\2212"; }
   .result .min-max-close-buttons a {
     text-decoration: none; }
   .result.expanded .expand:before {
-    content: "\2014"; }
+    content: "\2212"; }
   .result.expanded .icons {
     width: auto;
     text-align: right; }

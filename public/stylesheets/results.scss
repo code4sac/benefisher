@@ -146,7 +146,7 @@
   }
 
   .minimize:before {
-    content: "\2013"
+    content: "\2212"
   }
 
   .min-max-close-buttons a {
@@ -156,7 +156,7 @@
   &.expanded {
     .expand {
       &:before {
-        content: "\2014"
+        content: "\2212"
       }
     }
 
