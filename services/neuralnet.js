@@ -143,11 +143,15 @@ var NeuralNet = function (HiddenNode, HiddenToResult, Term, TermToHidden, Result
         // Wait for database to pull the hidden Ids relevant to our terms and results.
         hiddenIdPromise.then(function (hiddenIds) {
           this.hiddenIds = hiddenIds;
-          //Setup the weight arrays and then wait until their done.
-          setupWeightArrays().then(function () {
-            //Resolve the promise
-            deferred.resolve();
-          });
+          if (this.hiddenIds) {
+            //Setup the weight arrays and then wait until their done.
+            setupWeightArrays().then(function () {
+              //Resolve the promise
+              deferred.resolve();
+            });
+          } else {
+            deferred.reject();
+          }
         });
       }
     }, function () {

@@ -78,8 +78,6 @@ var SearchController = function(req, res, Result, Query, request, q, neuralNet) 
             }, function (error) {
               res.json({query: query, results: foundResults});
             });
-            res.json({query: query, results: foundResults});
-
           }, function(error) { serverError("Unable to save search query to database.", 500) });
         } else {
           // Go get detailed data about results not in DB from API
