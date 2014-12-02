@@ -10,7 +10,7 @@ chai.should();
 sinonPromise(sinon);
 
 var mockData = require('../data/locations');
-var mockQuery = {category: 'Cash'};
+var mockQuery = {id: 1, terms: 'Cash'};
 
 var q = sinonPromise.Q;
 var neuralnet = require('../../services/neuralnet');
@@ -22,6 +22,14 @@ var updateStrength = function (newStrength) {
     }
   }
 };
+
+var updateDatabase = function () {
+  return {
+    then: function (callback) {
+      callback();
+    }
+  }
+}
 
 var findResult = function(result) {
   return {
@@ -122,7 +130,6 @@ var ConnectionNode = {};
 var HiddenNode = {};
 
 describe('NeuralNetwork', function (done) {
-
   it('should return the same amount of results as it receives (no hidden nodes found)', function (done) {
     Result.find = findResult;
     Term.findOrCreate = findTerm;

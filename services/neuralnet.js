@@ -505,16 +505,16 @@ var NeuralNet = function (HiddenNode, HiddenToResult, Term, TermToHidden, Result
    */
   function getTermIds(fullQuery) {
     var deferred = q.defer();
-    var location = fullQuery.lat_lng;
-    var needs = fullQuery.category;
+    var location = fullQuery.bounds;
+    var terms = fullQuery.terms;
     var promises = [];
     var termIds = [];
     if (location) {
       promises.push(Term.findOrCreate({where: {name: location}}));
     }
-    if (needs) {
-      needs = needs.split(',');
-      needs.forEach(function (need) {
+    if (terms) {
+      terms = terms.split(',');
+      terms.forEach(function (need) {
         promises.push(Term.findOrCreate({where: {name: need}}))
       });
     }
@@ -591,20 +591,28 @@ var NeuralNet = function (HiddenNode, HiddenToResult, Term, TermToHidden, Result
    * Updates the database with the strengths calculated in the backpropogation process.
    */
   function updateDatabase () {
+    var deferred = q.defer();
+    var promises = [];
     var i;
     var j;
 
     for (i = 0; i < this.termIds.length; i++) {
       for (j = 0; j < this.hiddenIds.length; j++) {
-        setStrength(this.termIds[i], this.hiddenIds[j], 0, this.weightsInputToHidden[i][j]);
+        promises.push(setStrength(this.termIds[i], this.hiddenIds[j], 0, this.weightsInputToHidden[i][j]));
       }
     }
 
     for (i = 0; i < this.hiddenIds.length; i++) {
       for (j = 0; j < this.resultIds.length; j++) {
-        setStrength(this.hiddenIds[i], this.resultIds[j], 1, this.weightsHiddenToResults[i][j]);
+        promises.push(setStrength(this.hiddenIds[i], this.resultIds[j], 1, this.weightsHiddenToResults[i][j]));
       }
     }
+
+    q.all(promises).then(function () {
+      deferred.resolve();
+    });
+
+    return deferred.promise;
   }
 
   /**
@@ -639,7 +647,7 @@ var NeuralNet = function (HiddenNode, HiddenToResult, Term, TermToHidden, Result
     for(i = 0; i < this.hiddenIds.length; i++) {
       for (j = 0; j < this.resultIds.length; j++) {
         change = outputDeltas[j] * this.outgoingFromHidden[i];
-        this.weightsHiddenToResults[i][j] = this.weightsHiddenToResults[i][j] + trainingConstant * change;
+        this.weightsHiddenToResults[i][j] = this.weightsHiddenToResults[i][j] + (trainingConstant * change);
       }
     }
 
@@ -647,7 +655,7 @@ var NeuralNet = function (HiddenNode, HiddenToResult, Term, TermToHidden, Result
     for(i = 0; i < this.termIds.length; i++) {
       for (j = 0; j < this.hiddenIds.length; j++) {
         change = hiddenDeltas[j] * this.outgoingFromInput[i];
-        this.weightsInputToHidden[i][j] += trainingConstant * change;
+        this.weightsInputToHidden[i][j] = this.weightsInputToHidden[i][j] + (trainingConstant * change);
       }
     }
   };
@@ -710,13 +718,14 @@ var NeuralNet = function (HiddenNode, HiddenToResult, Term, TermToHidden, Result
                   //Calculate the error and change the weight values in memory.
                   backPropagate(targets);
                   //Update the database to make the changes persistent.
-                  updateDatabase();
-                  //Combine the new weights with the old results.
-                  var returnObject = createCombinedObject(this.weightsHiddenToResults[0], results);
-                  //Sort the new object by its strength.
-                  returnObject.sort(sortByStrength);
-                  //Resolve the promise.
-                  deferred.resolve(returnObject);
+                  updateDatabase().then(function () {
+                    //Combine the new weights with the old results.
+                    var returnObject = createCombinedObject(this.weightsHiddenToResults[0], results);
+                    //Sort the new object by its strength.
+                    returnObject.sort(sortByStrength);
+                    //Resolve the promise.
+                    deferred.resolve(returnObject);
+                  });
                 });
               } else { //If we don't have results, terms, or hidden nodes, we cannot train.
                 deferred.reject();

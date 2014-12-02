@@ -103,8 +103,10 @@ var SearchService = function ($rootScope, $http, $timeout, notification) {
         // Saves the list of data and removes the items that are ignored. Then pushes them
         // to subscribers.
         results = data.data.results;
+        $rootScope.query = data.data.query;
         removeIgnored();
         //TODO: Needs to combine ranking, then order.
+
         updateSubscribers();
         $rootScope.searching = false;
       }, httpError);

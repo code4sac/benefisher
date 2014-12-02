@@ -14,6 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Interaction.belongsTo(models.Result, { as: 'Result' });
+        Interaction.belongsTo(models.Query, { as: 'Query' });
       }
     }
   }, config);

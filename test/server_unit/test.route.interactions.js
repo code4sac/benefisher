@@ -35,6 +35,7 @@ var interaction = {
   }
 };
 
+
 // Mock the Interaction model
 var Interaction = {
   build: function(data) {
@@ -57,6 +58,7 @@ describe('InteractionsController', function(done) {
 
   it('should return created interaction and 201 when good data is provided', function(done) {
     req.body.interaction = { "test": "data", ResultId: "1" };
+    req.body.query = { "id": 1};
     new controller(req, res, Interaction).render();
     expect(res.statusCode).to.equal(201);
     expect(res.viewData.test).to.equal("data");

@@ -3,7 +3,32 @@ var debug = require('debug')('benefisher');
 var app = require('../app');
 var models = require("../models");
 
+var Result = models.Result;
+var Query = models.Query;
+var Hidden_Node = models.Hidden_Node;
+var Term = models.Term;
+var Interaction = models.Interaction;
+var Hidden_To_Result = models.Hidden_To_Result;
+var Term_To_Hidden = models.Term_To_Hidden;
+
+var CronJob = require('cron').CronJob;
+var trainer = require('../services/trainer');
+var q = require('q');
+var nn = require('../services/neuralnet');
+
 app.set('port', process.env.PORT || 3000);
+
+//initialization and setup for the training cron job.
+var setupJob = function () {
+  var neuralNet = new nn(Hidden_Node, Hidden_To_Result, Term, Term_To_Hidden, Result, q);
+  new trainer(Interaction, q, neuralNet).performJob().then(function (numTrained) {
+    //TODO: Should probably be logged.
+    console.log("Trained " + numTrained + " interactions");
+  });
+};
+
+//Setup a cron job for everyday at 4am (PACIFIC TIME)
+new CronJob ('0 0 4 * * *', setupJob, null, true, "America/Los_Angeles");
 
 models.sequelize.sync().success(function () {
   var server = app.listen(app.get('port'), function () {

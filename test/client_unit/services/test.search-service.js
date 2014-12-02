@@ -26,9 +26,10 @@ describe('Search Service', function() {
   beforeEach(inject(function ($httpBackend, $timeout) {
     // Convert test data
     results = convertTestData(locations);
+    query = {id: 1};
     $httpMock = $httpBackend;
     $timeoutMock = $timeout;
-    $httpMock.when('GET', url).respond({ results: results });
+    $httpMock.when('GET', url).respond({ results: results, query: query});
   }));
 
   // Setup mock notification service
