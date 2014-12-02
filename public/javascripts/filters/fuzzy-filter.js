@@ -1,16 +1,20 @@
+var noResult = { name: "Sorry, no results found!", oe_id: 99999, disabled: true }
+
 angular.module('benefisher.filters', []).filter('fuzzy', function() {
   return function(terms, enteredText) {
-    var matching = [];
+    var filtered = [];
+    // Credit to Dustin Diaz for this regex: http://www.dustindiaz.com/autocomplete-fuzzy-matching
     var reg = new RegExp(enteredText.split('').join('\\w*').replace(/\W/, ""), 'i');
-
-    terms.forEach(function(term) {
+    var i = terms.length;
+    while (i) {
+      var term = terms[--i];
       if (term.name.match(reg)) {
-        matching.push(term);
+        filtered.push(term);
       }
-    });
-    if ( ! matching.length) {
-      matching.push({ name: "Sorry, nothing found matching " + enteredText + ".", disabled: true });
     }
-    return matching;
+    if ( ! filtered.length) {
+      filtered = [noResult];
+    }
+    return filtered;
   };
 });

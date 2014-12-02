@@ -95,6 +95,22 @@ var SearchService = function ($rootScope, $http, $timeout, notification) {
 	  updateSubscribers();
   };
 
+  /**
+   * "Deselect" a result
+   * @param minimizedItem
+   */
+  this.minimize = function(minimizedItem) {
+    var i = results.length;
+    var minimizedId = minimizedItem ? minimizedItem.id : "";
+    while (i--) {
+      if (results[i].id == minimizedId) {
+        results[i].selected = false;
+      }
+    }
+
+    updateSubscribers();
+  }
+
   function _search()
   {
     $rootScope.searching = true;

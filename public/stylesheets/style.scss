@@ -58,6 +58,10 @@ a:hover {
   border-top: 2px solid $secondary;
 }
 
+.mobile-only {
+  display: none;
+}
+
 @media screen and (max-width: $screen-sm) {
 
   // Set smaller default text size on mobile
@@ -75,6 +79,7 @@ a:hover {
   body {
     font-size: 10px;
   }
+
 }
 
 @media screen and (max-width: $screen-sm) and (orientation: landscape) {
