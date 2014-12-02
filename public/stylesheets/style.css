@@ -6416,8 +6416,6 @@ ul.notifications {
     top: 0;
     right: 10px;
     z-index: 20; }
-  .result.expanded .icon:hover:after {
-    display: none; }
   .result.expanded .icon:first-of-type {
     border-radius: 0; }
   .result.expanded .icon:last-of-type {
@@ -6464,17 +6462,6 @@ ul.notifications {
     font-weight: 400; }
     .result .icon .icon-description {
       display: none; }
-  .result .icon:hover:after {
-    content: attr(title);
-    background-color: #2F82BD;
-    border: 2px solid #FFFFFF;
-    padding: 2px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-    border-radius: 4px;
-    position: absolute;
-    top: -2.8em;
-    left: -200px;
-    width: 200px; }
   .result .icon:first-of-type {
     border-bottom-left-radius: 50%;
     border-top-left-radius: 50%; }
