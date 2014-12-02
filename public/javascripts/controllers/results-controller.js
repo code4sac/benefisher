@@ -47,6 +47,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
   $scope.expandResult = _expandResult;
   $scope.interaction = _interaction;
   $scope.like = _like;
+  $scope.minimizeResult = _minimizeResult;
 
   /**
    * Subscribes to search.
@@ -135,6 +136,13 @@ var ResultsController = function ($scope, $location, search, notification, inter
         // Expand the selected result
         $scope.results[index].expanded = true;
       }
+    }
+  }
+
+  function _minimizeResult(index)
+  {
+    if (_indexIsValid(index)) {
+      search.minimize($scope.results[index]);
     }
   }
 
