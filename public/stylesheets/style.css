@@ -6368,8 +6368,8 @@ ul.notifications {
   .result .min-max-close-buttons {
     float: right; }
     .result .min-max-close-buttons a {
+      font-size: 1.5em;
       box-sizing: border-box;
-      font-size: 30px;
       line-height: 30px;
       border-radius: 0;
       margin: 0 0 0 10px;
@@ -6572,14 +6572,8 @@ ul.notifications {
     .result .number {
       line-height: 24px;
       font-size: 14px; }
-    .result .min-max-close-buttons {
-      text-align: center; }
-      .result .min-max-close-buttons a {
-        display: inline-block;
-        margin: 0 0 0 5px;
-        padding: 0; }
-        .result .min-max-close-buttons a:first-of-type {
-          margin-left: 0; }
+    .result .min-max-close-buttons a {
+      font-size: 2.5em; }
   .result.selected {
     width: 100%;
     top: 0;

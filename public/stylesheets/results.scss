@@ -115,8 +115,8 @@
   .min-max-close-buttons {
     float: right;
     a {
+      font-size: 1.5em;
       box-sizing: border-box;
-      font-size: 30px;
       line-height: 30px;
       border-radius: 0;
       margin: 0 0 0 10px;
@@ -424,14 +424,8 @@
     }
 
     .min-max-close-buttons {
-      text-align: center;
       a {
-        display: inline-block;
-        margin: 0 0 0 5px;
-        padding: 0;
-        &:first-of-type {
-          margin-left: 0;
-        }
+        font-size: 2.5em;
       }
     }
   }
