@@ -1,60 +1,43 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Benefisher by wakati</title>
+---
+layout: default
+---
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Benefisher</h1>
-        <p>Social Services Search</p>
+<div class="home">
 
-        <p class="view"><a href="https://github.com/wakati/benefisher">View the Project on GitHub <small>wakati/benefisher</small></a></p>
+  <h1>Welcome to Benefisher!</h1>
+  <p>This site is dedicated to learning more about what Benefisher is and how it can help you more easily plug your data into this application.</p>
 
+  <section>
+    <h2>What is Benefisher?</h2>
 
-        <ul>
-          <li><a href="https://github.com/wakati/benefisher/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/wakati/benefisher/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/wakati/benefisher">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <p><img src="https://travis-ci.org/wakati/benefisher.svg?branch=master" alt="Travis status"></p>
+      <p>Benefisher is a social services search application built to more easily connect those in need with those that can help. It is
+      a collaboration between <a href="http://code4sac.org">Code for Sacramento</a> and Team Wakati, a CSU Sacramento senior project team.</p>
 
-<p><img src="https://raw.githubusercontent.com/wakati/benefisher/master/public/images/benefisher.png" alt="Benefisher Logo"></p>
+      <p><img src="/assets/Benefisher.png" alt="Screenshot of Benefisher"></p>
 
-<h2>
-<a id="benefisher-is-a-social-services-search-application-built-to-more-easily-connect-those-in-need-with-those-that-can-help" class="anchor" href="#benefisher-is-a-social-services-search-application-built-to-more-easily-connect-those-in-need-with-those-that-can-help" aria-hidden="true"><span class="octicon octicon-link"></span></a>Benefisher is a social services search application built to more easily connect those in need with those that can help.</h2>
+      <p>Team Wakati is:</p>
 
-<p>Benefisher is a collaboration between <a href="http://code4sac.org">Code for Sacramento</a> and Team Wakati, a CSU Sacramento senior project team.</p>
+      <ul>
+        <li><a href="https://github.com/Terrell707">Adrian Chambers</a></li>
+        <li><a href="https://github.com/Anthoknee">Anthony Cristiano</a></li>
+        <li><a href="https://github.com/mrjamesdoan">James Doan</a></li>
+        <li><a href="https://github.com/dangr1">Daniel Green</a></li>
+        <li><a href="https://github.com/jesserosato">Jesse Rosato</a></li>
+      </ul>
 
-<p>See <a href="https://github.com/wakati/benefisher/blob/master/INSTALL.md">INSTALL.md</a> for the installation guide. </p>
+      <p>We hope this document helps you. So let's dive in!
+  </section>
 
-<p>Team Wakati is:</p>
+  <h1>Table of Contents</h1>
 
-<ul>
-<li><a href="https://github.com/Terrell707">Adrian Chambers</a></li>
-<li><a href="https://github.com/Anthoknee">Anthony Cristiano</a></li>
-<li><a href="https://github.com/mrjamesdoan">James Doan</a></li>
-<li><a href="https://github.com/dangr1">Daniel Green</a></li>
-<li><a href="https://github.com/jesserosato">Jesse Rosato</a></li>
-</ul>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/wakati">wakati</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
-</html>
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
