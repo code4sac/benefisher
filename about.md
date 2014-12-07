@@ -4,8 +4,17 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+Benefisher is an public services search application created by five students from California State University to help serve the community.
+Team Wakati, made up of [Jesse], [Adrian], [Anthony], [Daniel], and [James], got together with a vision of making it easier for people to
+find the help they need. Sponsored by Code4Sac, a brigade of Code For America, Benefisher aims to be an application that any county can use
+to help their people find public services in their area.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+![Code4Sac]({{ site.baseurl }}/assets/Code4Sac.jpg)
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+![CodeForAmerica]({{ site.baseurl }}/assets/CodeForAmerica.png)
+
+[Adrian]:     https://www.github.com/Terrell707
+[Anthony]:    https://www.github.com/Anthoknee
+[Daniel]:     https://www.github.com/dangr1
+[James]:      https://www.github.com/mrjamesdoan
+[Jesse]:      https://www.github.com/jesserosato
