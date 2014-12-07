@@ -2,7 +2,10 @@
 title: Benefisher
 email: hello@codeforsacramento.org
 description: > # this means to ignore newlines until "baseurl:"
-  Benefisher!! The most awesome website ever!!
+  Benefisher is a social services search application built to more
+  easily connect those in need with those that can help. Based in
+  Sacramento, we aim to get you the information you need to connect
+  to those that can help.
 baseurl: "/benefisher"
 url: "https://wakati.github.io"
 members:
