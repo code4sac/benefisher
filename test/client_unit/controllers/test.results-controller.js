@@ -98,9 +98,9 @@ describe('ResultsController', function (done) {
     expect(scope.results[0].expanded).to.be.true;
   });
 
-  it('should only collapse a result when a different result is expanded', function() {
+  it('should collapse when it is "expanded" twice', function() {
     scope.expandResult(0);
-    scope.expandResult(1);
+    scope.expandResult(0);
     expect(scope.results[0].expanded).to.be.false;
   });
 

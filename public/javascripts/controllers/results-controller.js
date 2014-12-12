@@ -35,6 +35,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
   $scope.TARGET = _TARGETS;
 
   var self = this;
+  var expandedResultIndices = [];
 
   // Expose public methods
   self.update = _update;
@@ -121,21 +122,38 @@ var ResultsController = function ($scope, $location, search, notification, inter
    */
   function _expandResult(index)
   {
-    var isExpanded;
-    if (_indexIsValid(index)) {
-      _interaction($scope.results[index].id, _TARGETS.EXPAND);
-      $scope.results.forEach(function(element, i) {
-        // Check whether the given result is already expanded
-        if ($scope.results[i].expanded && i == index) {
-          isExpanded = true;
-        }
-        // Contract all currently expanded results
-        $scope.results[i].expanded = false;
-      });
-      if ( ! isExpanded) {
-        // Expand the selected result
-        $scope.results[index].expanded = true;
+    // Make sure we have a valid index
+    if ( ! _indexIsValid(index)) {
+      return;
+    }
+
+    var subIndex = expandedResultIndices.indexOf(index);
+    if (subIndex >= 0) {
+      // Case 1: Contract an open result.
+      expandedResultIndices.splice(subIndex, 1);
+      // If that was the last open result, remove 'inactive' from all results
+      if ( ! expandedResultIndices.length) {
+        $scope.results.forEach(function(element, i) {
+          // Contract all results
+          $scope.results[i].expanded = false;
+          // Remove 'inactive' from all results
+          $scope.results[i].inactive = false;
+        });
+      } else {
+        $scope.results[index].expanded = false;
+        $scope.results[index].inactive = true;
       }
+    } else {
+      // Case 2: Expand a result
+      expandedResultIndices.push(index);
+      // If this is the first expanded result, make all other results inactive
+      if (expandedResultIndices.length == 1) {
+        $scope.results.forEach(function(element, i) {
+          $scope.results[i].inactive = true
+        });
+      }
+      $scope.results[index].expanded = true;
+      $scope.results[index].inactive = false;
     }
   }
 

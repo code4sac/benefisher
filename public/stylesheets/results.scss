@@ -7,6 +7,7 @@
   margin: 0;
   display: inline-block;
   border-left: 2px solid $secondary;
+  position: relative;
   .info {
     text-align: center;
     width: 100%;
@@ -31,8 +32,15 @@
   padding: 20px;
   box-sizing: border-box;
   background-color: $lightest;
+  position: relative;
+  height: auto;
+
+  &.inactive {
+    // opacity: .25;
+  }
 
   &.selected {
+    opacity: 1;
     border-top: 1px solid $secondary;
     z-index: 9998;
     position: relative;
@@ -40,7 +48,6 @@
     box-shadow: 0 8px 24px 8px rgba($darkest, .5);
     // background-color: rgba($primary, .4);
   }
-
   h4 {
     padding: 0 40px;
     margin-top: 0;
@@ -154,6 +161,23 @@
   }
 
   &.expanded {
+    display: block;
+    height: auto;
+    z-index: 0;
+    border-bottom: 1px solid $secondary;
+    position: relative;
+    top: 0;
+    box-shadow: none;
+
+    &.selected {
+      opacity: 1;
+      border-top: 1px solid $secondary;
+      z-index: 9998;
+      position: relative;
+      top: -12px;
+      box-shadow: 0 8px 24px 8px rgba($darkest, .5);
+    }
+
     .expand {
       &:before {
         content: "\2212"
