@@ -6591,9 +6591,11 @@ ul.notifications {
       font-size: 1.5em; }
     .result.selected .buttons a.mobile-only {
       display: inline-block; }
-  .result.expanded {
-    height: auto;
+  .result.expanded, .result.expanded.selected {
     width: 100%;
+    height: 100%;
+    box-shadow: none;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -6601,16 +6603,16 @@ ul.notifications {
     position: fixed;
     background-color: #FFFFFF;
     overflow: auto; }
-    .result.expanded .address, .result.expanded .thumbs, .result.expanded .description, .result.expanded .icon-title, .result.expanded .hours-title {
+    .result.expanded .address, .result.expanded .thumbs, .result.expanded .description, .result.expanded .icon-title, .result.expanded .hours-title, .result.expanded.selected .address, .result.expanded.selected .thumbs, .result.expanded.selected .description, .result.expanded.selected .icon-title, .result.expanded.selected .hours-title {
       display: block; }
-    .result.expanded .hours {
+    .result.expanded .hours, .result.expanded.selected .hours {
       display: table;
       width: 100%; }
-    .result.expanded .remove {
+    .result.expanded .remove, .result.expanded.selected .remove {
       display: none; }
-    .result.expanded .minimize {
+    .result.expanded .minimize, .result.expanded.selected .minimize {
       display: none; }
-    .result.expanded .icon {
+    .result.expanded .icon, .result.expanded.selected .icon {
       height: 3em;
       line-height: 3em; } }
 
