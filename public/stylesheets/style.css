@@ -6201,7 +6201,7 @@ ul.notifications {
 .search-input {
   width: 100%;
   text-align: center;
-  font-size: 1em;
+  font-size: 1.25em;
   line-height: 2em;
   border: 0;
   border-bottom: 1px dashed orange; }
@@ -6274,6 +6274,7 @@ a.select2-search-choice-close {
     width: 1.5em;
     height: 2em;
     line-height: 2em;
+    font-size: 1em;
     display: block;
     content: "\00d7"; }
 
