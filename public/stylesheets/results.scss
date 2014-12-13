@@ -404,7 +404,6 @@
     height: auto;
     display: block;
     border-left: none;
-    z-index: 9997;
     border-bottom: 2px solid $secondary;
     position: absolute;
     bottom: 0;
@@ -474,7 +473,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 99999;
     position: fixed;
     background-color: $lightest;
     overflow: auto;

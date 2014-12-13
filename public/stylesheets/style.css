@@ -6571,7 +6571,6 @@ a.select2-search-choice-close {
     height: auto;
     display: block;
     border-left: none;
-    z-index: 9997;
     border-bottom: 2px solid #2F82BD;
     position: absolute;
     bottom: 0;
@@ -6618,7 +6617,6 @@ a.select2-search-choice-close {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 99999;
     position: fixed;
     background-color: #FFFFFF;
     overflow: auto; }
