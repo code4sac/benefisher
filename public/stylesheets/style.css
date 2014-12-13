@@ -6284,8 +6284,6 @@ a.select2-search-choice-close {
 #header .input-container {
   min-width: 120px; }
 
-@media screen and (min-width: 768px) { }
-
 .results {
   width: 30%;
   height: 100%;
@@ -6330,7 +6328,7 @@ a.select2-search-choice-close {
     line-height: 1.5em;
     font-weight: 200; }
   .result .open_status {
-    margin-top: 1em; }
+    display: block; }
     .result .open_status.open {
       color: #29D155; }
       .result .open_status.open:before {
@@ -6343,7 +6341,7 @@ a.select2-search-choice-close {
       color: #FFA632; }
       .result .open_status.closing:before {
         content: "Closing soon"; }
-  .result .hours, .result .address, .result .description, .result .icon-title, .result .hours-title {
+  .result .hours, .result .address, .result .description, .result .icon-title, .result .hours-title, .result .description-title {
     display: none; }
   .result .description {
     text-align: left; }
@@ -6358,7 +6356,7 @@ a.select2-search-choice-close {
     .result .hours th.empty {
       background-color: transparent; }
     .result .hours th, .result .hours td {
-      padding: 0.25em;
+      padding: 0.5em;
       font-size: 0.8em; }
   .result .number {
     color: #FFFFFF;
@@ -6443,7 +6441,10 @@ a.select2-search-choice-close {
       border-radius: 0; }
     .result.expanded .address, .result.expanded .thumbs, .result.expanded .description {
       display: block; }
-    .result.expanded .hours-title {
+    .result.expanded .address {
+      padding-bottom: 0.25em;
+      border-bottom: 1px solid #C0C5C7; }
+    .result.expanded .description-title, .result.expanded .hours-title {
       display: block;
       font-weight: bold;
       text-align: left;
@@ -6452,7 +6453,8 @@ a.select2-search-choice-close {
       display: table;
       width: 100%; }
   .result .buttons {
-    padding: 10px 0; }
+    padding: 10px 0;
+    box-sizing: border-box; }
   .result .buttons a {
     padding: 10px;
     cursor: pointer; }
@@ -6574,7 +6576,16 @@ a.select2-search-choice-close {
       line-height: 1.5em;
       padding-right: 3em;
       padding-left: 3em; }
-    .result .hours, .result .address, .result .description, .result .icon-title, .result .hours-title {
+    .result .buttons {
+      display: inline-block;
+      width: 60%;
+      text-align: left; }
+    .result .open_status {
+      display: inline-block;
+      width: 40%;
+      text-align: right;
+      box-sizing: border-box; }
+    .result .hours, .result .address, .result .description, .result .icon-title, .result .hours-title, .result .description-title {
       display: none; }
     .result .min-max-close-buttons {
       width: auto; }
@@ -6604,7 +6615,9 @@ a.select2-search-choice-close {
     position: fixed;
     background-color: #FFFFFF;
     overflow: auto; }
-    .result.expanded .address, .result.expanded .thumbs, .result.expanded .description, .result.expanded .icon-title, .result.expanded .hours-title, .result.expanded.selected .address, .result.expanded.selected .thumbs, .result.expanded.selected .description, .result.expanded.selected .icon-title, .result.expanded.selected .hours-title {
+    .result.expanded h4, .result.expanded.selected h4 {
+      padding: 0 2em; }
+    .result.expanded .address, .result.expanded .thumbs, .result.expanded .description, .result.expanded .icon-title, .result.expanded .hours-title, .result.expanded .description-title, .result.expanded.selected .address, .result.expanded.selected .thumbs, .result.expanded.selected .description, .result.expanded.selected .icon-title, .result.expanded.selected .hours-title, .result.expanded.selected .description-title {
       display: block; }
     .result.expanded .hours, .result.expanded.selected .hours {
       display: table;

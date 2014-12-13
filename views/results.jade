@@ -16,6 +16,7 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
                 span(class="remove")
         h4 {{result.name}}
         p(class="address") {{result.address}}
+        span(class="description-title") About
         p(class="description") {{result.description}}
         div(class='buttons')
             a(href="#", title="This result is helpful.", ng-click="like($index)")

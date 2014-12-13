@@ -50,7 +50,7 @@
     font-weight: 200;
   }
   .open_status {
-    margin-top: 1em;
+    display: block;
     &.open {
       color: $success;
       &:before {
@@ -71,7 +71,7 @@
     }
   }
 
-  .hours, .address, .description, .icon-title, .hours-title {
+  .hours, .address, .description, .icon-title, .hours-title, .description-title {
     display: none;
   }
 
@@ -93,7 +93,7 @@
       background-color: transparent;
     }
     th,td {
-      padding: .25em;
+      padding: .5em;
       font-size: .8em;
     }
   }
@@ -219,7 +219,12 @@
       display: block;
     }
 
-    .hours-title {
+    .address {
+      padding-bottom: .25em;
+      border-bottom: 1px solid $muted;
+    }
+
+    .description-title, .hours-title {
       display: block;
       font-weight: bold;
       text-align: left;
@@ -234,6 +239,7 @@
 
   .buttons {
     padding: 10px 0;
+    box-sizing: border-box;
   }
   .buttons a {
     padding: 10px;
@@ -413,7 +419,20 @@
       padding-left: 3em;
     }
 
-    .hours, .address, .description, .icon-title, .hours-title {
+    .buttons {
+      display: inline-block;
+      width: 60%;
+      text-align: left;
+    }
+
+    .open_status {
+      display: inline-block;
+      width: 40%;
+      text-align: right;
+      box-sizing: border-box;
+    }
+
+    .hours, .address, .description, .icon-title, .hours-title, .description-title {
       display: none;
     }
 
@@ -424,6 +443,7 @@
         width: 1em;
       }
     }
+
   }
 
 
@@ -457,7 +477,11 @@
     background-color: $lightest;
     overflow: auto;
 
-    .address, .thumbs, .description, .icon-title, .hours-title {
+    h4 {
+      padding: 0 2em;
+    }
+
+    .address, .thumbs, .description, .icon-title, .hours-title, .description-title {
       display: block;
     }
     .hours {
