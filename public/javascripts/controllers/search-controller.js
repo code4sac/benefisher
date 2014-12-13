@@ -21,7 +21,7 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
     $scope.situations = data;
   });
 
-  $scope.removeOepterm=function(item){
+  $scope.removeOepTerm=function(item){
     var index=$scope.selectedOepTerms.indexOf(item);
     $scope.selectedOepTerms.splice(index,1);
     _search();
