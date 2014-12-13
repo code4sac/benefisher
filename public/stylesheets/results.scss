@@ -49,8 +49,8 @@
     // background-color: rgba($primary, .4);
 
     .number {
-      background-color: #FF4A32;
-      border-color: #FF4A32;
+      background-color: $error;
+      border-color: rgba($warning, .75);
     }
   }
   h4 {
@@ -114,13 +114,14 @@
     color: $lightest;
     font-weight: bold;
     float: left;
-    width: 30px;
-    box-sizing: border-box;
+    box-sizing: content-box;
+    width: 2em;
+    height: 2em;
     padding: 0;
     margin: 0;
-    line-height: 24px;
+    line-height: 2em;
     border-radius: 50%;
-    border: 3px solid $primary;
+    // border: 3px solid $primary;
     background: $secondary;
   }
 
@@ -427,12 +428,13 @@
       padding-right: 100px;
       padding-left: 100px;
     }
+
+    .number {
+      font-size: 1.5em;
+    }
+
     .hours, .address, .description, .icon-title, .hours-title {
       display: none;
-    }
-    .number {
-      line-height: 24px;
-      font-size: 14px;
     }
 
     .min-max-close-buttons {
