@@ -45,6 +45,11 @@
   box-shadow: 0 16px 16px rgba(0, 0, 0, .2);
 }
 
+ul.ui-select-choices.ui-select-choices-content.select2-results.ng-scope {
+  padding: 0;
+  margin: 0;
+}
+
 .select2-results .select2-highlighted {
   background-color: $secondary;
 }
