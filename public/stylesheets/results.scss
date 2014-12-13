@@ -35,6 +35,10 @@
   position: relative;
   height: auto;
 
+  &:last-child {
+    border-bottom: none;
+  }
+
   &.selected {
     opacity: 1;
 
@@ -443,6 +447,7 @@
     top: 0;
     display: block;
     background-color: $lightest;
+    z-index: 99998;
     .minimize {
       display: inline-block;
     }
@@ -465,9 +470,7 @@
 
   }
 
-  .result.expanded, .result.expanded.selected {
-    width: 100%;
-    height: 100%;
+  .result.expanded {
     box-shadow: none;
     top: 0;
     left: 0;
@@ -476,6 +479,7 @@
     position: fixed;
     background-color: $lightest;
     overflow: auto;
+    z-index: 99998;
 
     h4 {
       padding: 0 2em;
