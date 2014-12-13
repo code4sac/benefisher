@@ -11,7 +11,7 @@
   .info {
     text-align: center;
     width: 100%;
-    padding: 20px;
+    padding: 2em;
     box-sizing: border-box;
   }
 }
@@ -20,7 +20,7 @@
   display: block;
   width: 100%;
   text-align: center;
-  line-height: 40px;
+  line-height: 4em;
   background-color: $secondary;
   color: $lightest;
   margin: 0;
@@ -29,24 +29,14 @@
 .result {
   text-align: center;
   border-bottom: 1px solid $secondary;
-  padding: 20px;
+  padding: 2em;
   box-sizing: border-box;
   background-color: $lightest;
   position: relative;
   height: auto;
 
-  &.inactive {
-    // opacity: .25;
-  }
-
   &.selected {
     opacity: 1;
-    border-top: 1px solid $secondary;
-    z-index: 9998;
-    position: relative;
-    top: -12px;
-    box-shadow: 0 8px 24px 8px rgba($darkest, .5);
-    // background-color: rgba($primary, .4);
 
     .number {
       background-color: $error;
@@ -54,13 +44,13 @@
     }
   }
   h4 {
-    padding: 0 40px;
+    padding: 0 3.5em;
     margin-top: 0;
-    line-height: 150%;
+    line-height: 1.5em;
+    font-weight: 200;
   }
-
   .open_status {
-    margin-top: 10px;
+    margin-top: 1em;
     &.open {
       color: $success;
       &:before {
@@ -90,7 +80,7 @@
   }
 
   .hours {
-    margin: 0 0 10px 0;
+    margin: 0 0 1em 0;
     th {
       text-align: center;
       background-color: $secondary;
@@ -102,11 +92,9 @@
     th.empty {
       background-color: transparent;
     }
-    td {
-      font-size: .8em;
-    }
     th,td {
-      padding: 5px;
+      padding: .25em;
+      font-size: .8em;
     }
   }
 
@@ -115,25 +103,29 @@
     font-weight: bold;
     float: left;
     box-sizing: content-box;
-    width: 2em;
-    height: 2em;
-    padding: 0;
+    width: 1.5em;
+    height: 1.5em;
+    padding: .25em;
     margin: 0;
-    line-height: 2em;
+    line-height: 1.5em;
     border-radius: 50%;
-    // border: 3px solid $primary;
     background: $secondary;
   }
 
   .min-max-close-buttons {
     float: right;
+    .minimize {
+      display: none;
+    }
     a {
+      display: inline-block;
       font-size: 1.5em;
       box-sizing: border-box;
-      line-height: 30px;
+      line-height: 1.5em;
       border-radius: 0;
-      margin: 0 0 0 10px;
+      margin: 0 0 0 .25;
       padding: 0;
+      width: 1em;
       &:first-of-type {
         margin-left: 0;
       }
@@ -141,7 +133,7 @@
         text-decoration: none;
       }
       &:before {
-        width: 30px;
+        width: 1em;
       }
     }
   }
@@ -175,15 +167,6 @@
     top: 0;
     box-shadow: none;
 
-    &.selected {
-      opacity: 1;
-      border-top: 1px solid $secondary;
-      z-index: 9998;
-      position: relative;
-      top: -12px;
-      box-shadow: 0 8px 24px 8px rgba($darkest, .5);
-    }
-
     .expand {
       &:before {
         content: "\2212"
@@ -207,8 +190,8 @@
       display: block;
       text-align: right;
       border-radius: 0;
-      padding-right: 35px;
-      padding-left: 10px;
+      padding-right: 3em;
+      padding-left: 1em;
       margin-top: 0;
       box-sizing: border-box;
       .icon-description {
@@ -220,7 +203,7 @@
     .icon:before {
       position: absolute;
       top: 0;
-      right: 10px;
+      right: .5em;
       z-index: 20;
     }
 
@@ -270,13 +253,14 @@
   }
 
   .icon {
-    margin-top: 20px;
+    margin-top: 1em;
     display: inline-block;
     position: relative;
     color: $lightest;
-    width: 2em;
-    height: 2em;
-    line-height: 2em;
+    width: 2.5em;
+    height: 2.5em;
+    line-height: 2.5em;
+    font-size: .8em;
     text-align: center;
     background-color: $lightest;
     font-weight: 400;
@@ -297,7 +281,7 @@
 
   .icon:before {
     font-family: 'FontAwesome';
-    font-size: 1em;
+    font-size: 1.5em;
     font-weight: 100;
   }
 
@@ -423,14 +407,10 @@
     display: none;
     border-bottom: none;
     h4 {
-      font-size: 150%;
-      line-height: 150%;
-      padding-right: 100px;
-      padding-left: 100px;
-    }
-
-    .number {
       font-size: 1.5em;
+      line-height: 1.5em;
+      padding-right: 3em;
+      padding-left: 3em;
     }
 
     .hours, .address, .description, .icon-title, .hours-title {
@@ -438,8 +418,10 @@
     }
 
     .min-max-close-buttons {
+      width: auto;
       a {
-        font-size: 2.5em;
+        font-size: 1.5em;
+        width: 1em;
       }
     }
   }
@@ -454,7 +436,7 @@
       display: inline-block;
     }
     .buttons a {
-       font-size: 1.5em;
+       font-size: 1.2em;
     }
     .buttons a.mobile-only {
       display: inline-block
@@ -489,8 +471,10 @@
       display: none;
     }
     .icon {
-      height: 3em;
-      line-height: 3em;
+      padding-right: 3.5em;
+    }
+    .min-max-close-buttons {
+      width: 1em;
     }
   }
 }

@@ -2,16 +2,11 @@
   padding-top: 10px;
 }
 
-.search-background {
-  background-color: green;
-}
-
 .search-input {
   width: 100%;
   text-align: center;
-  padding-top: 10px;
-  margin-bottom: 10px;
-  font-size: 1.5em;
+  font-size: 1em;
+  line-height: 2em;
   border: 0;
   border-bottom: 1px dashed orange;
 }
@@ -31,6 +26,10 @@
   padding-bottom: 10px;
 }
 
+.select2-choices {
+  border: 0;
+}
+
 .select2-container-multi {
   margin:0;
   padding-bottom: 0;
@@ -38,69 +37,74 @@
 
 .select2-input {
   text-align: center;
-  padding-top: 4px;
-  font-size: 1.5em;
+  font-size: 1em;
   border: 0;
+}
+
+.select2-drop {
+  box-shadow: 0 16px 16px rgba(0, 0, 0, .2);
 }
 
 .select2-results .select2-highlighted {
   background-color: $secondary;
 }
 
-.select2-container-multi .select2-choices .select2-search-choice {
-  margin: 4px 5px 4px 0;
+.select2-container-multi .select2-choices {
+  border: 0;
+  background: transparent;
+  background-image: none;
+  padding: .5em 0;
 }
 
-.select2-search-choice-close {
+.select2-container-multi .select2-choices .select2-search-field input {
+  padding: 0;
+  font-size: 1em;
+  line-height: 23m;
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+  margin: 0 .5em 0 0;
+  background-image: none;
+  background-color: transparent;
+  border: 0;
+  font-size: 1em;
+  line-height: 2em;
+  padding: 0 0 0 1.5em;
+  color: rgba($darkest, .5);
+}
+
+a.select2-search-choice-close {
+  display: block;
   background: none;
-  &:before {
-    content: "\00d7";
-    display: block;
-    font-size: 12px;
-    height: 100%;
-    line-height: 100%;
-    color: $muted;
-  }
-  &:hover:before {
-    color: $lightest;
+  font-size: 1em;
+  line-height: 2em;
+  height: 100%;
+  color: $secondary;
+  position: absolute;
+  left: 0;
+  top: 0;
+  &:hover {
     text-decoration: none;
+    color: $primary;
+  }
+  &:before {
+    width: 1.5em;
+    height: 2em;
+    line-height: 2em;
+    display: block;
+    content: "\00d7";
   }
 }
 
 .select2-container-multi .select2-choices,
 .select2-container-multi.select2-container-active .select2-choices{
-  margin: 0 7px 0 0 !important;
-}
-
-.select2-container-multi .select2-choices .select2-search-choice {
-  font-size: .8em;
-  height: auto;
-  margin-bottom: 0;
-  background-color: $secondary;
-  p {
-    line-height: 24px;
-    color: #fff;
-    margin-bottom: 0;
-  }
-}
-
-.tag-container {
-  height: auto;
-  text-align: left;
-}
-
-.tags {
-  text-decoration: none;
-  padding: .2em 1em;
-  color: #fff;
-  border-radius: 5px;
-  font-size: 16px;
-  background-color: #2F82BD;
-  border:none;
-  margin: 10px 2px 0 0;
+  margin: 0 !important;
 }
 
 #header .input-container {
   min-width: 120px;
 }
 
+@media screen and (min-width: $screen-sm) {
+
+}

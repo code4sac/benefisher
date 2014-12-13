@@ -35,9 +35,10 @@ var SearchController = function($scope, search, notification, $http, $timeout) {
   };
 
 
-  $scope.removeSituation=function(item){
+  $scope.removeSituation = function(item){
     var index=$scope.selectedSituations.indexOf(item);
     $scope.selectedSituations.splice(index,1);
+    console.log($scope);
     _search();
   };
 
