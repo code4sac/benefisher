@@ -6566,6 +6566,7 @@ a.select2-search-choice-close {
     height: auto;
     display: block;
     border-left: none;
+    z-index: 9997;
     border-bottom: 2px solid #2F82BD;
     position: absolute;
     bottom: 0;
@@ -6589,7 +6590,6 @@ a.select2-search-choice-close {
         width: 1em; }
   .result.selected {
     width: 100%;
-    z-iindex: 99999;
     top: 0;
     display: block;
     background-color: #FFFFFF; }
