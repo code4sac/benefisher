@@ -6598,7 +6598,8 @@ a.select2-search-choice-close {
     width: 100%;
     top: 0;
     display: block;
-    background-color: #FFFFFF; }
+    background-color: #FFFFFF;
+    z-index: 99998; }
     .result.selected .minimize {
       display: inline-block; }
     .result.selected .buttons a {
@@ -6611,37 +6612,38 @@ a.select2-search-choice-close {
       margin-top: 1em;
       box-sizing: border-box;
       text-align: center; }
-  .result.expanded.selected {
+  .result.expanded {
     box-shadow: none;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     position: fixed;
-    background-color: red;
-    overflow: auto; }
-    .result.expanded.selected h4 {
+    background-color: #FFFFFF;
+    overflow: auto;
+    z-index: 99998; }
+    .result.expanded h4 {
       padding: 0 2em; }
-    .result.expanded.selected .address, .result.expanded.selected .thumbs, .result.expanded.selected .description, .result.expanded.selected .icon-title, .result.expanded.selected .hours-title, .result.expanded.selected .description-title {
+    .result.expanded .address, .result.expanded .thumbs, .result.expanded .description, .result.expanded .icon-title, .result.expanded .hours-title, .result.expanded .description-title {
       display: block; }
-    .result.expanded.selected .hours {
+    .result.expanded .hours {
       display: table;
       width: 100%; }
-    .result.expanded.selected .remove {
+    .result.expanded .remove {
       display: none; }
-    .result.expanded.selected .minimize {
+    .result.expanded .minimize {
       display: none; }
-    .result.expanded.selected .icons {
+    .result.expanded .icons {
       width: 100%;
       margin: 0;
       display: block; }
-    .result.expanded.selected .icon {
+    .result.expanded .icon {
       padding-right: 3.5em; }
-    .result.expanded.selected .min-max-close-buttons {
+    .result.expanded .min-max-close-buttons {
       width: 1em; }
-    .result.expanded.selected .buttons {
+    .result.expanded .buttons {
       display: block; }
-    .result.expanded.selected .open_status {
+    .result.expanded .open_status {
       display: block;
       margin: 1em 0; } }
 

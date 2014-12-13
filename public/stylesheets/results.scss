@@ -447,6 +447,7 @@
     top: 0;
     display: block;
     background-color: $lightest;
+    z-index: 99998;
     .minimize {
       display: inline-block;
     }
@@ -469,15 +470,16 @@
 
   }
 
-  .result.expanded.selected {
+  .result.expanded {
     box-shadow: none;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     position: fixed;
-    background-color: red;
+    background-color: $lightest;
     overflow: auto;
+    z-index: 99998;
 
     h4 {
       padding: 0 2em;
