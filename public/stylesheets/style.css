@@ -6328,6 +6328,9 @@ a.select2-search-choice-close {
     margin-top: 0;
     line-height: 1.5em;
     font-weight: 200; }
+    .result h4 a:hover {
+      text-decoration: none;
+      cursor: pointer; }
   .result .open_status {
     display: block; }
     .result .open_status.open {
@@ -6577,15 +6580,6 @@ a.select2-search-choice-close {
       line-height: 1.5em;
       padding-right: 3em;
       padding-left: 3em; }
-    .result .buttons {
-      display: inline-block;
-      width: 60%;
-      text-align: left; }
-    .result .open_status {
-      display: inline-block;
-      width: 40%;
-      text-align: right;
-      box-sizing: border-box; }
     .result .hours, .result .address, .result .description, .result .icon-title, .result .hours-title, .result .description-title {
       display: none; }
     .result .min-max-close-buttons {
@@ -6595,6 +6589,7 @@ a.select2-search-choice-close {
         width: 1em; }
   .result.selected {
     width: 100%;
+    z-iindex: 99999;
     top: 0;
     display: block;
     background-color: #FFFFFF; }
@@ -6604,6 +6599,12 @@ a.select2-search-choice-close {
       font-size: 1.2em; }
     .result.selected .buttons a.mobile-only {
       display: inline-block; }
+    .result.selected .open_status {
+      margin-top: 1em; }
+    .result.selected .icons {
+      margin-top: 1em;
+      box-sizing: border-box;
+      text-align: center; }
   .result.expanded, .result.expanded.selected {
     width: 100%;
     height: 100%;
@@ -6627,10 +6628,19 @@ a.select2-search-choice-close {
       display: none; }
     .result.expanded .minimize, .result.expanded.selected .minimize {
       display: none; }
+    .result.expanded .icons, .result.expanded.selected .icons {
+      width: 100%;
+      margin: 0;
+      display: block; }
     .result.expanded .icon, .result.expanded.selected .icon {
       padding-right: 3.5em; }
     .result.expanded .min-max-close-buttons, .result.expanded.selected .min-max-close-buttons {
-      width: 1em; } }
+      width: 1em; }
+    .result.expanded .buttons, .result.expanded.selected .buttons {
+      display: block; }
+    .result.expanded .open_status, .result.expanded.selected .open_status {
+      display: block;
+      margin: 1em 0; } }
 
 .map-container {
   height: 100%;

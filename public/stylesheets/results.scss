@@ -48,6 +48,10 @@
     margin-top: 0;
     line-height: 1.5em;
     font-weight: 200;
+    a:hover {
+      text-decoration: none;
+      cursor: pointer;
+    }
   }
   .open_status {
     display: block;
@@ -419,19 +423,6 @@
       padding-left: 3em;
     }
 
-    .buttons {
-      display: inline-block;
-      width: 60%;
-      text-align: left;
-    }
-
-    .open_status {
-      display: inline-block;
-      width: 40%;
-      text-align: right;
-      box-sizing: border-box;
-    }
-
     .hours, .address, .description, .icon-title, .hours-title, .description-title {
       display: none;
     }
@@ -446,9 +437,9 @@
 
   }
 
-
   .result.selected {
     width: 100%;
+    z-iindex: 99999;
     top: 0;
     display: block;
     background-color: $lightest;
@@ -460,6 +451,16 @@
     }
     .buttons a.mobile-only {
       display: inline-block
+    }
+
+    .open_status {
+      margin-top: 1em;
+    }
+
+    .icons {
+      margin-top: 1em;
+      box-sizing: border-box;
+      text-align: center;
     }
 
   }
@@ -494,11 +495,25 @@
     .minimize {
       display: none;
     }
+    .icons {
+      width: 100%;
+      margin: 0;
+      display: block;
+    }
     .icon {
       padding-right: 3.5em;
     }
     .min-max-close-buttons {
       width: 1em;
+    }
+
+    .buttons {
+      display: block;
+    }
+
+    .open_status {
+      display: block;
+      margin: 1em 0;
     }
   }
 }

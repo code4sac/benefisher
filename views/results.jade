@@ -14,7 +14,8 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
             a(href="#", class='expand', ng-click='expandResult($index)', ng-attr-title="{{ result.expanded ? 'Minimize' : 'More info' }}")
             a(href="#", title="Remove", ng-click="hideResult($index)")
                 span(class="remove")
-        h4 {{result.name}}
+        h4
+            a(ng-click="expandResult($index)", title="Expand/Minimize") {{result.name}}
         p(class="address") {{result.address}}
         span(class="description-title") About
         p(class="description") {{result.description}}
