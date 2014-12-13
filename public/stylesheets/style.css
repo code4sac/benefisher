@@ -6450,6 +6450,7 @@ a.select2-search-choice-close {
     .result.expanded .address, .result.expanded .thumbs, .result.expanded .description {
       display: block; }
     .result.expanded .address {
+      padding-top: 1em;
       padding-bottom: 0.25em;
       border-bottom: 1px solid #C0C5C7; }
     .result.expanded .description-title, .result.expanded .hours-title {
@@ -6708,7 +6709,8 @@ a.select2-search-choice-close {
     height: 240px; } }
 
 #footer {
-  padding-top: 40px;
+  padding-top: 4em;
+  padding-bottom: 4em;
   text-align: center; }
 
 .logo {
@@ -6717,15 +6719,13 @@ a.select2-search-choice-close {
   .logo img {
     height: 80px; }
   .logo p {
-    font-size: 0.8em;
     padding-left: 10px; }
     .logo p .title {
       font-size: 1.6em;
       font-weight: bold;
       font-variant: small-caps; }
-  .logo p.attribution {
-    font-size: 0.6em;
-    margin-top: 10px; }
+  .logo p.about {
+    margin-top: 2em; }
 
 body {
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
