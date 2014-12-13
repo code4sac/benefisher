@@ -170,7 +170,11 @@ var MapController = function ($scope, search, notification, constants, leafletDa
       // The marker will only be added to the list of markers if it has not been ignored.
       //  An icon with the marker's number will be created and then applied to the marker.
       if (!service.ignored) {
-        var icon = createIcon(tmpMarkers.length+1);
+        var icon;
+        if (service.selected)
+          icon = createIcon(tmpMarkers.length+1, "#FF4A32");
+        else
+          icon = createIcon(tmpMarkers.length+1)
         tmpMarkers.push(createMarker(service, icon));
       }
     });
@@ -186,7 +190,6 @@ var MapController = function ($scope, search, notification, constants, leafletDa
       icon: icon,
       lat: service.lat,
       lng: service.lng,
-      message: service.popup,
       focus: service.selected,
       id: service.id
     };

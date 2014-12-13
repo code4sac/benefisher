@@ -47,6 +47,11 @@
     top: -12px;
     box-shadow: 0 8px 24px 8px rgba($darkest, .5);
     // background-color: rgba($primary, .4);
+
+    .number {
+      background-color: #FF4A32;
+      border-color: #FF4A32;
+    }
   }
   h4 {
     padding: 0 40px;
