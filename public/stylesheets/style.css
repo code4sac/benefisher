@@ -6266,7 +6266,8 @@ a.select2-search-choice-close {
   color: #2F82BD;
   position: absolute;
   left: 0;
-  top: 0; }
+  top: 0;
+  outline: none; }
   a.select2-search-choice-close:hover {
     text-decoration: none;
     color: #73B6E6; }

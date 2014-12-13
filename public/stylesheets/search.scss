@@ -83,6 +83,7 @@ a.select2-search-choice-close {
   position: absolute;
   left: 0;
   top: 0;
+  outline: none;
   &:hover {
     text-decoration: none;
     color: $primary;
