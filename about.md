@@ -9,9 +9,9 @@ Team Wakati, made up of [Jesse], [Adrian], [Anthony], [Daniel], and [James], got
 find the help they need. Sponsored by Code4Sac, a brigade of Code For America, Benefisher aims to be an application that any county can use
 to help their people find public services in their area.
 
-![Code4Sac]({{ site.baseurl }}/assets/Code4Sac.jpg)
+![Code4Sac]({{ site.baseurl }}/assets/images/Code4Sac.jpg)
 
-![CodeForAmerica]({{ site.baseurl }}/assets/CodeForAmerica.png)
+![CodeForAmerica]({{ site.baseurl }}/assets/images/CodeForAmerica.png)
 
 [Adrian]:     https://www.github.com/Terrell707
 [Anthony]:    https://www.github.com/Anthoknee
