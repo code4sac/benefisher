@@ -71,11 +71,17 @@ ul.ui-select-choices.ui-select-choices-content.select2-results.ng-scope {
   margin: 0 .5em 0 0;
   background-image: none;
   background-color: transparent;
+  box-shadow: none;
   border: 0;
   font-size: 1em;
   line-height: 2em;
   padding: 0 0 0 1.5em;
   color: rgba($darkest, .5);
+
+  span {
+    font-size: 1em;
+    line-height: 2em;
+  }
 }
 
 a.select2-search-choice-close {
@@ -84,6 +90,7 @@ a.select2-search-choice-close {
   font-size: 1em;
   line-height: 2em;
   height: 100%;
+  width: 100%;
   color: $secondary;
   position: absolute;
   left: 0;
