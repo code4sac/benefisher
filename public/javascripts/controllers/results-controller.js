@@ -179,7 +179,7 @@ var ResultsController = function ($scope, $location, search, notification, inter
     };
     interaction.save(toSave).then(function() {
       if (redirect) {
-        window.location = redirect;
+        window.open(redirect);
       }
     });
   }
