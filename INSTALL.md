@@ -1,8 +1,20 @@
 # Installation
 
 ## OS X/Linux
-(Assumes you've already installed Node, NPM, and Git)
 
+###Development Tools
+To get started setting up your own instance of Benefisher, we first need to get some installation out of the way.
+The following things will need to be installed before we can continue. You will need:
+
+  1. [Node.js](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager)
+  2. Node Package Manager (Should be installed along with Node.js)
+  3. [Git](https://help.github.com/articles/set-up-git/)
+  4. [MySQL](http://dev.mysql.com/doc/refman/5.0/en/macosx-installation.html)
+
+###Ohana API  
+You will also need access to an [Ohana API](http://ohanapi.org/) instance. Benefisher is currently designed to work with v3.0.0 of the Ohana API.
+
+###Benefisher
 1. Fork and clone the repository.
  
 2. Install the grunt CLI tool: `npm install -g grunt-cli`
@@ -24,7 +36,7 @@
 10. [Test it out](http://localhost:3000)
 
 ## Windows
-Once Git, Node and NPM are installed, you can use [Git Bash](http://msysgit.github.io/) to complete the install using the OS X instructions.
+Once Git, Node, NPM, and MySQL are installed, you can use [Git Bash](http://msysgit.github.io/) to complete the install using the OS X instructions.
 
 # Deployment
 
