@@ -60,7 +60,8 @@ The following assumes you've already cloned the Benefisher repository, and are i
 
 <ol>
   <li>Download and install the [Elastic Beanstalk command line tool](http://aws.amazon.com/code/6752709412171743).</li>
-  <li>Initialize your Elastic Beanstalk instance: `eb init`.
+  
+  <li>Initialize your Elastic Beanstalk instance: `eb init`. You will receive a series of prompts:
     <ol>
       <li>Enter your AWS Access Key and your AWS Secret Key (Use [IAM](http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html) to create new access keys for yourself if needed).</li>
       <li>Enter a name for your application.</li>
@@ -70,6 +71,9 @@ The following assumes you've already cloned the Benefisher repository, and are i
       <li>Enter an RDS DB master password.</li>
     </ol>
   </li>
+  
   <li>Start your Elastic Beanstalk application: `eb start`.</li>
+  
   <li>In the AWS console, navigate to the Elastic Beanstalk service, select your application, then click the 'Configuration' menu item on the left. Click the gear icon on 'Software Configuration' box. In the 'Environment Properties' section, add a new property and value for each of the following: `API_URL`, `MAPBOX_ID`, and `MAPBOX_TOKEN`. Database parameters will be set automatically.</li>
+  
   <li>Deploy your application: `git aws.push`.</li>
