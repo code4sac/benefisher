@@ -58,24 +58,18 @@ Benefisher comes pre-configured to be deployed to Amazon Web Service's Elastic B
 
 The following assumes you've already cloned the Benefisher repository, and are issuing commands from the project directory.
 
-1. Download and install the [Elastic Beanstalk command line tool](http://aws.amazon.com/code/6752709412171743).
-
-2. Initialize your Elastic Beanstalk instance: `eb init`.
-
-  a. Enter your AWS Access Key and your AWS Secret Key (Use [IAM](http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html) to create new access keys for yourself if needed).
-
-  b. Enter a name for your application.
-
-  c. Choose `WebServer::Standard::1.0` as your environment tier.
-
-  d. Choose whether you'd like to set up a load balancer for this instance (recommended for higher traffic installs).
-
-  e. Create an RDS DB instance.
-
-  f. Enter an RDS DB master password.
-
-3. Start your Elastic Beanstalk application: `eb start`.
-
-4. In the AWS console, navigate to the Elastic Beanstalk service, select your application, then click the 'Configuration' menu item on the left. Click the gear icon on 'Software Configuration' box. In the 'Environment Properties' section, add a new property and value for each of the following: `API_URL`, `MAPBOX_ID`, and `MAPBOX_TOKEN`. Database parameters will be set automatically.
-
-5. Deploy your application: `git aws.push`.
+<ol>
+  <li>Download and install the [Elastic Beanstalk command line tool](http://aws.amazon.com/code/6752709412171743).</li>
+  <li>Initialize your Elastic Beanstalk instance: `eb init`.
+    <ol>
+      <li>Enter your AWS Access Key and your AWS Secret Key (Use [IAM](http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html) to create new access keys for yourself if needed).</li>
+      <li>Enter a name for your application.</li>
+      <li>Choose `WebServer::Standard::1.0` as your environment tier.</li>
+      <li>Choose whether you'd like to set up a load balancer for this instance (recommended for higher traffic installs).</li>
+      <li>Create an RDS DB instance.</li>
+      <li>Enter an RDS DB master password.</li>
+    </ol>
+  </li>
+  <li>Start your Elastic Beanstalk application: `eb start`.</li>
+  <li>In the AWS console, navigate to the Elastic Beanstalk service, select your application, then click the 'Configuration' menu item on the left. Click the gear icon on 'Software Configuration' box. In the 'Environment Properties' section, add a new property and value for each of the following: `API_URL`, `MAPBOX_ID`, and `MAPBOX_TOKEN`. Database parameters will be set automatically.</li>
+  <li>Deploy your application: `git aws.push`.</li>
