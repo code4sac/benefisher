@@ -62,17 +62,17 @@ The following assumes you've already cloned the Benefisher repository, and are i
 
 2. Initialize your Elastic Beanstalk instance: `eb init`.
 
-  1. Enter your AWS Access Key and your AWS Secret Key (Use [IAM](http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html) to create new access keys for yourself if needed).
+  a. Enter your AWS Access Key and your AWS Secret Key (Use [IAM](http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html) to create new access keys for yourself if needed).
 
-  2. Enter a name for your application.
+  b. Enter a name for your application.
 
-  3. Choose `WebServer::Standard::1.0` as your environment tier.
+  c. Choose `WebServer::Standard::1.0` as your environment tier.
 
-  4. Choose whether you'd like to set up a load balancer for this instance (recommended for higher traffic installs).
+  d. Choose whether you'd like to set up a load balancer for this instance (recommended for higher traffic installs).
 
-  5. Create an RDS DB instance.
+  e. Create an RDS DB instance.
 
-  6. Enter an RDS DB master password.
+  f. Enter an RDS DB master password.
 
 3. Start your Elastic Beanstalk application: `eb start`.
 
