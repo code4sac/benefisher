@@ -4,7 +4,10 @@ title: Getting Started
 permalink: /start/
 ---
 
+We've tried to make it as easy as possible to get started with Benefisher. Whether you want to contribute to Benefisher or deploy your own instance, we hope these instructions will help.
+
 ##Installation
+The first step in working with Benefisher is to complete the necessary installation on your computer.
 
 ###OS X/Linux
 
@@ -44,7 +47,7 @@ You will also need access to an [Ohana API](http://ohanapi.org/) instance. Benef
 ###Windows
 Once Git, Node, NPM, and MySQL are installed, you can use [Git Bash](http://msysgit.github.io/) to complete the install using the OS X instructions.
 
-
+---
 
 ##Deployment
 
