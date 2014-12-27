@@ -25,23 +25,14 @@ You will also need access to an [Ohana API](http://ohanapi.org/) instance. Benef
 
 ####Benefisher
 1. Fork and clone the repository.
- 
 2. Install the grunt CLI tool: `npm install -g grunt-cli`
-
 3. Install server-side dependencies: `npm install`
-
 4. Install client-side dependencies: `grunt build`
-
 5. [Setup a Mapbox map](https://www.mapbox.com/help/creating-new-map/) to use in your development environment.
-
 6. Create a database for your development environment and another database for your test environment.
-
 7. Copy the `.env.dist` file to a file called `.env`, and update the Mapbox and DB parameters in that file with your Mapbox, database info, and Ohana API URL.
-
 8. Copy the `.env` file to a file called `.env.test` and update the DB parameters with your test database info and Ohana API URL.
-
 9. Start the local test server: `grunt dev`
-
 10. [Test it out](http://localhost:3000)
 
 ###Windows
@@ -59,32 +50,18 @@ Benefisher comes pre-configured to be deployed to Amazon Web Service's Elastic B
 The following assumes you've already cloned the Benefisher repository, and are issuing commands from the project directory.
 
 <ol>
-
   <li>Download and install the <a href="http://aws.amazon.com/code/6752709412171743">Elastic Beanstalk command line tool</a>.</li>
-  
   <li>Initialize your Elastic Beanstalk instance: <code>eb init</code>. You will receive a series of prompts:
-  
     <ol>
-    
       <li>Enter your AWS Access Key and your AWS Secret Key (Use <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html">AWS IAM</a> to create new access keys for yourself if needed).</li>
-      
       <li>Enter a name for your application.</li>
-      
       <li>Choose <code>WebServer::Standard::1.0</code> as your environment tier.</li>
-      
       <li>Choose whether you'd like to set up a load balancer for this instance (recommended for higher traffic installs).</li>
-      
       <li>Create an RDS DB instance.</li>
-      
       <li>Enter an RDS DB master password.</li>
-    
     </ol>
   </li>
-  
   <li>Start your Elastic Beanstalk application: <code>eb start</code>.</li>
-  
   <li>In the AWS console, navigate to the Elastic Beanstalk service, select your application, then click the 'Configuration' menu item on the left. Click the gear icon on 'Software Configuration' box. In the 'Environment Properties' section, add a new property and value for each of the following: <code>API_URL</code>, <code>MAPBOX_ID</code>, and <code>MAPBOX_TOKEN</code>. Database parameters will be set automatically.</li>
-  
   <li>Deploy your application: <code>git aws.push</code>.</li>
-
 </ol>
