@@ -47,7 +47,9 @@ You will also need access to an [Ohana API](http://ohanapi.org/) instance. Benef
 ###Windows
 Once Git, Node, NPM, and MySQL are installed, you can use [Git Bash](http://msysgit.github.io/) to complete the install using the OS X instructions.
 
+<br />
 ---
+<br />
 
 ##Deployment
 
