@@ -4,11 +4,11 @@ title: Getting Started
 permalink: /start/
 ---
 
-# Installation
+##Installation
 
-## OS X/Linux
+###OS X/Linux
 
-###Development Tools
+####Development Tools
 To get started setting up your own instance of Benefisher, we first need to get some installation out of the way.
 The following things will need to be installed before we can continue. You will need:
 
@@ -17,10 +17,10 @@ The following things will need to be installed before we can continue. You will 
   3. [Git](https://help.github.com/articles/set-up-git/)
   4. [MySQL](http://dev.mysql.com/doc/refman/5.0/en/macosx-installation.html)
 
-###Ohana API  
+####Ohana API  
 You will also need access to an [Ohana API](http://ohanapi.org/) instance. Benefisher is currently designed to work with v3.0.0 of the Ohana API.
 
-###Benefisher
+####Benefisher
 1. Fork and clone the repository.
  
 2. Install the grunt CLI tool: `npm install -g grunt-cli`
@@ -41,12 +41,12 @@ You will also need access to an [Ohana API](http://ohanapi.org/) instance. Benef
 
 10. [Test it out](http://localhost:3000)
 
-## Windows
+###Windows
 Once Git, Node, NPM, and MySQL are installed, you can use [Git Bash](http://msysgit.github.io/) to complete the install using the OS X instructions.
 
-# Deployment
+##Deployment
 
-##AWS Elastic Beanstalk
+###AWS Elastic Beanstalk
 The following assumes you've already cloned the Benefisher repository, and are issuing commands from the project directory.
 
 1. Download and install the [Elastic Beanstalk command line tool](http://aws.amazon.com/code/6752709412171743).
