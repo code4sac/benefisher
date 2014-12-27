@@ -5,7 +5,7 @@ permalink: /start/
 ---
 
 ##Installation
----
+
 ###OS X/Linux
 
 ####Development Tools
@@ -40,15 +40,14 @@ You will also need access to an [Ohana API](http://ohanapi.org/) instance. Benef
 9. Start the local test server: `grunt dev`
 
 10. [Test it out](http://localhost:3000)
----
-###Windows
 
+###Windows
 Once Git, Node, NPM, and MySQL are installed, you can use [Git Bash](http://msysgit.github.io/) to complete the install using the OS X instructions.
----
+
 
 
 ##Deployment
----
+
 ###AWS Elastic Beanstalk
 
 The following assumes you've already cloned the Benefisher repository, and are issuing commands from the project directory.
@@ -74,4 +73,3 @@ The following assumes you've already cloned the Benefisher repository, and are i
 4. In the AWS console, navigate to the Elastic Beanstalk service, select your application, then click the 'Configuration' menu item on the left. Click the gear icon on 'Software Configuration' box. In the 'Environment Properties' section, add a new property and value for each of the following: API_URL, MAPBOX_ID, and MAPBOX_TOKEN. Database parameters will be set automatically.
 
 5. Deploy your application: `git aws.push`.
----
