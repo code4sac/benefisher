@@ -1,4 +1,4 @@
-![Travis status](https://travis-ci.org/wakati/benefisher.svg?branch=master)
+![Travis status](https://travis-ci.org/code4sac/benefisher.svg?branch=master)
 # Benefisher
 
 ## Benefisher is a social services search application built to more easily connect those in need with those that can help.
