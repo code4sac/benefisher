@@ -7,6 +7,7 @@ permalink: /start/
 ##Installation
 
 ###OS X/Linux
+---
 
 ####Development Tools
 To get started setting up your own instance of Benefisher, we first need to get some installation out of the way.
@@ -42,11 +43,13 @@ You will also need access to an [Ohana API](http://ohanapi.org/) instance. Benef
 10. [Test it out](http://localhost:3000)
 
 ###Windows
+---
 Once Git, Node, NPM, and MySQL are installed, you can use [Git Bash](http://msysgit.github.io/) to complete the install using the OS X instructions.
 
 ##Deployment
 
 ###AWS Elastic Beanstalk
+---
 The following assumes you've already cloned the Benefisher repository, and are issuing commands from the project directory.
 
 1. Download and install the [Elastic Beanstalk command line tool](http://aws.amazon.com/code/6752709412171743).
