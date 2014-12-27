@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Documents"
+title:  "Documentation"
 description: "For Your Reading Pleasure"
 categories: documentation
 ---
