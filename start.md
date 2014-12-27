@@ -52,7 +52,7 @@ Once Git, Node, NPM, and MySQL are installed, you can use [Git Bash](http://msys
 <br />
 
 ##Deployment
-Spinning up a new instance of the application on 
+Benefisher comes pre-configured to be deployed to Amazon Web Service's Elastic Beanstalk service.
 
 ###AWS Elastic Beanstalk
 
