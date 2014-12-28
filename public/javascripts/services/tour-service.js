@@ -23,18 +23,12 @@ var TourService = function () {
                     xOffset: "center",
                     yOffset: "center"
 
-                },
-                {
-                    title: "My content",
-                    content: "Here is where I put my content.",
-                    target: "situation_text",
-                    placement: "bottom"
                 }
             ]
         };
 
         hopscotch.startTour(tour);
     };
-}
+};
 
 services.service('tour', [TourService]);
