@@ -1,6 +1,7 @@
 $icon-font-path: "../components/bootstrap-sass-official/assets/fonts/bootstrap/";
 $fa-font-path: "../lib/font-awesome/fonts";
 @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import '../components/hopscotch/dist/css/hopscotch.min.css';
 @import '../lib/font-awesome/scss/font-awesome';
 @import 'mixins';
 @import 'colors';
