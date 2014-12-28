@@ -11,7 +11,7 @@
  * @param leafletData
  * @constructor
  */
-var MapController = function ($scope, search, notification, constants, leafletData) {
+var MapController = function ($scope, search, notification, constants, leafletData, tour) {
 
   /** CONSTANTS **/
   // The ID of the Mapbox project to use for map tiles.
@@ -121,6 +121,8 @@ var MapController = function ($scope, search, notification, constants, leafletDa
 
     // Extend scope object with defaults and center for map.
     angular.extend($scope, { defaults: defaults, center: center, markers: [], results: [] });
+
+    tour.startTour();
   }
 
   /**
