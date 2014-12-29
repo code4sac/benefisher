@@ -4,12 +4,12 @@ div(ng-controller='SearchController')
     div(class="col-md-12 col-xs-12")
         div(class="col-sm-6 col-xs-12 input-container" ng-cloak)
             // input(type="text", name="situation", placeholder="What's my situation?", class="search-input situation-input")
-            ui-select(multiple ng-model="selectedSituations" theme="select2" style="width: 100%;" class="search-input need-input", on-select="addSituation($item, $model)", on-remove="removeSituation($index)")
+            ui-select(id="situation_textbox", multiple ng-model="selectedSituations" theme="select2" style="width: 100%;" class="search-input need-input", on-select="addSituation($item, $model)", on-remove="removeSituation($index)")
                 ui-select-match(placeholder="What's My Situation?") {{$item.name}}
-                ui-select-choices(repeat="situation in situations | fuzzy:$select.search | orderBy:orderById track by situation.oe_id", ui-disable-choice="situation.oe_id.length == 3 || situation.disabled")
+                ui-select-choices(id="situation-tags", repeat="situation in situations | fuzzy:$select.search | orderBy:orderById track by situation.oe_id", ui-disable-choice="situation.oe_id.length == 3 || situation.disabled")
                     p(ng-class="{'oep-header': situation.oe_id.length == 3}") {{situation.name}}
         div(class="col-sm-6 col-xs-12 input-container", ng-cloak)
-            ui-select(multiple ng-model="selectedOepTerms" theme="select2" style="width: 100%;" class="search-input need-input", on-select="addOepTerm($item, $model)", on-remove="removeOepTerm($index)")
+            ui-select(id='needs_textbox', multiple ng-model="selectedOepTerms" theme="select2" style="width: 100%;" class="search-input need-input", on-select="addOepTerm($item, $model)", on-remove="removeOepTerm($index)")
                ui-select-match(placeholder="What do I need?") {{$item.name}}
-               ui-select-choices(repeat="oepterm in oepterms | fuzzy:$select.search | orderBy:orderById track by oepterm.oe_id", ui-disable-choice="oepterm.oe_id.length == 3 || oepterm.disabled")
+               ui-select-choices(id="needs-tags", repeat="oepterm in oepterms | fuzzy:$select.search | orderBy:orderById track by oepterm.oe_id", ui-disable-choice="oepterm.oe_id.length == 3 || oepterm.disabled")
                    p(ng-class="{'oep-header': oepterm.oe_id.length == 3}") {{oepterm.name}}

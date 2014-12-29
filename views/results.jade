@@ -1,7 +1,7 @@
 // Created by anthony on 9/20/14.
 
 
-div(class='results', ng-controller='ResultsController', scroll-on-click="")
+div(id='results' class='results', ng-controller='ResultsController', scroll-on-click="")
     div(class='info', ng-show='noResults')
         p
             | We couldn't find any services matching your search in this area.<br />
@@ -10,12 +10,12 @@ div(class='results', ng-controller='ResultsController', scroll-on-click="")
     div(ng-repeat='result in results', ng-mouseover='onMouseOver($index)', ng-mousemove='onMouse($event)', class="result", ng-class="{ selected: result.selected, expanded: result.expanded, inactive: result.inactive }", id="result-{{$index}}")
         p(class='number') {{ $index+1 }}
         div(class="min-max-close-buttons")
-            a(href="#", class='minimize', ng-click='minimizeResult($index)', title='Minimize')
-            a(href="#", class='expand', ng-click='expandResult($index)', ng-attr-title="{{ result.expanded ? 'Minimize' : 'More info' }}")
-            a(href="#", title="Remove", ng-click="hideResult($index)")
+            a(id="minimize", href="#", class='minimize', ng-click='minimizeResult($index)', title='Minimize')
+            a(id="expand", href="#", class='expand', ng-click='expandResult($index)', ng-attr-title="{{ result.expanded ? 'Minimize' : 'More info' }}")
+            a(id="remove", href="#", title="Remove", ng-click="hideResult($index)")
                 span(class="remove")
         h4
-            a(ng-click="expandResult($index)", title="Expand/Minimize") {{result.name}}
+            a(id="result-name", ng-click="expandResult($index)", title="Expand/Minimize") {{result.name}}
         p(class="address") {{result.address}}
         span(class="description-title") About
         p(class="description") {{result.description}}
