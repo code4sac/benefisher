@@ -1,5 +1,5 @@
 var expect = chai.expect;
-var scope, search, notification, leafletData, ctrl;
+var scope, search, notification, leafletData, ctrl, tour;
 
 /** TEST CONSTANTS **/
 var TEST_NW_LAT = 39;
@@ -121,7 +121,7 @@ describe('MapController', function (done) {
       }
     });
     // Instantiate the controller.
-    ctrl = $controller('MapController', { $scope: scope, search: search, notification: notification, leafletData: leafletData});
+    ctrl = $controller('MapController', { $scope: scope, search: search, notification: notification, leafletData: leafletData, tour: tour});
   }))
 
   // Defaults
@@ -258,7 +258,7 @@ function createDependencyMocks() {
   };
 
   //// Mock tour service dependency
-  //tour = {
-  //  startTour: sinon.spy()
-  //};
+  tour = {
+    startTour: sinon.spy()
+  };
 }
