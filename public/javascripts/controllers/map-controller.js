@@ -122,6 +122,7 @@ var MapController = function ($scope, search, notification, constants, leafletDa
     // Extend scope object with defaults and center for map.
     angular.extend($scope, { defaults: defaults, center: center, markers: [], results: [] });
 
+    // Starts the tour for first time visitors.
     tour.startTour();
   }
 
