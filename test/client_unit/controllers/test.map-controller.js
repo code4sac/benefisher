@@ -121,7 +121,7 @@ describe('MapController', function (done) {
       }
     });
     // Instantiate the controller.
-    ctrl = $controller('MapController', { $scope: scope, search: search, notification: notification, leafletData: leafletData });
+    ctrl = $controller('MapController', { $scope: scope, search: search, notification: notification, leafletData: leafletData});
   }))
 
   // Defaults
@@ -256,4 +256,9 @@ function createDependencyMocks() {
       return mapPromise;
     }
   };
+
+  //// Mock tour service dependency
+  //tour = {
+  //  startTour: sinon.spy()
+  //};
 }
